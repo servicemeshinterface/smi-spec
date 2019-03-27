@@ -46,14 +46,14 @@ spec:
     - service-3: 10%
 ```
 
-### Monitor
-The Monitor resource defines a sidecar which is injected alongside the application to perform HTTP monitoring. The Monitor collects standard HTTP metrics (status codes, requests / second, latency, etc) and exposes a common interface using Prometheus metrics.
+### Sidecar
+The Sidecar resource defines a sidecar container which is injected alongside the application. The primary use case is to perform HTTP monitoring. A monitoring sidecar collects standard HTTP metrics (status codes, requests / second, latency, etc) and exposes a common interface using Prometheus metrics.
 These metrics can be picked up by a metrics scraper and pushed to either an in-cluster or
 in-cloud monitoring endpoint.
 
 ```yaml
 apiVersion: v1beta1
-kind: Monitor
+kind: Sidecar
 name: my-monitor
 spec:
   # The monitor sidecar is added to Pods matching these labels
