@@ -38,6 +38,6 @@ The SMI specification outlines three basic resource types:
 
 * MutualTLS - a resource for managing and configuring encryption between services
 * Canary - a resource for defining flexible routing between different versions of a system
-* Monitor - a resource that defines a side car for basic HTTP monitoring that can be installed alongside an application.
+* Sidecar - a resource that defines a sidecar (e.g. for basic HTTP monitoring) that can be installed alongside an application.
 
-The details of the APIs can be founded in [Specification.md](dpecification.md)
+The details of the APIs can be founded in [specification.md](specification.md)
