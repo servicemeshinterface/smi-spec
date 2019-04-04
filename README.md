@@ -40,4 +40,4 @@ The SMI specification outlines three basic resource types:
 * Canary - a resource for defining flexible routing between different versions of a system
 * Monitor - a resource that defines a side car for basic HTTP monitoring that can be installed alongside an application.
 
-The details of the APIs can be founded in [Specification.md](dpecification.md)
+The details of the APIs can be founded in [Specification.md](specification.md)
