@@ -7,8 +7,8 @@ Mesh Technology. It enables flexibility and interoperability.
 
 ### Technical Overview
 
-The SMI is specified as a collection of Kubernetes Custom Resource definitions. These
-CRD APIs (details below) can installed onto any Kubernetes cluster and manipulated 
+The SMI is specified as a collection of Kubernetes Custom Resource Definitions(CRD). These
+CRD APIs (details below) can be installed onto any Kubernetes cluster and manipulated 
 using standard tools. But they don't actually do anything without an SMI provider.
 
 To activate these APIs an SMI provider is run in the Kubernetes cluster. The SMI provider
