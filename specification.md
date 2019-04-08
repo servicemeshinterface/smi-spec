@@ -20,8 +20,10 @@ apiVersion: v1beta1
 kind: TLSConfig
 name: my-tls-config
 spec:
-   # Subject names in the Certificate
-   subjectNames:
+   # Subject names in the Certificate, these are for the client to present
+   # it's identity to the server. Server authentication is handled automatically
+   # by the service itself.
+   clientSubjectNames:
    - foo
    - bar
    # Selector to identify Pods that have this TLS
@@ -30,6 +32,38 @@ spec:
        role: frontend
        stage: production
 ```
+
+#### Example implementation
+This example is given to help illustrate how a provider might implement this specification
+it is not intended to be perscriptive.
+
+We will assume that we are landing an Envoy based sidecar that intercepts all network 
+traffic via IPTables and then performs encryption encapsulation. There are two paths to
+consider. The first is the client path, meaning outbound connections from the Pod.
+
+##### Outbound connections
+The Envoy proxy intercepts all HTTP requests originating from the Pod and rewrites them as
+HTTPS requests to the service. The validity of the server is established via standard 
+HTTPS rules (IP Address and DNS name in the server certificate). The HTTPS request also
+includes a client certificate which uses the subject names defined in the 
+`clientSubjectNames` field in the `TLSConfig` object. This client certificate is also 
+issued by a trusted CA (either cluster local, or well known). On the receiving side, the
+identities in the client certificate are presented to the server via the `x-sme-identity`
+header.
+
+##### Inbound connections
+The Envoy proxy intercepts all HTTPS inbound requests to the Pod and rewrites them as HTTP
+requests to the service. The certificate that is presented to callers includes the IP 
+address of the Pod, as well as a subject name of all kubernetes `Service` objects which
+match the labels on the Pod (e.g. all `Endpoints` for which the Pod is present). In this
+way, standard HTTPS rules of validation apply. The certificate presented for HTTPS should
+match the expected rules of HTTPS validation using a well-known certificate authority (e.g. either the cluster CA or an externally well known CA). The proxy also expects a 
+client certificate which it validates via the same rules. It also presents any subject 
+names in the client certificate via the `x-sme-identity` HTTP header to the server in the
+Pod.
+
+
+
 
 ### Canary
 
