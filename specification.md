@@ -219,4 +219,33 @@ spec:
     team: my-team
     app: my-server
     region: us-east
+status:
+  # The address of the exported Prometheus metrics, populated by the Monitor provider.
+  metricsServer: https://metrics-server:3000/metrics
 ```
+
+The `metricsLabels` field is optional if you want to relable metrics when
+getting them into Prometheus. If the `metricsLabels` field is missing, then the
+labels of the `Pod` resource which generated the metrics are used.
+
+#### Example use-case
+
+I have added mutual TLS via a `TLSConfig` and a sidecar. I want to obtain HTTP
+metrics for my service (latency, errors, requests/second). To do this, I create
+a new `Monitor` resource. For all `Pod` resources that match the label selector
+in the `.spec.selector`, monitors are now exported to a Prometheus compatible HTTP(s)
+endpoint. The address of the metrics server are provided by the implementation via
+the `.status.metricsServer` field. This address can then be scraped either manually
+or automatically by Prometheus or any compatible metrics backend.
+
+#### Example Implementation
+
+The following gives an example of how you might implement the `Monitor` resource using
+an Envoy sidecar. When a `Monitor` resource is created, the Envoy sidecar may have
+already been added to Pod via the usage of `TLSConfig` or `Canary` (or both). If the 
+sidecar isn't present, adding the `Monitor` resource ads it to pods that match the
+label selector. Possibly restarting pods if they already exist. The Envoy sidecar
+pushes metrics to statsd. When a `Monitor` resource is created, a prometheus adapter
+is added to talk to the statsd server. It scrapes the metrics associated with pods
+that match the `selector` field, adds (if present) the tags in the `metricsLabels` field 
+and exposes these metrics for Prometheus to scrape.
