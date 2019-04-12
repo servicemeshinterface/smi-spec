@@ -194,6 +194,44 @@ For updating an application to a new version:
   possible to keep names identical and simply clean up namespaces as new
   versions come out.
 
+#### Example implementation
+
+This example implementation is included to illustrate how the `Canary` object
+operates. It is not intended to prescribe a particular implementation.
+
+Assume a `Canary` object that looks like:
+
+```yaml
+    apiVersion: v1beta1
+    kind: Canary
+    metadata:
+      name: my-canary
+    spec:
+      service: web
+      backends:
+      - service: web-next
+        weight: 100m
+      - service: web-current
+        weight: 900m
+```
+
+When a new `Canary` object is created, it instantiates the following Kubernetes objects:
+   * Service who's name is the same as `spec.service` in the Canary (`web`)
+   * A Deployment running `nginx` which has labels that match the Service
+
+The nginx layer serves as an HTTP(s) layer which implements the canary. In particular
+the nginx config looks like:
+
+```
+upstream backend {
+   server web-next weight=1; 
+   server web-current weight=9;
+}
+```
+
+Thus the new `web` service when accessed from a client in Kubernetes will send 10% of
+it's traffic to `web-next` and 90% of it's traffic to `web`.
+
 ### Monitor
 
 The Monitor resource defines a sidecar which is injected alongside the
