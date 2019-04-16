@@ -31,18 +31,24 @@ spec:
        stage: production
 ```
 
-### Canary
+### Traffic Split
 
 This resource allows users to incrementally direct percentages of traffic
 between various services. It will be used by *clients* such as ingress
 controllers or service mesh sidecars to split the outgoing traffic to different
 destinations.
 
-It is associated with a *root* service. This is referenced via `spec.service`.
-The `spec.service` name is the FQDN that applications will use to communicate.
-For any *clients* that are not forwarding their traffic through a proxy that
-implements this proposal, the standard Kubernetes service configuration would
-continue to operate.
+Integrations can use this resource to orchestrate canary releases for new
+versions of software. The resource itself is not a complete solution as there
+must be some kind of controller managing the traffic shifting over time.
+Weighting traffic between various services is also more generally useful than
+driving canary releases.
+
+The resource is associated with a *root* service. This is referenced via
+`spec.service`. The `spec.service` name is the FQDN that applications will use
+to communicate. For any *clients* that are not forwarding their traffic through
+a proxy that implements this proposal, the standard Kubernetes service
+configuration would continue to operate.
 
 Implementations will weight outgoing traffic between the services referenced by
 `spec.backends`. Each backend is a Kubernetes service that potentially has a
@@ -52,9 +58,9 @@ different selector and type.
 
 ```yaml
 apiVersion: v1beta1
-kind: Canary
+kind: TrafficSplit
 metadata:
-  name: my-canary
+  name: my-weights
 spec:
   # The root service that clients use to connect to the destination application.
   service: numbers
@@ -84,11 +90,11 @@ For updating an application to a new version:
   `version: v2`.
 * Create a new service named `foobar-v2`, with a selector of: `app: foobar`,
   `version: v2`.
-* Create a new canary named `foobar-rollout`, it will look like:
+* Create a new traffic split named `foobar-rollout`, it will look like:
 
     ```yaml
     apiVersion: v1beta1
-    kind: Canary
+    kind: TrafficSplit
     metadata:
       name: foobar-rollout
     spec:
@@ -109,7 +115,7 @@ For updating an application to a new version:
 
     ```yaml
     apiVersion: v1beta1
-    kind: Canary
+    kind: TrafficSplit
     metadata:
       name: foobar-rollout
     spec:
@@ -130,7 +136,7 @@ For updating an application to a new version:
 
     ```yaml
     apiVersion: v1beta1
-    kind: Canary
+    kind: TrafficSplit
     metadata:
       name: foobar-rollout
     spec:
@@ -152,27 +158,27 @@ For updating an application to a new version:
   the underlying applications are changing.
 
 * Selectors vs services - it would be possible to have selectors for the
-  backends at the canary level instead of referential services. The referential
-  services are a little bit more flexible. Users will have a convenient way to
-  manually test their new versions and implementations will have the opportunity
-  to rely on Kuberentes native concepts instead of implementing them
-  independently such as endpoints.
+  backends at the TrafficSplit level instead of referential services. The
+  referential services are a little bit more flexible. Users will have a
+  convenient way to manually test their new versions and implementations will
+  have the opportunity to rely on Kuberentes native concepts instead of
+  implementing them independently such as endpoints.
 
-* Canaries are not hierarchical - it would be possible to have
-  `spec.backends[0].service` refer to a new canary. The implementation would
+* TrafficSplits are not hierarchical - it would be possible to have
+  `spec.backends[0].service` refer to a new split. The implementation would
   then be required to resolve this link and reason about weights. By
-  making canaries non-hierarchical, implementations become simpler and loose he
+  making splits non-hierarchical, implementations become simpler and loose the
   possibility of having circular references. It is still possible to build an
-  architecture that has nested canary definitions, users would need to have a
+  architecture that has nested split definitions, users would need to have a
   secondary proxy to manage that.
 
-* Canaries cannot be self-referential - consider the following definition:
+* TrafficSplits cannot be self-referential - consider the following definition:
 
     ```yaml
     apiVersion: v1beta1
-    kind: Canary
+    kind: TrafficSplit
     metadata:
-      name: my-canary
+      name: my-split
     spec:
       service: foobar
       backends:
@@ -190,9 +196,9 @@ For updating an application to a new version:
 
 * How should this interact with namespaces? One of the downsides to the current
   workflow is that deployment names end up changing and require a tool such as
-  helm or kustomize. By allowing canaries *between* namespaces, it would be
-  possible to keep names identical and simply clean up namespaces as new
-  versions come out.
+  helm or kustomize. By allowing traffic to be split *between* namespaces, it
+  would be possible to keep names identical and simply clean up namespaces as
+  new versions come out.
 
 #### Example implementation
 
