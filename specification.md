@@ -222,21 +222,22 @@ Assume a `Canary` object that looks like:
 ```
 
 When a new `Canary` object is created, it instantiates the following Kubernetes objects:
-   * Service who's name is the same as `spec.service` in the Canary (`web`)
-   * A Deployment running `nginx` which has labels that match the Service
+
+    * Service who's name is the same as `spec.service` in the Canary (`web`)
+    * A Deployment running `nginx` which has labels that match the Service
 
 The nginx layer serves as an HTTP(s) layer which implements the canary. In particular
 the nginx config looks like:
 
-```
+```plain
 upstream backend {
-   server web-next weight=1; 
+   server web-next weight=1;
    server web-current weight=9;
 }
 ```
 
-Thus the new `web` service when accessed from a client in Kubernetes will send 10% of
-it's traffic to `web-next` and 90% of it's traffic to `web`.
+Thus the new `web` service when accessed from a client in Kubernetes will send
+10% of it's traffic to `web-next` and 90% of it's traffic to `web`.
 
 ### Traffic Metrics
 
@@ -579,6 +580,56 @@ possible dashboards such as Kiali entirely on top of this API.
       resources: ["pods/edges"]
       verbs: ["*"]
     ```
+
+#### Example implementation
+
+This example implementation is included to illustrate how `TrafficMetrics` are
+surfaced. It does *not* prescribe a particular implementation. This example also
+does not serve as an example of how to consume the metrics provided.
+
+![Metrics Architecture](traffic-metrics-sample/metrics.png)
+
+For this example implementation, metrics are being stored in Prometheus. These
+are being scraped [from Envoy](#envoy-mesh) periodically. The only component in
+this architecture that is custom is the `Traffic Metrics Shim`. All others do
+not require any modification.
+
+The shim maps from Kubernetes native API standards to the Prometheus store which
+is an implementation detail of the service mesh. As the shim itself is doing the
+mapping, any backend metrics store could be used.
+
+Walking through the request flow:
+
+1. An end user fires off a request to the Kubernetes API Server:
+
+    ```bash
+    kubectl get --raw /apis/traffic.metrics.k8s.io/v1beta1/namespaces/default/deployments/
+    ```
+
+1. The Kubernetes API server forwards this request to the `Traffic Metrics
+Shim`.
+
+1. The shim issues multiple requests to Prometheus. An example for the total
+   requests grouped by success and failure would be:
+
+    ```plain
+    sum(requests_total{namespace='default',kind='deployment'}) by (name, success)
+    ```
+
+    Note: there are multiple queries required here to fetch all the metrics for
+    a response.
+
+1. On receiving the responses from Prometheus, the shim converts the values into
+   a `TrafficMesh` object for consumption by the end user.
+
+#### Envoy Mesh
+
+![Envoy Mesh](traffic-metrics-sample/mesh.png)
+
+While the mesh itself is outside the scope of this example, it is valuable to
+see that piece of the architecture as well. Prometheus has a scrape config that
+targets pods with an Envoy sidecar and periodically requests
+`/stats?format=prometheus`.
 
 #### Tradeoffs
 
