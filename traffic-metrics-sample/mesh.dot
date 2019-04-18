@@ -1,0 +1,6 @@
+digraph mesh {
+  graph [dpi=300]
+
+  "Envoy" [ shape=record, label="{ <proxy> envoy | application }" ]
+  "Prometheus" -> Envoy:proxy [ label="  GET /stats?format=prometheus" ];
+}
