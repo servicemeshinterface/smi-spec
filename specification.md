@@ -75,6 +75,122 @@ spec:
     weight: 1500m
 ```
 
+##### Ports
+
+Kubernetes services can have multiple ports. This specification does *not*
+include ports. Services define these themselves and the duplication becomes
+extra overhead for users with the potential of misconfiguration. There are some
+edge cases to be aware of.
+
+There *must* be a match between a port on the *root* service and a port on every
+destination backend service. If they do not match, the backend service is not
+included and will not receive traffic.
+
+Mapping between `port` and `targetPort` occurs on each backend service
+individually. This allows for new versions of applications to change the ports
+they listen on and matches the existing implementation of Services.
+
+It is recommended that implementations issue an event when the configuration is
+incorrect. This mis-configuration can be detected as part of an admission
+controller.
+
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: birds
+spec:
+  selector:
+    app: birds
+  ports:
+  - name: grpc
+    port: 8080
+  - name: rest
+    port: 9090
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: blue-birds
+spec:
+  selector:
+    app: birds
+    color: blue
+  ports:
+  - name: grpc
+    port: 8080
+  - name: rest
+    port: 9090
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: green-birds
+spec:
+  selector:
+    app: birds
+    color: green
+  ports:
+  - name: grpc
+    port: 8080
+    targetPort: 8081
+  - name: rest
+    port: 9090
+```
+
+This is a valid configuration. Traffic destined for `birds:8080` will select
+between 8080 on either `blue-birds` or `green-birds`. When the eventual
+destination of traffic is destined for `green-birds`, the `targetPort` is used
+and goes to 8081 on the destination pod.
+
+Note: traffic destined for `birds:9090` follows the same guidelines and is in
+this example to highlight how multiple ports can work.
+
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  name: birds
+spec:
+  selector:
+    app: birds
+  ports:
+  - name: grpc
+    port: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: blue-birds
+spec:
+  selector:
+    app: birds
+    color: blue
+  ports:
+  - name: grpc
+    port: 1024
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: green-birds
+spec:
+  selector:
+    app: birds
+    color: green
+  ports:
+  - name: grpc
+    port: 8080
+```
+
+This is an invalid configuration. Traffic destined for `birds:8080` will only
+ever be forwarded to port 8080 on `green-birds`. As the port is 1024 for
+`blue-birds`, there is no way for an implementation to know where the traffic is
+eventually destined on a port basis. When configuration such as this is
+observed, implementations are recommended to issue an event that notifies users
+traffic will not be split for `blue-birds` and visible with
+`kubectl describe trafficsplit`.
+
 #### Workflow
 
 An example workflow, given existing:
@@ -192,6 +308,12 @@ For updating an application to a new version:
     this is a superset that contains multiple versions of an application, it
     becomes challenging for users to reason about where traffic is going.
 
+* Port definitions - this spec uses TrafficSplit to reference services. Services
+  have already defined ports, mappings via targetPorts and selectors for the
+  destination pods. For this reason, ports are delegated to Services. There are
+  some edge cases that arise from this decision. See [ports](#ports) for a more
+  in-depth discussion.
+
 #### Open Questions
 
 * How should this interact with namespaces? One of the downsides to the current
@@ -221,13 +343,14 @@ Assume a `Canary` object that looks like:
         weight: 900m
 ```
 
-When a new `Canary` object is created, it instantiates the following Kubernetes objects:
+When a new `Canary` object is created, it instantiates the following Kubernetes
+objects:
 
     * Service who's name is the same as `spec.service` in the Canary (`web`)
     * A Deployment running `nginx` which has labels that match the Service
 
-The nginx layer serves as an HTTP(s) layer which implements the canary. In particular
-the nginx config looks like:
+The nginx layer serves as an HTTP(s) layer which implements the canary. In
+particular the nginx config looks like:
 
 ```plain
 upstream backend {
