@@ -381,7 +381,7 @@ Shim`.
 1. On receiving the responses from Prometheus, the shim converts the values into
    a `TrafficMesh` object for consumption by the end user.
 
-## Envoy Mesh
+### Envoy Mesh
 
 ![Envoy Mesh](traffic-metrics-sample/mesh.png)
 
