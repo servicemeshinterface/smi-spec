@@ -24,7 +24,7 @@ different selector and type.
 ## Specification
 
 ```yaml
-apiVersion: v1beta1
+apiVersion: split.smi-spec.io/v1beta1
 kind: TrafficSplit
 metadata:
   name: my-weights
@@ -176,7 +176,7 @@ For updating an application to a new version:
 * Create a new traffic split named `foobar-rollout`, it will look like:
 
     ```yaml
-    apiVersion: v1beta1
+    apiVersion: split.smi-spec.io/v1beta1
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -197,7 +197,7 @@ For updating an application to a new version:
 * When ready, increase the weight of `foobar-v2`:
 
     ```yaml
-    apiVersion: v1beta1
+    apiVersion: split.smi-spec.io/v1beta1
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -218,7 +218,7 @@ For updating an application to a new version:
 * Send all traffic to the new version:
 
     ```yaml
-    apiVersion: v1beta1
+    apiVersion: split.smi-spec.io/v1beta1
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -258,7 +258,7 @@ For updating an application to a new version:
 * TrafficSplits cannot be self-referential - consider the following definition:
 
     ```yaml
-    apiVersion: v1beta1
+    apiVersion: split.smi-spec.io/v1beta1
     kind: TrafficSplit
     metadata:
       name: my-split
@@ -297,7 +297,7 @@ operates. It is not intended to prescribe a particular implementation.
 Assume a `Canary` object that looks like:
 
 ```yaml
-    apiVersion: v1beta1
+    apiVersion: split.smi-spec.io/v1beta1
     kind: Canary
     metadata:
       name: my-canary

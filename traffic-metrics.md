@@ -51,7 +51,7 @@ The core resource is `TrafficMetrics`. It references a `resource`, has an `edge`
 and surfaces latency percentiles and request volume.
 
 ```yaml
-apiVersion: traffic.metrics.k8s.io/v1beta1
+apiVersion: metrics.smi-spec.io/v1beta1
 kind: TrafficMetrics
 # See ObjectReference v1 core for full spec
 resource:
@@ -150,7 +150,7 @@ There are three different ways to get a TrafficMetricsList:
 * Requesting a specific `kind` such as pods or namespaces.
 
     ```yaml
-    apiVersion: traffic.metrics.k8s.io/v1beta1
+    apiVersion: metrics.smi-spec.io/v1beta1
     kind: TrafficMetricsList
     resource:
       kind: Pod
@@ -164,7 +164,7 @@ There are three different ways to get a TrafficMetricsList:
 * Requesting a specific `kind` such as pods and filtering with a label selector:
 
     ```yaml
-    apiVersion: traffic.metrics.k8s.io/v1beta1
+    apiVersion: metrics.smi-spec.io/v1beta1
     kind: TrafficMetricsList
     resource:
       kind: Pod
@@ -181,7 +181,7 @@ There are three different ways to get a TrafficMetricsList:
 * Listing all the edges for a specific resource:
 
     ```yaml
-    apiVersion: traffic.metrics.k8s.io/v1beta1
+    apiVersion: metrics.smi-spec.io/v1beta1
     kind: TrafficMetricsList
     resource:
       name: foo-775b9cbd88-ntxsl
@@ -205,22 +205,22 @@ The `traffic.metrics.k8s.io` API will be exposed via a `APIService`:
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService
 metadata:
-  name: v1beta1.mesh.metrics.k8s.io
+  name: v1beta1.metrics.smi-spec.io
 spec:
-  group: mesh.metrics.k8s.io
+  group: metrics.smi-spec.io/v1beta1
   service:
     name: mesh-metrics
     namespace: default
   version: v1beta1
 ```
 
-The default response, or requesting `/apis/traffic.metrics.k8s.io/v1beta1/`
+The default response, or requesting `/apis/metrics.smi-spec.io/v1beta1/`
 would return:
 
 ```yaml
 apiVersion: v1
 kind: APIResourceList
-groupVersion: mesh.metrics.k8s.io/v1beta1
+groupVersion: metrics.smi-spec.io/v1beta1
 resources:
 - name: namespaces
   namespaced: false
@@ -362,7 +362,7 @@ Walking through the request flow:
 1. An end user fires off a request to the Kubernetes API Server:
 
     ```bash
-    kubectl get --raw /apis/traffic.metrics.k8s.io/v1beta1/namespaces/default/deployments/
+    kubectl get --raw /apis/metrics.smi-spec.io/v1beta1/namespaces/default/deployments/
     ```
 
 1. The Kubernetes API server forwards this request to the `Traffic Metrics
