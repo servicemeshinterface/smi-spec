@@ -6,11 +6,14 @@ of providers. This allows for both standardization for end-users and innovation
 by providers of Service Mesh Technology. It enables flexibility and
 interoperability.
 
-This specification consists of three APIs:
+This specification consists of multiple APIs:
 
-* [Traffic Policy](traffic-policy.md) - configure access to specific pods and
-  routes based on the identity of a client for locking down applications to only
-  allowed users and services.
+* [Traffic Specs](traffic-specs.md) - define how traffic looks on a per-protocol
+  basis. These resources work in concert with access control and other types of
+  policy to manage traffic at a protocol level.
+* [Traffic Access Control](traffic-policy.md) - configure access to specific
+  pods and routes based on the identity of a client for locking down
+  applications to only allowed users and services.
 * [Traffic Split](traffic-split.md) - incrementally direct percentages of
   traffic between various services to assist in building out canary rollouts.
 * [Traffic Metrics](traffic-metrics.md) - expose common traffic metrics for use
@@ -26,9 +29,9 @@ See the individual documents for the details. Each document outlines:
 ### Technical Overview
 
 The SMI is specified as a collection of Kubernetes Custom Resource Definitions
-(CRD) and Extension API Servers. These APIs (details below) can be installed
-onto any Kubernetes cluster and manipulated using standard tools. The APIs
-require an SMI provider to do something.
+(CRD) and Extension API Servers. These APIs can be installed onto any Kubernetes
+cluster and manipulated using standard tools. The APIs require an SMI provider
+to do something.
 
 To activate these APIs an SMI provider is run in the Kubernetes cluster. For the
 resources that enable configuration, the SMI provider reflects back on their
