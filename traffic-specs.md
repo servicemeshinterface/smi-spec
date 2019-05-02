@@ -22,9 +22,6 @@ apiVersion: v1beta1
 kind: HTTPRoutes
 metadata:
   name: the-routes
-  labels:
-    app: foobar
-    class: admin
 routes:
 - name: metrics
   pathRegex: "/metrics"
@@ -43,31 +40,6 @@ anchored (`^`) to the beginning of the URI. Methods can either be specific
 These routes have not yet been associated with any resources. See
 [access control](traffic-access-control.md) for an example of how routes become
 associated with applications serving traffic.
-
-In this example, there are labels. These are used to allow flexible binding. As
-routes can be thought of as a bucket that defines traffic, it is valuable to
-have different classifications and applications. Imagine an access control
-binding across `class: admin` for specific clients such as Prometheus or
-liveness and readiness probes.
-
-Another example defines an unauthenticated catch-all and a set of specific
-routes that are sensitive and should have access controlled.
-
-```yaml
-apiVersion: v1beta1
-kind: HTTPRoutes
-metadata:
-  name: external-routes
-  labels:
-    app: foobar
-routes:
-- name: admin
-  pathRegex: "/admin/.*"
-  methods: ["*"]
-- name: unauthenticated
-  pathRegex: "/.*"
-  methods: ["*"]
-```
 
 ## Automatic Generation
 

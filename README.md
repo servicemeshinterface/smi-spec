@@ -1,4 +1,4 @@
-## Service Mesh Interface (code name Smeagol)
+## Service Mesh Interface
 
 The Service Mesh Interface (SMI) is a specification for service meshes that run
 on Kubernetes. It defines a common standard that can be implemented by a variety
