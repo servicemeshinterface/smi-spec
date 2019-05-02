@@ -1,61 +1,9 @@
-## Traffic Policy
+## Traffic Access Control
 
-This resource allows users to define the authorization policy between
-applications and clients.
+This resource allows users to define policies that control access to resources
+for clients.
 
 ## Specification
-
-### HTTPService
-
-```yaml
-kind: HTTPService
-apiVersion: v1beta1
-metadata:
-  name: foo
-  namespace: default
-resources:
-# v1.ObjectReference
-- kind: Service
-  name: foo
-routes:
-- name: admin
-  methods:
-  - GET
-  pathRegex: "/admin/.*"
-- name: default
-  methods: ["*"]
-  pathRegex: ".*"
-```
-
-### gRPCService
-
-```yaml
-kind: gRPCService
-apiVersion: v1beta1
-metadata:
-  name: foo
-  namespace: default
-resources:
-- kind: Service
-  name: foo
-package: foo.v1
-service: SearchService
-rpc:
-- name: Search
-```
-
-### TCPService
-
-```yaml
-kind: TCPService
-apiVersion: v1beta1
-metadata:
-  name: foo
-  namespace: default
-resources:
-- kind: Service
-  name: foo
-```
 
 ### TrafficRole
 
@@ -68,10 +16,19 @@ metadata:
 resource:
   name: foo
   kind: Deployment
-subjects:
-- kind: HTTPService
-  name: admin
+port: 8080
+rules:
+- kind: HTTPRoutes
+  name: the-routes
+  specs:
+  - metrics
 ```
+
+This example associates a set of routes with a set of pods. It will match the
+routes arriving at these pods on the specified port (8080). While `the-routes`
+definition contains multiple elements, only a single element is referenced in
+this role. This example could be used in conjunction with a TrafficRoleBinding
+to provide Prometheus the access to scrape metrics on the `foo` deployment.
 
 ### TrafficRoleBinding
 
@@ -90,10 +47,36 @@ roleRef:
   name: path-specific
 ```
 
-Note: this specification defines that policy is *always* enforced on the
+This example grants the ability to access the routes in `path-specific` to any
+client providing the identity `bar` based on a ServiceAccount.
+
+As access control is additive, it is important to provide definitions that allow
+non-authenticated traffic access. Imagine rolling a service mesh out
+incrementally. It is important to not immediately block any traffic that is not
+from an authenticated client. In this world, groups are important as a source of
+identity.
+
+```yaml
+kind: TrafficRoleBinding
+apiVersion: v1beta1
+metadata:
+  name: account-specific
+  namespace: default
+subjects:
+- kind: Group
+  name: system:unauthenticated
+roleRef:
+  kind: TrafficRole
+  name: path-specific
+```
+
+This example allows any unauthenticated client access to the rules defined in
+`path-specific`.
+
+Note: this specification defines that access control is *always* enforced on the
 *server* side of a connection. It is up to implementations to decide whether
-they would also like to enforce this policy on the *client* side of the
-connection as well.
+they would also like to enforce access control on the *client* side
+of the connection as well.
 
 ## Use Cases
 
@@ -107,7 +90,7 @@ TODO ...
 
 ## Example Implementation
 
-## Tradeoffs {#policy-tradeoffs}
+## Tradeoffs
 
 * Additive policy - policy that denies instead of only allows is valuable
   sometimes. Unfortunately, it makes it extremely difficult to reason about what
