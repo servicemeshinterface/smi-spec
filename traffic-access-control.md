@@ -209,6 +209,11 @@ TODO ...
   common use cases (filtering by hostname) and will need to be expanded to cover
   this use case.
 
+* Other types of policy - having policy around retries, timeouts and rate limits
+  would be great. This specific object only manages access control. As policy
+  for these examples would be HTTP specific, there needs to be a HTTP specific
+  policy object created.
+
 * Other types of identity - there is room to expand the `kind` accepted for
   subjects in IdentityBinding to other types of identity. This needs further
   definition to explain use cases and implementation.
