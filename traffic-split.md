@@ -160,14 +160,15 @@ traffic will not be split for `blue-birds` and visible with
 
 ## Workflow
 
-An example workflow, given existing:
+In this example workflow, the user has previously created the following
+resources:
 
 * Deployment named `foobar-v1`, with labels: `app: foobar` and `version: v1`.
 * Service named `foobar`, with a selector of `app: foobar`.
 * Service named `foobar-v1`, with selectors: `app:foobar` and `version: v1`.
 * Clients use the FQDN of `foobar` to communicate.
 
-For updating an application to a new version:
+In order to update an application, the user will perform the following actions:
 
 * Create a new deployment named `foobar-v2`, with labels: `app: foobar`,
   `version: v2`.
@@ -189,12 +190,14 @@ For updating an application to a new version:
         weight: 0m
     ```
 
-    At this point, there is no traffic being sent to `foobar-v2`.
+    At this point, the SMI implementation does not redirect any traffic to
+    `foobar-v2`.
 
 * Once the deployment is healthy, spot check by sending manual requests to the
   `foobar-v2` service. This could be achieved via ingress, port forwarding or
   spinning up integration tests from separate pods.
-* When ready, increase the weight of `foobar-v2`:
+* When ready, the user increases the weight of `foobar-v2` by updating the
+  TrafficSplit resource:
 
     ```yaml
     apiVersion: v1beta1
@@ -210,12 +213,13 @@ For updating an application to a new version:
         weight: 500m
     ```
 
-    At this point, approximately 50% of traffic will be sent to `foobar-v2`.
-    Note that this is on a per-client basis and not global across all requests
-    destined for these backends.
+    At this point, the SMI implementation redirects approximately 50% of
+    traffic to `foobar-v2`. Note that this is on a per-client basis and not
+    global across all requests destined for these backends.
 
 * Verify health metrics and become comfortable with the new version.
-* Send all traffic to the new version:
+* The user decides to let the SMI implementation redirect all traffic to the
+  new version by updating the TrafficSplit resource:
 
     ```yaml
     apiVersion: v1beta1
