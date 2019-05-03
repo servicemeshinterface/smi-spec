@@ -298,7 +298,7 @@ Assume a `Canary` object that looks like:
 
 ```yaml
     apiVersion: split.smi-spec.io/v1beta1
-    kind: Canary
+    kind: TrafficSplit
     metadata:
       name: my-canary
     spec:
