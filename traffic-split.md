@@ -24,7 +24,7 @@ different selector and type.
 ## Specification
 
 ```yaml
-apiVersion: v1beta1
+apiVersion: split.smi-spec.io/v1alpha1
 kind: TrafficSplit
 metadata:
   name: my-weights
@@ -176,7 +176,7 @@ For updating an application to a new version:
 * Create a new traffic split named `foobar-rollout`, it will look like:
 
     ```yaml
-    apiVersion: v1beta1
+    apiVersion: split.smi-spec.io/v1alpha1
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -197,7 +197,7 @@ For updating an application to a new version:
 * When ready, increase the weight of `foobar-v2`:
 
     ```yaml
-    apiVersion: v1beta1
+    apiVersion: split.smi-spec.io/v1alpha1
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -218,7 +218,7 @@ For updating an application to a new version:
 * Send all traffic to the new version:
 
     ```yaml
-    apiVersion: v1beta1
+    apiVersion: split.smi-spec.io/v1alpha1
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -258,7 +258,7 @@ For updating an application to a new version:
 * TrafficSplits cannot be self-referential - consider the following definition:
 
     ```yaml
-    apiVersion: v1beta1
+    apiVersion: split.smi-spec.io/v1alpha1
     kind: TrafficSplit
     metadata:
       name: my-split
@@ -291,14 +291,14 @@ For updating an application to a new version:
 
 ## Example implementation
 
-This example implementation is included to illustrate how the `Canary` object
-operates. It is not intended to prescribe a particular implementation.
+This example implementation is included to illustrate how the `TrafficSplit`
+object operates. It is not intended to prescribe a particular implementation.
 
-Assume a `Canary` object that looks like:
+Assume a `TrafficSplit` object that looks like:
 
 ```yaml
-    apiVersion: v1beta1
-    kind: Canary
+    apiVersion: split.smi-spec.io/v1alpha1
+    kind: TrafficSplit
     metadata:
       name: my-canary
     spec:
@@ -310,10 +310,10 @@ Assume a `Canary` object that looks like:
         weight: 900m
 ```
 
-When a new `Canary` object is created, it instantiates the following Kubernetes
+When a new `TrafficSplit` object is created, it instantiates the following Kubernetes
 objects:
 
-    * Service who's name is the same as `spec.service` in the Canary (`web`)
+    * Service who's name is the same as `spec.service` in the TrafficSplit (`web`)
     * A Deployment running `nginx` which has labels that match the Service
 
 The nginx layer serves as an HTTP(s) layer which implements the canary. In
