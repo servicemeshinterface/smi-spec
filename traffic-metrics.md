@@ -280,7 +280,7 @@ or a dashboard.
 
 ### Canary
 
-In combination with the Canary specification, a controller can:
+In combination with the TrafficSplit specification, a controller can:
 
 * Create a new deployment `v2`.
 * Add a new canary and service for `v2`.

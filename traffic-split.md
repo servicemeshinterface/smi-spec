@@ -291,10 +291,10 @@ For updating an application to a new version:
 
 ## Example implementation
 
-This example implementation is included to illustrate how the `Canary` object
-operates. It is not intended to prescribe a particular implementation.
+This example implementation is included to illustrate how the `TrafficSplit`
+object operates. It is not intended to prescribe a particular implementation.
 
-Assume a `Canary` object that looks like:
+Assume a `TrafficSplit` object that looks like:
 
 ```yaml
     apiVersion: split.smi-spec.io/v1alpha1
@@ -310,10 +310,10 @@ Assume a `Canary` object that looks like:
         weight: 900m
 ```
 
-When a new `Canary` object is created, it instantiates the following Kubernetes
+When a new `TrafficSplit` object is created, it instantiates the following Kubernetes
 objects:
 
-    * Service who's name is the same as `spec.service` in the Canary (`web`)
+    * Service who's name is the same as `spec.service` in the TrafficSplit (`web`)
     * A Deployment running `nginx` which has labels that match the Service
 
 The nginx layer serves as an HTTP(s) layer which implements the canary. In
