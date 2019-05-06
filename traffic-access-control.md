@@ -9,7 +9,7 @@ for clients.
 
 ```yaml
 kind: TrafficRole
-apiVersion: access.smi-spec.io/v1beta1
+apiVersion: access.smi-spec.io/v1alpha1
 metadata:
   name: path-specific
   namespace: default
@@ -34,7 +34,7 @@ to provide Prometheus the access to scrape metrics on the `foo` deployment.
 
 ```yaml
 kind: TrafficRoleBinding
-apiVersion: access.smi-spec.io/v1beta1
+apiVersion: access.smi-spec.io/v1alpha1
 metadata:
   name: account-specific
   namespace: default
@@ -58,7 +58,7 @@ identity.
 
 ```yaml
 kind: TrafficRoleBinding
-apiVersion: access.smi-spec.io/v1beta1
+apiVersion: access.smi-spec.io/v1alpha1
 metadata:
   name: account-specific
   namespace: default
