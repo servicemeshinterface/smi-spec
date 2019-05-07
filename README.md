@@ -11,7 +11,7 @@ This specification consists of multiple APIs:
 * [Traffic Specs](traffic-specs.md) - define how traffic looks on a per-protocol
   basis. These resources work in concert with access control and other types of
   policy to manage traffic at a protocol level.
-* [Traffic Access Control](traffic-policy.md) - configure access to specific
+* [Traffic Access Control](traffic-access-control.md) - configure access to specific
   pods and routes based on the identity of a client for locking down
   applications to only allowed users and services.
 * [Traffic Split](traffic-split.md) - incrementally direct percentages of
