@@ -213,7 +213,7 @@ In order to update an application, the user will perform the following actions:
         weight: 500m
     ```
 
-    At this point, the SMI implementation redirects approximately 50% of
+    At this point, the SMI implementation redirects approximately 33% of
     traffic to `foobar-v2`. Note that this is on a per-client basis and not
     global across all requests destined for these backends.
 
