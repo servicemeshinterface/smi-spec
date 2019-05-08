@@ -78,7 +78,9 @@ connection as well.
 
 A `IdentityBinding` grants access for a specific identity to the rules in a
 TrafficTarget. It holds a list of subjects (service accounts for now) and a
-reference to the traffic target defining what has been granted.
+reference to the traffic target defining what has been granted. The TrafficTarget
+which is referenced in targetRef should always be in the same namespace
+as the IdentityBinding.
 
 ```yaml
 kind: IdentityBinding
@@ -154,7 +156,8 @@ protected label.
 
 A `ClusterIdentityBinding` grants access for a specific identity, originating in
 a specific namespace, to a ClusterTrafficTarget associated with pods in any
-namespace.
+namespace. The ClusterTrafficTarget referenced by targetRef should always be in
+the same namespace as the ClusterIdentityBinding.
 
 ```yaml
 kind: ClusterIdentityBinding
