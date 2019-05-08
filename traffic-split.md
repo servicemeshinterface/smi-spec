@@ -215,7 +215,8 @@ In order to update an application, the user will perform the following actions:
 
     At this point, the SMI implementation redirects approximately 50% of
     traffic to `foobar-v2`. Note that this is on a per-client basis and not
-    global across all requests destined for these backends.
+    global across all requests destined for these backends, because these
+    backends can receive traffic from other Kubernetes services.
 
 * Verify health metrics and become comfortable with the new version.
 * The user decides to let the SMI implementation redirect all traffic to the
