@@ -12,14 +12,14 @@ to define the traffic in a protocol specific fashion.
 
 ## Specification
 
-### HTTPRoutes
+### HTTPRoute
 
 This resource is used to describe HTTP/1 and HTTP/2 traffic. It enumerates the
 routes that can be served by an application.
 
 ```yaml
 apiVersion: specs.smi-spec.io/v1alpha1
-kind: HTTPRoutes
+kind: HTTPRoute
 metadata:
   name: the-routes
 matches:
@@ -51,7 +51,7 @@ an HTTP request. This is where `filters` come in:
 
 ```yaml
 apiVersion: v1beta1
-kind: HTTPRoutes
+kind: HTTPRoute
 metadata:
   name: the-routes
   namespace: default
