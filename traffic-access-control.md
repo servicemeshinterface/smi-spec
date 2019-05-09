@@ -22,7 +22,7 @@ as an expression with `matchExpressions`.
 
 Rules are [traffic specs](traffic-specs.md) that define what traffic for
 specific protocols would look like. The kind can be different depending on what
-traffic a target is serving. In the following examples, `HTTPRoutes` is used for
+traffic a target is serving. In the following examples, `HTTPRouteGroup` is used for
 applications serving HTTP based traffic.
 
 To understand how this all fits together, first define the routes for some
@@ -30,7 +30,7 @@ traffic.
 
 ```yaml
 apiVersion: v1beta1
-kind: HTTPRoutes
+kind: HTTPRouteGroup
 metadata:
   name: the-routes
 matches:
@@ -58,8 +58,9 @@ selector:
     app: foo
 port: 8080
 rules:
-- kind: HTTPRoutes
+- kind: HTTPRouteGroup
   name: the-routes
+  namespace: default
   matches:
   - metrics
 ```
@@ -78,9 +79,7 @@ connection as well.
 
 A `IdentityBinding` grants access for a specific identity to the rules in a
 TrafficTarget. It holds a list of subjects (service accounts for now) and a
-reference to the traffic target defining what has been granted. The TrafficTarget
-which is referenced in targetRef should always be in the same namespace
-as the IdentityBinding.
+reference to the traffic target defining what has been granted. 
 
 ```yaml
 kind: IdentityBinding
@@ -95,6 +94,7 @@ subjects:
 targetRef:
   kind: TrafficTarget
   name: path-specific
+  namespace: default
 ```
 
 This example grants the ability to access the `/metrics` route to any client
@@ -115,9 +115,10 @@ metadata:
 subjects:
 - kind: Group
   name: system:unauthenticated
-roleRef:
+targetRef:
   kind: TrafficTarget
   name: path-specific
+  namespace: default
 ```
 
 This example allows any unauthenticated client access to the rules defined in
@@ -156,8 +157,7 @@ protected label.
 
 A `ClusterIdentityBinding` grants access for a specific identity, originating in
 a specific namespace, to a ClusterTrafficTarget associated with pods in any
-namespace. The ClusterTrafficTarget referenced by targetRef should always be in
-the same namespace as the ClusterIdentityBinding.
+namespace. 
 
 ```yaml
 kind: ClusterIdentityBinding
@@ -172,6 +172,7 @@ subjects:
 targetRef:
   kind: ClusterTrafficTarget
   name: metrics-scrape
+  namespace: default
 ```
 
 Continuing with the Prometheus example from above, it is possible to have a
