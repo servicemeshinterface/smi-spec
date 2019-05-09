@@ -170,10 +170,6 @@ resources:
 
 In order to update an application, the user will perform the following actions:
 
-* Create a new deployment named `foobar-v2`, with labels: `app: foobar`,
-  `version: v2`.
-* Create a new service named `foobar-v2`, with a selector of: `app: foobar`,
-  `version: v2`.
 * Create a new traffic split named `foobar-rollout`, it will look like:
 
     ```yaml
@@ -190,8 +186,18 @@ In order to update an application, the user will perform the following actions:
         weight: 0m
     ```
 
-    At this point, the SMI implementation does not redirect any traffic to
-    `foobar-v2`.
+    **Note**: The `TrafficSplit` resource above refers to the service
+    `foobar-v2` even before it is created. It is necessary to follow this order
+    otherwise some traffic might be diverted to the the new service via `foobar`
+    service since this service caters traffic across all versions.
+
+* Create a new deployment named `foobar-v2`, with labels: `app: foobar`,
+  `version: v2`.
+* Create a new service named `foobar-v2`, with a selector of: `app: foobar`,
+  `version: v2`.
+
+At this point, the SMI implementation does not redirect any traffic to
+`foobar-v2`.
 
 * Once the deployment is healthy, spot check by sending manual requests to the
   `foobar-v2` service. This could be achieved via ingress, port forwarding or
