@@ -30,11 +30,6 @@ matches:
 - name: health
   pathRegex: "/ping"
   methods: ["*"]
-filters:
-- kind: Service
-  name: foobar
-  ports:
-  - 8080
 ```
 
 This example defines two matches, `metrics` and `health`. The name is the
@@ -47,7 +42,9 @@ These routes have not yet been associated with any resources. See
 associated with applications serving traffic.
 
 The `matches` field only applies to URIs. It is common to look at other parts of
-an HTTP request. This is where `filters` come in:
+an HTTP request. This behaviour is not yet defined; however, the spec will be
+extended at a later date to accommodate capabilities such as HTTP header, 
+Host, etc.
 
 ```yaml
 apiVersion: v1beta1
@@ -59,23 +56,9 @@ matches:
 - name: everything
   pathRegex: ".*"
   methods: ["*"]
-filters:
-- kind: Service
-  name: foobar
-  ports:
-  - 8080
 ```
 
-This example defines a single route that matches anything. It then describes a
-filter. This filter looks at the `Host` or `:authority` header and scopes the
-route matches to requests with the value
-`foobar.default.svc.cluster.local:8080`. This is the FQDN of the `foobar`
-service and port listed.
-
-At initial glance, filters and matches are pretty similar. There are some
-important differences. In particular, *all* filters must match whereas `matches`
-simply define what the traffic *could* look like. Individual matches are used
-regularly with TrafficTargets (see the `/metrics` example above).
+This example defines a single route that matches anything. 
 
 ### TCPRoute
 
