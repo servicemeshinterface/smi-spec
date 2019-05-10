@@ -12,14 +12,14 @@ to define the traffic in a protocol specific fashion.
 
 ## Specification
 
-### HTTPRoutes
+### HTTPRouteGroup
 
 This resource is used to describe HTTP/1 and HTTP/2 traffic. It enumerates the
 routes that can be served by an application.
 
 ```yaml
 apiVersion: specs.smi-spec.io/v1alpha1
-kind: HTTPRoutes
+kind: HTTPRouteGroup
 metadata:
   name: the-routes
 matches:
@@ -51,7 +51,7 @@ an HTTP request. This is where `filters` come in:
 
 ```yaml
 apiVersion: v1beta1
-kind: HTTPRoutes
+kind: HTTPRouteGroup
 metadata:
   name: the-routes
   namespace: default
@@ -94,7 +94,7 @@ automatically generate the list of routes from code.
 ## Out of scope
 
 * gRPC - there should be a gRPC specific traffic spec. As part of the first
-  version, this has been left out as HTTPRoutes can be used in the interim.
+  version, this has been left out as HTTPRouteGroup can be used in the interim.
 
 * Arbitrary header filtering - there should be a way to filter based on headers.
   This has been left out for now, but the specification should be expanded to
