@@ -56,7 +56,6 @@ metadata:
 selector:
   matchLabels:
     app: foo
-port: 8080
 specs:
 - kind: HTTPRouteGroup
   name: the-routes
@@ -65,10 +64,14 @@ specs:
   - metrics
 ```
 
-This example selects all the pods with `app: foo` as a label. For traffic
-destined to port 8080 on these pods, `/metrics` is allowed. The `matches` field
+This example selects all the pods with `app: foo` as a label. Traffic
+destined on a path `/metrics` is allowed. The `matches` field
 is optional and if omitted, a rule is valid for all the matches in a traffic
 spec (a OR relationship).
+
+Allowing destination traffic should only be permitted with permission of the 
+service owner. Therefore, RBAC rules should be configured to control the pods
+which are allowed to assign the label defined in the TrafficTarget selector.
 
 Note: access control is *always* enforced on the *server* side of a connection
 (or the target). It is up to implementations to decide whether they would also
@@ -105,82 +108,6 @@ non-authenticated traffic access. Imagine rolling a service mesh out
 incrementally. Traffic should not, necessarily, be blocked if a client is
 unauthenticated. In this world, groups are important as a source of
 identity.
-
-```yaml
-kind: IdentityBinding
-apiVersion: access.smi-spec.io/v1alpha1
-metadata:
-  name: account-specific
-  namespace: default
-subjects:
-- kind: Group
-  name: system:unauthenticated
-targetRef:
-  kind: TrafficTarget
-  name: path-specific
-  namespace: default
-```
-
-This example allows any unauthenticated client access to the rules defined in
-the `path-specific` TrafficTarget. Groups are more flexible than just
-unauthenticated users. Kubernetes defines many groups by default,
-`system:unauthenticated` just happens to be one of these.
-
-### ClusterTrafficTarget
-
-A `ClusterTrafficTarget` allows policy to be applied to targets that live in
-multiple namespaces. This is primarily useful to system wide endpoints such as
-metrics or health checks.
-
-```yaml
-kind: ClusterTrafficTarget
-apiVersion: v1beta1
-metadata:
-  name: metrics-scrape
-selector:
-  matchExpressions:
-  - !protected
-port: 8080
-specs:
-- kind: HTTPRoutes
-  name: the-routes
-  namespace: prometheus
-  matches:
-  - metrics
-```
-
-This example uses the `HTTPRoutes` definition from
-[TrafficTarget](#TrafficTarget) and matches all pods that do *not* contain the
-protected label.
-
-### ClusterIdentityBinding
-
-A `ClusterIdentityBinding` grants access for a specific identity, originating in
-a specific namespace, to a ClusterTrafficTarget associated with pods in any
-namespace. 
-
-```yaml
-kind: ClusterIdentityBinding
-apiVersion: v1beta1
-metadata:
-  name: metrics-scrape
-  namespace: default
-subjects:
-- kind: ServiceAccount
-  name: prometheus
-  namespace: prometheus
-targetRef:
-  kind: ClusterTrafficTarget
-  name: metrics-scrape
-  namespace: default
-```
-
-Continuing with the Prometheus example from above, it is possible to have a
-IdentityBinding that grants a specific system service access to an endpoint on
-every pod in the cluster.
-
-Combined with groups, these identity bindings allow users to provide default
-allow-all policies.
 
 ## Example Implementation
 
