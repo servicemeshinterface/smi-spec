@@ -77,6 +77,18 @@ important differences. In particular, *all* filters must match whereas `matches`
 simply define what the traffic *could* look like. Individual matches are used
 regularly with TrafficTargets (see the `/metrics` example above).
 
+### TCPRoute
+
+This resource is used to describe L4 TCP traffic. It is a simple route which configures
+an application to receive raw non protocol specific traffic.
+
+```
+apiVersion: specs.smi-spec.io/v1alpha1
+kind: TCPRoute
+metadata:
+  name: tcp-route
+```
+
 ## Automatic Generation
 
 While it is possible for users to create these by hand, the recommended pattern
