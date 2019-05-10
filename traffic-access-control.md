@@ -20,7 +20,7 @@ This object defines access control on a pod basis. The selector matches across
 labels in the current namespace. This is either directly with `matchLabels` or
 as an expression with `matchExpressions`.
 
-Rules are [traffic specs](traffic-specs.md) that define what traffic for
+Specs are [traffic specs](traffic-specs.md) that define what traffic for
 specific protocols would look like. The kind can be different depending on what
 traffic a target is serving. In the following examples, `HTTPRouteGroup` is used for
 applications serving HTTP based traffic.
@@ -57,7 +57,7 @@ selector:
   matchLabels:
     app: foo
 port: 8080
-rules:
+specs:
 - kind: HTTPRouteGroup
   name: the-routes
   namespace: default
@@ -141,7 +141,7 @@ selector:
   matchExpressions:
   - !protected
 port: 8080
-rules:
+specs:
 - kind: HTTPRoutes
   name: the-routes
   namespace: prometheus
