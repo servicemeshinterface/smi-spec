@@ -173,8 +173,8 @@ The previous example would allow the following HTTP traffic:
 ## Out of scope
 
 * Egress policy - TrafficTarget does *not* allow for the possibility of egress
-  cess control as it selects specific pods and not hostnames. Another object
-  ll need to be created to manage this use case.
+  access control as it selects specific pods and not hostnames. Another object
+  will need to be created to manage this use case.
 
 * Ingress policy - assuming clients present the correct identity, this *should*
   work for some kind of ingress. Unfortunately, it does not cover many of the
