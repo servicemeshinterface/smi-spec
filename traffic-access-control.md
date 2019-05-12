@@ -121,7 +121,6 @@ destination:
  kind: ServiceAccount
  name: api-service
  namespace: default
- port: 8080
 specs:
 - kind: HTTPRouteGroup
   name: api-service-routes
