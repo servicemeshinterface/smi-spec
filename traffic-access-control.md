@@ -60,6 +60,7 @@ destination:
  kind: ServiceAccount
  name: service-a
  namespace: default
+ port: 8080
 specs:
 - kind: HTTPRouteGroup
   name: the-routes
@@ -75,6 +76,9 @@ This example selects all the pods which have the `service-a` `ServiceAccount`. T
 destined on a path `/metrics` is allowed. The `matches` field
 is optional and if omitted, a rule is valid for all the matches in a traffic
 spec (a OR relationship).
+It is possible for a service to expose multiple ports, the `port` field allows the 
+user to specify specifically which port traffic should be allowed on. `port` is an optional
+element, if not specified, traffic will be allowed to all ports on the destination service.
 
 Allowing destination traffic should only be possible with permission of the 
 service owner. Therefore, RBAC rules should be configured to control the pods
@@ -117,6 +121,7 @@ destination:
  kind: ServiceAccount
  name: api-service
  namespace: default
+ port: 8080
 specs:
 - kind: HTTPRouteGroup
   name: api-service-routes
@@ -137,6 +142,7 @@ destination:
  kind: ServiceAccount
  name: api-service
  namespace: default
+ port: 8080
 specs:
 - kind: HTTPRouteGroup
   name: api-service-routes
@@ -169,6 +175,10 @@ The previous example would allow the following HTTP traffic:
   such as a deployment instead of selecting across pods.
 
 * As this access control is on the destination (server) side, implicitly
+
+* Currently the specification does not have provision for the definition of 
+  higher level elements such as a service. It is probable that this specification
+  will change once these elements are defined.
 
 ## Out of scope
 
