@@ -12,15 +12,17 @@ default. See [tradeoffs](#tradeoffs) for a longer discussion about why.
 
 ### TrafficTarget
 
-A `TrafficTarget` associates a set of traffic definitions (rules) with a set of
-pods. With an accompanying [IdentityBinding](#IdentityBinding), access can be
-granted to traffic that matches the rules.
+A `TrafficTarget` associates a set of traffic definitions (rules) with a service identity which is allocated to a group of pods.
+, access is controlled via referenced TrafficSpecs and by a list of source service identities.
+If a pod which holds the referenced service identity makes a call to the destination on one of the defined routes then access
+will be allowed. 
+Any pod which attempts to connect and is not in the defined list of sources will be denied.
+Any pod which is in the defined list but attempts to connect on a route which is not in the list of Twill be denied.
 
-This object defines access control on a pod basis. The selector matches across
-labels in the current namespace. This is either directly with `matchLabels` or
-as an expression with `matchExpressions`.
+Access is controlled based on service identity, at present the method of assigning service identity is using Kubernetes Service accounts,
+provision for other identity mechanisms will be handled by the spec at a later date.
 
-Rules are [traffic specs](traffic-specs.md) that define what traffic for
+Specs are [traffic specs](traffic-specs.md) that define what traffic for
 specific protocols would look like. The kind can be different depending on what
 traffic a target is serving. In the following examples, `HTTPRouteGroup` is used for
 applications serving HTTP based traffic.
@@ -48,143 +50,119 @@ common use case to restrict access to `/metrics` to only be scraped by
 Prometheus. To define the target for this traffic, it takes a `TrafficTarget`.
 
 ```yaml
+---
 kind: TrafficTarget
 apiVersion: access.smi-spec.io/v1alpha1
 metadata:
-  name: path-specific
-  namespace: default
-selector:
-  matchLabels:
-    app: foo
-port: 8080
-rules:
+ name: path-specific
+ namespace: default
+destination:
+ kind: ServiceAccount
+ name: service-a
+ namespace: default
+ port: 8080
+specs:
 - kind: HTTPRouteGroup
   name: the-routes
-  namespace: default
   matches:
-  - metrics
+    - metrics
+sources:
+- kind: ServiceAccount
+  name: prometheus
+  namespace: default
 ```
 
-This example selects all the pods with `app: foo` as a label. For traffic
-destined to port 8080 on these pods, `/metrics` is allowed. The `matches` field
+This example selects all the pods which have the `service-a` `ServiceAccount`. Traffic
+destined on a path `/metrics` is allowed. The `matches` field
 is optional and if omitted, a rule is valid for all the matches in a traffic
 spec (a OR relationship).
+It is possible for a service to expose multiple ports, the `port` field allows the 
+user to specify specifically which port traffic should be allowed on. `port` is an optional
+element, if not specified, traffic will be allowed to all ports on the destination service.
 
-Note: access control is *always* enforced on the *server* side of a connection
+Allowing destination traffic should only be possible with permission of the 
+service owner. Therefore, RBAC rules should be configured to control the pods
+which are allowed to assign the `ServiceAccount` defined in the TrafficTarget destination.
+
+**Note:** access control is *always* enforced on the *server* side of a connection
 (or the target). It is up to implementations to decide whether they would also
 like to enforce access control on the *client* (or source) side of the
 connection as well.
 
-### IdentityBinding
-
-A `IdentityBinding` grants access for a specific identity to the rules in a
-TrafficTarget. It holds a list of subjects (service accounts for now) and a
-reference to the traffic target defining what has been granted. 
-
-```yaml
-kind: IdentityBinding
-apiVersion: access.smi-spec.io/v1alpha1
-metadata:
-  name: account-specific
-  namespace: default
-subjects:
-- kind: ServiceAccount
-  name: bar
-  namespace: default
-targetRef:
-  kind: TrafficTarget
-  name: path-specific
-  namespace: default
-```
-
-This example grants the ability to access the `/metrics` route to any client
-providing the identity `bar`, based on a ServiceAccount.
-
-As access control is additive, it is important to provide definitions that allow
-non-authenticated traffic access. Imagine rolling a service mesh out
-incrementally. Traffic should not, necessarily, be blocked if a client is
-unauthenticated. In this world, groups are important as a source of
-identity.
-
-```yaml
-kind: IdentityBinding
-apiVersion: access.smi-spec.io/v1alpha1
-metadata:
-  name: account-specific
-  namespace: default
-subjects:
-- kind: Group
-  name: system:unauthenticated
-targetRef:
-  kind: TrafficTarget
-  name: path-specific
-  namespace: default
-```
-
-This example allows any unauthenticated client access to the rules defined in
-the `path-specific` TrafficTarget. Groups are more flexible than just
-unauthenticated users. Kubernetes defines many groups by default,
-`system:unauthenticated` just happens to be one of these.
-
-### ClusterTrafficTarget
-
-A `ClusterTrafficTarget` allows policy to be applied to targets that live in
-multiple namespaces. This is primarily useful to system wide endpoints such as
-metrics or health checks.
-
-```yaml
-kind: ClusterTrafficTarget
-apiVersion: v1beta1
-metadata:
-  name: metrics-scrape
-selector:
-  matchExpressions:
-  - !protected
-port: 8080
-rules:
-- kind: HTTPRoutes
-  name: the-routes
-  namespace: prometheus
-  matches:
-  - metrics
-```
-
-This example uses the `HTTPRoutes` definition from
-[TrafficTarget](#TrafficTarget) and matches all pods that do *not* contain the
-protected label.
-
-### ClusterIdentityBinding
-
-A `ClusterIdentityBinding` grants access for a specific identity, originating in
-a specific namespace, to a ClusterTrafficTarget associated with pods in any
-namespace. 
-
-```yaml
-kind: ClusterIdentityBinding
-apiVersion: v1beta1
-metadata:
-  name: metrics-scrape
-  namespace: default
-subjects:
-- kind: ServiceAccount
-  name: prometheus
-  namespace: prometheus
-targetRef:
-  kind: ClusterTrafficTarget
-  name: metrics-scrape
-  namespace: default
-```
-
-Continuing with the Prometheus example from above, it is possible to have a
-IdentityBinding that grants a specific system service access to an endpoint on
-every pod in the cluster.
-
-Combined with groups, these identity bindings allow users to provide default
-allow-all policies.
+Source identities which are allowed to connect to the destination is defined in the sources list.
+Only pods which have a `ServiceAccount` which is named in the sources list are allowed to connect
+to the destination.
 
 ## Example Implementation
 
-TODO ...
+The following implementation shows four services api, website, payment and prometheus, it shows how it is possible
+to write fine grained TrafficTargets which allow access to be controlled by route and source.
+
+```yaml
+apiVersion: specs.smi-spec.io/v1alpha1
+kind: HTTPRouteGroup
+metadata:
+  name: api-service-routes
+matches:
+  - name: api
+    pathRegex: /api
+    methods: ["*"]
+  - name: metrics
+    pathRegex: /metrics
+    methods: ["GET"]
+
+---
+kind: TrafficTarget
+apiVersion: access.smi-spec.io/v1alpha1
+metadata:
+ name: api-service-metrics
+ namespace: default
+destination:
+ kind: ServiceAccount
+ name: api-service
+ namespace: default
+specs:
+- kind: HTTPRouteGroup
+  name: api-service-routes
+  matches:
+    - metrics
+sources:
+- kind: ServiceAccount
+  name: prometheus
+  namespace: default
+
+---
+kind: TrafficTarget
+apiVersion: access.smi-spec.io/v1alpha1
+metadata:
+ name: api-service-api
+ namespace: default
+destination:
+ kind: ServiceAccount
+ name: api-service
+ namespace: default
+ port: 8080
+specs:
+- kind: HTTPRouteGroup
+  name: api-service-routes
+  matches:
+    - api
+sources:
+- kind: ServiceAccount
+  name: website-service
+  namespace: default
+- kind: ServiceAccount
+  name: payments-service
+  namespace: default
+```
+
+The previous example would allow the following HTTP traffic:
+
+| source            | destination   | path     | method |
+| ------ ---------- | ------------- | -------- | ------ |
+| website-service   | api-service   | /api     | *      |
+| payments-service  | api-service   | /api     | *      |
+| prometheus        | api-service   | /metrics | GET    |
 
 ## Tradeoffs
 
@@ -194,13 +172,12 @@ TODO ...
 
 * Resources vs selectors - it would be possible to reference concrete resources
   such as a deployment instead of selecting across pods.
-  * As this access control is on the destination (server) side, implicitly
-    matching pods via their ownership becomes a little confusing to users.
-  * Referencing concrete resources complicates canary rollouts as it is
-    recommended to use multiple deployments to implement a canary rollout.
-  * With access control being additive, object references are difficult to use
-    when creating allow all policies and break down quickly in this
-    environment.
+
+* As this access control is on the destination (server) side, implicitly
+
+* Currently the specification does not have provision for the definition of 
+  higher level elements such as a service. It is probable that this specification
+  will change once these elements are defined.
 
 ## Out of scope
 
@@ -221,15 +198,3 @@ TODO ...
 * Other types of identity - there is room to expand the `kind` accepted for
   subjects in IdentityBinding to other types of identity. This needs further
   definition to explain use cases and implementation.
-
-## Open Questions
-
-* Why include namespace in the reference *and* role? Is there any reason a user
-  would create a role in one namespace that references another?
-
-* Namespaces should *not* be possible to define on `TrafficRole` for resource
-  references but are required for `ClusterTrafficRole`. Is it okay only allow
-  this key in `ClusterTrafficRole` references?
-
-* I'm not sure `kind: pod` and `name: *` is the best solution for generic allow
-  policies. Is there a better way to do it? `kind: *` feels wrong as well.
