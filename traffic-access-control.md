@@ -159,7 +159,7 @@ sources:
 The previous example would allow the following HTTP traffic:
 
 | source            | destination   | path     | method |
-| ------ ---------- | ------------- | -------- | ------ |
+| ----------------- | ------------- | -------- | ------ |
 | website-service   | api-service   | /api     | *      |
 | payments-service  | api-service   | /api     | *      |
 | prometheus        | api-service   | /metrics | GET    |
