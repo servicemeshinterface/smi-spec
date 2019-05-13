@@ -17,7 +17,7 @@ A `TrafficTarget` associates a set of traffic definitions (rules) with a service
 If a pod which holds the referenced service identity makes a call to the destination on one of the defined routes then access
 will be allowed. 
 Any pod which attempts to connect and is not in the defined list of sources will be denied.
-Any pod which is in the defined list but attempts to connect on a route which is not in the list of Twill be denied.
+Any pod which is in the defined list but attempts to connect on a route which is not in the list of TrafficSpecs will be denied.
 
 Access is controlled based on service identity, at present the method of assigning service identity is using Kubernetes Service accounts,
 provision for other identity mechanisms will be handled by the spec at a later date.
