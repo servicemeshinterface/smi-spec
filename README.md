@@ -65,7 +65,7 @@ Service Mesh, those definitions will migrate into the SMI specification.
 #general Slack channel for related discussion in the
 [SMI Slack](http://smi-spec.slack.com).
 
-If you are not yet a member of the SMI Slack you may sign up [here](aka.ms/smi/slack).
+If you are not yet a member of the SMI Slack you may sign up [here](https://aka.ms/smi/slack).
 
 ### Contributing
 
