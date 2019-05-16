@@ -58,3 +58,18 @@ useful subset. If SMI providers want to add provider specific extensions and
 APIs beyond the SMI spec, they are welcome to do so We expect that, over time,
 as more functionality becomes commonly accepted as part of what it means to be a
 Service Mesh, those definitions will migrate into the SMI specification.
+
+## Communications
+
+### Slack Channel
+#general Slack channel for related discussion in the
+[SMI Slack](http://smi-spec.slack.com).
+
+If you are not yet a member of the SMI Slack you may sign up [here](https://aka.ms/smi/slack).
+
+### Contributing
+
+Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for more information on contributing to the specification.
+
+### License
+The specification is licensed under [OWF Contributor License Agreement 1.0 - Copyright and Patent](http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owf-contributor-license-agreement-1-0---copyright-and-patent) in the [LICENSE](./LICENSE) file.
