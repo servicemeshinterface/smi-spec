@@ -12,20 +12,23 @@ default. See [tradeoffs](#tradeoffs) for a longer discussion about why.
 
 ### TrafficTarget
 
-A `TrafficTarget` associates a set of traffic definitions (rules) with a service identity which is allocated to a group of pods.
-, access is controlled via referenced TrafficSpecs and by a list of source service identities.
-If a pod which holds the referenced service identity makes a call to the destination on one of the defined routes then access
-will be allowed. 
-Any pod which attempts to connect and is not in the defined list of sources will be denied.
-Any pod which is in the defined list but attempts to connect on a route which is not in the list of TrafficSpecs will be denied.
+A `TrafficTarget` associates a set of traffic definitions (rules) with a
+service identity which is allocated to a group of pods.  Access is controlled
+via referenced TrafficSpecs and by a list of source service identities.  If a
+pod which holds the referenced service identity makes a call to the destination
+on one of the defined routes then access will be allowed.  Any pod which
+attempts to connect and is not in the defined list of sources will be denied.
+Any pod which is in the defined list but attempts to connect on a route which
+is not in the list of TrafficSpecs will be denied.
 
-Access is controlled based on service identity, at present the method of assigning service identity is using Kubernetes Service accounts,
-provision for other identity mechanisms will be handled by the spec at a later date.
+Access is controlled based on service identity, at present the method of
+assigning service identity is using Kubernetes service accounts, provision for
+other identity mechanisms will be handled by the spec at a later date.
 
 Specs are [traffic specs](traffic-specs.md) that define what traffic for
 specific protocols would look like. The kind can be different depending on what
-traffic a target is serving. In the following examples, `HTTPRouteGroup` is used for
-applications serving HTTP based traffic.
+traffic a target is serving. In the following examples, `HTTPRouteGroup` is
+used for applications serving HTTP based traffic.
 
 To understand how this all fits together, first define the routes for some
 traffic.
@@ -72,31 +75,33 @@ sources:
   namespace: default
 ```
 
-This example selects all the pods which have the `service-a` `ServiceAccount`. Traffic
-destined on a path `/metrics` is allowed. The `matches` field
-is optional and if omitted, a rule is valid for all the matches in a traffic
-spec (a OR relationship).
-It is possible for a service to expose multiple ports, the `port` field allows the 
-user to specify specifically which port traffic should be allowed on. `port` is an optional
-element, if not specified, traffic will be allowed to all ports on the destination service.
+This example selects all the pods which have the `service-a` `ServiceAccount`.
+Traffic destined on a path `/metrics` is allowed. The `matches` field is
+optional and if omitted, a rule is valid for all the matches in a traffic spec
+(a OR relationship).  It is possible for a service to expose multiple ports,
+the `port` field allows the user to specify specifically which port traffic
+should be allowed on. `port` is an optional element, if not specified, traffic
+will be allowed to all ports on the destination service.
 
-Allowing destination traffic should only be possible with permission of the 
+Allowing destination traffic should only be possible with permission of the
 service owner. Therefore, RBAC rules should be configured to control the pods
-which are allowed to assign the `ServiceAccount` defined in the TrafficTarget destination.
+which are allowed to assign the `ServiceAccount` defined in the TrafficTarget
+destination.
 
-**Note:** access control is *always* enforced on the *server* side of a connection
-(or the target). It is up to implementations to decide whether they would also
-like to enforce access control on the *client* (or source) side of the
-connection as well.
+**Note:** access control is *always* enforced on the *server* side of a
+connection (or the target). It is up to implementations to decide whether they
+would also like to enforce access control on the *client* (or source) side of
+the connection as well.
 
-Source identities which are allowed to connect to the destination is defined in the sources list.
-Only pods which have a `ServiceAccount` which is named in the sources list are allowed to connect
-to the destination.
+Source identities which are allowed to connect to the destination is defined in
+the sources list.  Only pods which have a `ServiceAccount` which is named in
+the sources list are allowed to connect to the destination.
 
 ## Example Implementation
 
-The following implementation shows four services api, website, payment and prometheus, it shows how it is possible
-to write fine grained TrafficTargets which allow access to be controlled by route and source.
+The following implementation shows four services api, website, payment and
+prometheus. It shows how it is possible to write fine grained TrafficTargets
+which allow access to be controlled by route and source.
 
 ```yaml
 apiVersion: specs.smi-spec.io/v1alpha1

@@ -1,8 +1,9 @@
 ## Traffic Spec
 
 This set of resources allows users to specify how their traffic looks. It is
-used in concert with access control and other policies to concretely define what
-should happen to specific types of traffic as it flows through the mesh.
+used in concert with [access control](traffic-access-control.md) and other
+policies to concretely define what should happen to specific types of traffic
+as it flows through the mesh.
 
 There are many different protocols that users would like to have be part of a
 mesh. Right now, this is primarily HTTP, but it is possible to imagine a world

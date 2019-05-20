@@ -1,3 +1,5 @@
+![SMI Logo](./images/smi-banner.png)
+
 ## Service Mesh Interface
 
 The Service Mesh Interface (SMI) is a specification for service meshes that run
@@ -8,12 +10,12 @@ interoperability.
 
 This specification consists of multiple APIs:
 
-* [Traffic Specs](traffic-specs.md) - define how traffic looks on a per-protocol
-  basis. These resources work in concert with access control and other types of
-  policy to manage traffic at a protocol level.
 * [Traffic Access Control](traffic-access-control.md) - configure access to specific
   pods and routes based on the identity of a client for locking down
   applications to only allowed users and services.
+* [Traffic Specs](traffic-specs.md) - define how traffic looks on a per-protocol
+  basis. These resources work in concert with access control and other types of
+  policy to manage traffic at a protocol level.
 * [Traffic Split](traffic-split.md) - incrementally direct percentages of
   traffic between various services to assist in building out canary rollouts.
 * [Traffic Metrics](traffic-metrics.md) - expose common traffic metrics for use
@@ -25,6 +27,23 @@ See the individual documents for the details. Each document outlines:
 * Possible use cases
 * Example implementations
 * Tradeoffs
+
+### Goals
+
+The goal of the SMI API is to provide a common, portable set of Service Mesh
+APIs which a Kubernetes user can use in a provider agnostic manner. In this way
+people can define applications that use Service Mesh technology without tightly
+binding to any specific implementation.
+
+### Non-Goals
+
+It is a non-goal for the SMI project to implement a service mesh itself. It
+merely attempts to define the common specification. Likewise it is a non-goal to
+define the extent of what it means to be a Service Mesh, but rather a generally
+useful subset. If SMI providers want to add provider specific extensions and
+APIs beyond the SMI spec, they are welcome to do so. We expect that, over time,
+as more functionality becomes commonly accepted as part of what it means to be a
+Service Mesh, those definitions will migrate into the SMI specification.
 
 ### Technical Overview
 
@@ -42,22 +61,6 @@ from internal types to those the API expects to return.
 This approach to pluggable interfaces is similar to other core Kubernetes APIs
 like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 
-### Goals
-
-The goal of the SMI API is to provide a common, portable set of Service Mesh
-APIs which a Kubernetes user can use in a provider agnostic manner. In this way
-people can define applications that use Service Mesh technology without tightly
-binding to any specific implementation.
-
-### Non-Goals
-
-It is a non-goal for the SMI project to implement a service mesh itself. It
-merely attempts to define the common specification. Likewise it is a non-goal to
-define the extent of what it means to be a Service Mesh, but rather a generally
-useful subset. If SMI providers want to add provider specific extensions and
-APIs beyond the SMI spec, they are welcome to do so We expect that, over time,
-as more functionality becomes commonly accepted as part of what it means to be a
-Service Mesh, those definitions will migrate into the SMI specification.
 
 ## Communications
 
