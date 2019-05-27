@@ -44,7 +44,7 @@ associated with applications serving traffic.
 
 The `matches` field only applies to URIs. It is common to look at other parts of
 an HTTP request. This behaviour is not yet defined; however, the spec will be
-extended at a later date to accommodate capabilities such as HTTP header, 
+extended at a later date to accommodate capabilities such as HTTP header,
 Host, etc.
 
 ```yaml
@@ -59,14 +59,14 @@ matches:
   methods: ["*"]
 ```
 
-This example defines a single route that matches anything. 
+This example defines a single route that matches anything.
 
 ### TCPRoute
 
 This resource is used to describe L4 TCP traffic. It is a simple route which configures
 an application to receive raw non protocol specific traffic.
 
-```
+```yaml
 apiVersion: specs.smi-spec.io/v1alpha1
 kind: TCPRoute
 metadata:
