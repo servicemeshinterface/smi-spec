@@ -57,18 +57,18 @@ Prometheus. To define the target for this traffic, it takes a `TrafficTarget`.
 kind: TrafficTarget
 apiVersion: access.smi-spec.io/v1alpha1
 metadata:
- name: path-specific
- namespace: default
+  name: path-specific
+  namespace: default
 destination:
- kind: ServiceAccount
- name: service-a
- namespace: default
- port: 8080
+  kind: ServiceAccount
+  name: service-a
+  namespace: default
+  port: 8080
 specs:
 - kind: HTTPRouteGroup
   name: the-routes
   matches:
-    - metrics
+  - metrics
 sources:
 - kind: ServiceAccount
   name: prometheus
@@ -109,28 +109,28 @@ kind: HTTPRouteGroup
 metadata:
   name: api-service-routes
 matches:
-  - name: api
-    pathRegex: /api
-    methods: ["*"]
-  - name: metrics
-    pathRegex: /metrics
-    methods: ["GET"]
+- name: api
+  pathRegex: /api
+  methods: ["*"]
+- name: metrics
+  pathRegex: /metrics
+  methods: ["GET"]
 
 ---
 kind: TrafficTarget
 apiVersion: access.smi-spec.io/v1alpha1
 metadata:
- name: api-service-metrics
- namespace: default
+  name: api-service-metrics
+  namespace: default
 destination:
- kind: ServiceAccount
- name: api-service
- namespace: default
+  kind: ServiceAccount
+  name: api-service
+  namespace: default
 specs:
 - kind: HTTPRouteGroup
   name: api-service-routes
   matches:
-    - metrics
+  - metrics
 sources:
 - kind: ServiceAccount
   name: prometheus
@@ -140,18 +140,18 @@ sources:
 kind: TrafficTarget
 apiVersion: access.smi-spec.io/v1alpha1
 metadata:
- name: api-service-api
- namespace: default
+  name: api-service-api
+  namespace: default
 destination:
- kind: ServiceAccount
- name: api-service
- namespace: default
- port: 8080
+  kind: ServiceAccount
+  name: api-service
+  namespace: default
+  port: 8080
 specs:
 - kind: HTTPRouteGroup
   name: api-service-routes
   matches:
-    - api
+  - api
 sources:
 - kind: ServiceAccount
   name: website-service
@@ -180,7 +180,7 @@ The previous example would allow the following HTTP traffic:
 
 * As this access control is on the destination (server) side, implicitly
 
-* Currently the specification does not have provision for the definition of 
+* Currently the specification does not have provision for the definition of
   higher level elements such as a service. It is probable that this specification
   will change once these elements are defined.
 
