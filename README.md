@@ -65,6 +65,7 @@ like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 ## Communications
 
 ### Slack Channel
+
 #general Slack channel for related discussion in the
 [SMI Slack](http://smi-spec.slack.com).
 
