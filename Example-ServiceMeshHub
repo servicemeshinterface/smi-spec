@@ -1,0 +1,58 @@
+#Service Mesh Hub by Solo.io#
+
+The Service Mesh Hub is a mesh agnostic dashboard that implements the SMI specification for users to install and operate meshes. A read only version of the Service Mesh Hub can be found on https://servicemeshhub.io
+
+Service Mesh Hub does
+* Built-in installers for different meshes
+* Automatically discovers existing meshes, their configurations, running services / extensions and registers them to the Hub to manage
+* Install and manage meshes and mesh extensions  
+* Extensions tab has ecosystem tools for service mesh environments. Users can also build their own extenstions
+* Demos Tab has demo apps for trying out mesh use cases
+
+##Instructions to install Service Mesh Hub##
+Install Service Mesh Hub on your kubernetes cluster by running the following command:
+```
+$ kubectl apply -f https://raw.githubusercontent.com/solo-io/service-mesh-hub/master/install/service-mesh-hub.yaml
+```
+
+This will install the hub into the `sm-marketplace` namespace. Once the pods are running, you can open the hub by port forwarding:
+```
+$ kubectl port-forward -n sm-marketplace deploy/smm-apiserver 8080
+```
+
+Then navigate your browser to: 
+```localhost:8080```
+
+
+##Contribute Service Mesh Extensions to the Hub##
+
+Contributions to the Service Mesh Hub come in the form of extension specs. The structure of the v1 Gloo extension is below
+
+gloo
+├── description.md
+├── overlays
+│   ├── supergloo
+│   │   ├── kustomization.yaml
+│   │   └── mesh-ingress.yaml
+│   └── vanilla
+│       ├── custom-resources.yaml
+│       └── kustomization.yaml
+├── spec.yaml
+└── test
+    ├── gloo_suite_test.go
+    └── gloo_test.go
+
+Extensions have four main sections
+1. description.md * the long description of an extension, rendered on the extension’s install page 
+1. overlays * kustomization style yaml which can be applied to an extension manifest after it has been rendered 
+1. spec.yaml * the main application spec for a given extension 
+1. test * unit tests to check the correctness of a given application spec.
+
+Instructions on authoring extensions  [here](https://docs.servicemeshhub.io/contributing/extensions/)
+
+##More Info##
+
+ * [Community Slack](https://slack.solo.io) #Service-Mesh-Hub Slack channel for related discussion
+ * [Website](https://www.solo.io)
+ * [Demo Video](https://www.youtube.com/watch?v=4ePBXG1UuCI&t=122s)
+ 
