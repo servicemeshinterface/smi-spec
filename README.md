@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD041 -->
 ![SMI Logo](./images/smi-banner.png)
 
 ## Service Mesh Interface
@@ -61,18 +62,21 @@ from internal types to those the API expects to return.
 This approach to pluggable interfaces is similar to other core Kubernetes APIs
 like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 
-
 ## Communications
 
 ### Slack Channel
-#general Slack channel for related discussion in the
-[SMI Slack](http://smi-spec.slack.com).
 
-If you are not yet a member of the SMI Slack you may sign up [here](https://aka.ms/smi/slack).
+If you are not yet a member of the SMI Slack you may sign up
+[here](https://aka.ms/smi/slack).
 
-### Contributing
+## Contributing
 
-Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for more information on contributing to the specification.
+Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for more information on
+contributing to the specification.
 
-### License
-The specification is licensed under [OWF Contributor License Agreement 1.0 - Copyright and Patent](http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owf-contributor-license-agreement-1-0---copyright-and-patent) in the [LICENSE](./LICENSE) file.
+## License
+
+The specification is licensed under [OWF Contributor License Agreement 1.0 -
+Copyright and
+Patent](http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owf-contributor-license-agreement-1-0---copyright-and-patent)
+in the [LICENSE](./LICENSE) file.

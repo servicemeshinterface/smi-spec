@@ -1,4 +1,4 @@
-## Traffic Metrics
+# Traffic Metrics
 
 This resource provides a common integration point for tools that can benefit by
 consuming metrics related to HTTP traffic. It follows the pattern of

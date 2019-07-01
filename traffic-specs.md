@@ -1,4 +1,4 @@
-## Traffic Spec
+# Traffic Spec
 
 This set of resources allows users to specify how their traffic looks. It is
 used in concert with [access control](traffic-access-control.md) and other
