@@ -1,6 +1,6 @@
 #Service Mesh Hub by Solo.io#
 
-The Service Mesh Hub is an example of an implementation of the SMI Specification.
+The Service Mesh Hub is an example integration of the SMI Specification.
 Service Mesh Hub is a mesh agnostic dashboard to install and operate meshes. A read only version of the Service Mesh Hub can be found on https://servicemeshhub.io
 
 Service Mesh Hub does:
