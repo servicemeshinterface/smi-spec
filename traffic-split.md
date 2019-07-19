@@ -1,4 +1,4 @@
-## Traffic Split
+# Traffic Split
 
 This resource allows users to incrementally direct percentages of traffic
 between various services. It will be used by *clients* such as ingress
@@ -324,8 +324,8 @@ Assume a `TrafficSplit` object that looks like:
 When a new `TrafficSplit` object is created, it instantiates the following Kubernetes
 objects:
 
-    * Service who's name is the same as `spec.service` in the TrafficSplit (`web`)
-    * A Deployment running `nginx` which has labels that match the Service
+* Service who's name is the same as `spec.service` in the TrafficSplit (`web`)
+* A Deployment running `nginx` which has labels that match the Service
 
 The nginx layer serves as an HTTP(s) layer which implements the canary. In
 particular the nginx config looks like:

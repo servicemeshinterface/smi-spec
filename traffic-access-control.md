@@ -1,4 +1,4 @@
-## Traffic Access Control
+# Traffic Access Control
 
 This set of resources allows users to define access control policy for their
 applications. It is the *authorization* side of the picture. Authentication
