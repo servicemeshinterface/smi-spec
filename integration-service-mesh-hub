@@ -7,11 +7,11 @@ Service Mesh Hub does:
 * Built-in installers for different meshes
 * Automatically discovers existing meshes, their configurations, running services / extensions and registers them to the Hub to manage
 * Install and manage meshes and mesh extensions  
-* Extensions tab has ecosystem tools for service mesh environments. Users can also build their own extenstions
+* Extensions Tab has ecosystem tools for service mesh environments. Users can also build their own extenstions
 * Demos Tab has demo apps for trying out mesh use cases
 
 ##Instructions to install Service Mesh Hub##
-Install Service Mesh Hub on a kubernetes cluster with the command:
+Install Service Mesh Hub on any Kubernetes cluster with the command:
 ```
 kubectl apply -f https://raw.githubusercontent.com/solo-io/service-mesh-hub/master/install/service-mesh-hub.yaml```
 
