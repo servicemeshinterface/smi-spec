@@ -5,6 +5,6 @@ HAS_MDLINT := $(shell command -v markdownlint;)
 lint:
 	@# lint the markdown
 ifndef HAS_MDLINT
-	npm install -g markdownlint-cli
+	sudo npm install -g markdownlint-cli
 endif
 	markdownlint -c .markdownlint.yaml .
