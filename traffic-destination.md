@@ -1,9 +1,12 @@
 # Traffic Destination
 Allows the configuration of routable Virtual Services 
 
+## Destination Rule - Istio
+
 ## Specification
 
 ```
+
 apiVersion: destination.smi-spec.io/v1alpha1
 kind: TrafficDestination
 metadata:
@@ -77,6 +80,17 @@ Simple load balancing has 4 different options for the type of LoadBalancer to be
 loadBalancer:
   simple: ROUND_ROBIN
 ```
+kind           = "service-resolver"
+name           = "web"
+default_subset = "v1"
+subsets = {
+  "v1" = {
+    filter = "Service.Meta.version == v1"
+  }
+  "v2" = {
+    filter = "Service.Meta.version == v2"
+  }
+}
 
 * ROUND_ROBIN - Requests are distributed to hosts on a round robin basis
 * LEAST_CONN - Requests are distributed to the host which currently has the lowest number of connections (There is implementation specific behaviour here)
@@ -84,6 +98,8 @@ loadBalancer:
 
 #### ConsistentHash
 ConsistentHash load balancing allows sophisticated routing based on data provided in the request. Examples of use for ConsistentHash include:
+connect_timeout = "15s"
+failover = {
 
 * Sticky sessions - a request should always be sent to the same host
 * Load balancing cache servers - Horizontal scale of cache servers like Elasticache or Redis, is generally performed by sharding data across each of the instances. In order to ensure that the data is 
