@@ -19,7 +19,7 @@ configuration would continue to operate.
 
 Implementations will weight outgoing traffic between the services referenced by
 `spec.backends`. Each backend is a Kubernetes service that potentially has a
-different selector and type.
+different selector and type. Weights must be whole numbers.
 
 ## Specification
 
@@ -27,19 +27,16 @@ different selector and type.
 apiVersion: split.smi-spec.io/v1alpha1
 kind: TrafficSplit
 metadata:
-  name: my-weights
+  name: my-trafficsplit
 spec:
   # The root service that clients use to connect to the destination application.
-  service: numbers
+  service: my-website
   # Services inside the namespace with their own selectors, endpoints and configuration.
   backends:
-  - service: one
-    # Identical to resources, 1 = 1000m
-    weight: 10m
-  - service: two
-    weight: 100m
-  - service: three
-    weight: 1500m
+  - service: my-website-v1
+    weight: 50
+  - service: my-website-v2
+    weight: 50
 ```
 
 ### Ports
@@ -181,9 +178,9 @@ In order to update an application, the user will perform the following actions:
       service: foobar
       backends:
       - service: foobar-v1
-        weight: 1
+        weight: 100
       - service: foobar-v2
-        weight: 0m
+        weight: 0
     ```
 
     **Note**: The `TrafficSplit` resource above refers to the service
@@ -214,9 +211,9 @@ At this point, the SMI implementation does not redirect any traffic to
       service: foobar
       backends:
       - service: foobar-v1
-        weight: 1
+        weight: 1000
       - service: foobar-v2
-        weight: 500m
+        weight: 500
     ```
 
     At this point, the SMI implementation redirects approximately 33% of
@@ -277,9 +274,9 @@ At this point, the SMI implementation does not redirect any traffic to
       service: foobar
       backends:
       - service: foobar-next
-        weight: 100m
+        weight: 100
       - service: foobar
-        weight: 900m
+        weight: 900
     ```
 
     In this example, 90% of traffic would be sent to the `foobar` service. As
@@ -316,9 +313,9 @@ Assume a `TrafficSplit` object that looks like:
       service: web
       backends:
       - service: web-next
-        weight: 100m
+        weight: 100
       - service: web-current
-        weight: 900m
+        weight: 900
 ```
 
 When a new `TrafficSplit` object is created, it instantiates the following Kubernetes
