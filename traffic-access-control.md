@@ -73,6 +73,49 @@ sources:
 - kind: ServiceAccount
   name: prometheus
   namespace: default
+- kind: Service
+  name: foo.mesh
+- kind: Service
+  name: bar.mesh
+- kind: Service
+  name: baz.mesh
+```
+
+```yaml
+# Register a service 'foo.mesh'
+# The service is sesolvable by DNS
+apiVersion: specs.smi-spec.io/v1alpha1
+kind: Service
+metadata:
+  name: foo.mesh
+spec:
+  type: DNS
+```
+
+```yaml
+# Register a service already existing within the Kubernetes cluster
+apiVersion: specs.smi-spec.io/v1alpha1
+kind: Service
+metadata:
+  name: bar.mesh
+spec:
+  type: Kubernetes
+  cluster: aks-4d61b17c.hcp.westus2.azmk8s.io
+  locator: /namespace/default/service/bar
+```
+
+```yaml
+# Register a service consisting of a specific cloud vendor's component
+# Members of the service (IP addresses) are resolvable by querying the
+# particular cloud provider (type) for the given resource (locator)
+apiVersion: specs.smi-spec.io/v1alpha1
+kind: Service
+metadata:
+  name: baz.mesh
+spec:
+  type: Azure
+  locator: /resource/subscriptions/e3f0/resourceGroups/mesh-rg/providers/Microsoft.Compute/virtualMachineScaleSets/baz
+  port: 7654
 ```
 
 This example selects all the pods which have the `service-a` `ServiceAccount`.
