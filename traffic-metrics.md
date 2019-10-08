@@ -308,7 +308,7 @@ $ kubectl traffic topology deployment
 Implementation of this command would require multiple queries, one to get the
 list of all deployments and another to get the edges for each of those
 deployments. While this example shows command line usage, it should be
-possible dashboards such as Kiali entirely on top of this API.
+possible for dashboards such as Kiali to be built entirely on top of this API.
 
 ## RBAC
 
