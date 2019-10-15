@@ -122,9 +122,8 @@ edge:
 ```
 
 Finally, `resource` can be as general or specific as desired. For example, with
-a `direction` of `to` and an empty `resource`, the metrics are observed *at*
-the `foo-775b9cbd88-ntxsl` pod and represent all traffic *to* the
-`foo-775b9cbd88-ntxsl` pod.
+a `direction` of `to` and an empty `resource`, the metrics represent all the 
+traffic received by the `foo-775b9cbd88-ntxsl` pod.
 
 ```yaml
 resource:
