@@ -1,4 +1,4 @@
-# Traffic Metrics
+# Traffic Metrics `v1alpha1`
 
 This resource provides a common integration point for tools that can benefit by
 consuming metrics related to HTTP traffic. It follows the pattern of
@@ -205,13 +205,13 @@ The `traffic.metrics.k8s.io` API will be exposed via a `APIService`:
 apiVersion: apiregistration.k8s.io/v1
 kind: APIService
 metadata:
-  name: v1beta1.metrics.smi-spec.io
+  name: v1alpha1.metrics.smi-spec.io
 spec:
   group: metrics.smi-spec.io/v1alpha1
   service:
     name: mesh-metrics
     namespace: default
-  version: v1beta1
+  version: v1alpha1
 ```
 
 The default response, or requesting `/apis/metrics.smi-spec.io/v1alpha1/`

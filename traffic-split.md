@@ -1,4 +1,4 @@
-# Traffic Split
+# Traffic Split `v1alpha2`
 
 This resource allows users to incrementally direct percentages of traffic
 between various services. It will be used by *clients* such as ingress
@@ -24,7 +24,7 @@ different selector and type. Weights must be whole numbers.
 ## Specification
 
 ```yaml
-apiVersion: split.smi-spec.io/v1alpha1
+apiVersion: split.smi-spec.io/v1alpha2
 kind: TrafficSplit
 metadata:
   name: my-trafficsplit
@@ -170,7 +170,7 @@ In order to update an application, the user will perform the following actions:
 * Create a new traffic split named `foobar-rollout`, it will look like:
 
     ```yaml
-    apiVersion: split.smi-spec.io/v1alpha1
+    apiVersion: split.smi-spec.io/v1alpha2
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -203,7 +203,7 @@ At this point, the SMI implementation does not redirect any traffic to
   TrafficSplit resource:
 
     ```yaml
-    apiVersion: split.smi-spec.io/v1alpha1
+    apiVersion: split.smi-spec.io/v1alpha2
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -226,7 +226,7 @@ At this point, the SMI implementation does not redirect any traffic to
   new version by updating the TrafficSplit resource:
 
     ```yaml
-    apiVersion: split.smi-spec.io/v1alpha1
+    apiVersion: split.smi-spec.io/v1alpha2
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -266,7 +266,7 @@ At this point, the SMI implementation does not redirect any traffic to
 * TrafficSplits cannot be self-referential - consider the following definition:
 
     ```yaml
-    apiVersion: split.smi-spec.io/v1alpha1
+    apiVersion: split.smi-spec.io/v1alpha2
     kind: TrafficSplit
     metadata:
       name: my-split
@@ -305,7 +305,7 @@ object operates. It is not intended to prescribe a particular implementation.
 Assume a `TrafficSplit` object that looks like:
 
 ```yaml
-    apiVersion: split.smi-spec.io/v1alpha1
+    apiVersion: split.smi-spec.io/v1alpha2
     kind: TrafficSplit
     metadata:
       name: my-canary

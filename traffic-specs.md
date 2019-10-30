@@ -1,4 +1,4 @@
-# Traffic Spec
+# Traffic Spec `v1alpha1`
 
 This set of resources allows users to specify how their traffic looks. It is
 used in concert with [access control](traffic-access-control.md) and other
@@ -48,7 +48,7 @@ extended at a later date to accommodate capabilities such as HTTP header,
 Host, etc.
 
 ```yaml
-apiVersion: v1beta1
+apiVersion: v1alpha1
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
