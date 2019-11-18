@@ -10,7 +10,7 @@ default. See [tradeoffs](#tradeoffs) for a longer discussion about why.
 
 ## Specification
 
-### TrafficTarget
+### TrafficTarget `v1alpha1`
 
 A `TrafficTarget` associates a set of traffic definitions (rules) with a
 service identity which is allocated to a group of pods.  Access is controlled
@@ -34,7 +34,7 @@ To understand how this all fits together, first define the routes for some
 traffic.
 
 ```yaml
-apiVersion: v1beta1
+apiVersion: v1alpha1
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
