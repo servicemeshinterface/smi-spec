@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000px" height="1000px" viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch -->
+    <title>logo shorten</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="logo-shorten" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="3-x-3-diags" transform="translate(257.000000, 120.000000)" fill-rule="nonzero">
+            <path d="M24.953125,289.765625 L225.683594,490.496094" id="Path-4" stroke="#BCEDC4" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M24.953125,88.765625 L225.683594,289.496094" id="Path-4" stroke="#BCEDC4" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" transform="translate(125.318359, 189.130859) scale(-1, 1) translate(-125.318359, -189.130859) "></path>
+            <path d="M224.953125,89.765625 L425.683594,290.496094" id="Path-4" stroke="#BCEDC4" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" transform="translate(325.318359, 190.130859) scale(-1, 1) translate(-325.318359, -190.130859) "></path>
+            <path d="M224.953125,287.765625 L425.683594,488.496094" id="Path-4" stroke="#BCEDC4" stroke-width="40" stroke-linecap="round" stroke-linejoin="round" transform="translate(325.318359, 388.130859) scale(-1, 1) translate(-325.318359, -388.130859) "></path>
+            <circle id="Oval" fill="#42A7B6" cx="25" cy="89" r="25"></circle>
+            <circle id="Oval" fill="#42A7B6" cx="225" cy="89" r="25"></circle>
+            <circle id="Oval" fill="#42A7B6" cx="425" cy="89" r="25"></circle>
+            <circle id="Oval" fill="#42A7B6" cx="25" cy="289" r="25"></circle>
+            <circle id="Oval" fill="#42A7B6" cx="225" cy="289" r="25"></circle>
+            <circle id="Oval" fill="#42A7B6" cx="425" cy="289" r="25"></circle>
+            <circle id="Oval" fill="#42A7B6" cx="425" cy="489" r="25"></circle>
+            <circle id="Oval" fill="#42A7B6" cx="25" cy="489" r="25"></circle>
+            <rect id="Rectangle" stroke="#2A2DDE" stroke-width="70" fill="#2A2DDE" x="170" y="434" width="110" height="110"></rect>
+            <circle id="Oval" fill="#FFFFFF" cx="225" cy="489" r="25"></circle>
+            <circle id="Oval-3-Copy" stroke="#FB8143" stroke-width="65" fill="#FFFFFF" cx="425" cy="90" r="57.5"></circle>
+        </g>
+        <path d="M395.8975,888.625 C381.0625,888.625 371.8625,883.68 367.1475,879.54 C367.7225,873.56 370.8275,868.5 375.0825,865.855 C379.9125,869.765 387.6175,872.87 396.2425,872.87 C404.5225,872.87 407.7425,870.225 407.7425,866.2 C407.7425,862.405 405.9025,860.22 392.9075,856.885 C380.4875,853.895 369.5625,849.065 369.4475,834.23 C369.4475,820.085 380.7175,811 397.7375,811 C410.5025,811 419.0125,815.14 423.3825,818.59 C423.0375,823.88 420.1625,829.745 415.4475,832.505 C411.1925,829.515 404.7525,826.755 396.5875,826.755 C389.8025,826.755 386.1225,829.285 386.1225,832.735 C386.1225,836.415 387.7325,838.025 400.9575,841.245 C414.7575,844.695 424.1875,850.56 424.4175,863.785 C424.7625,879.77 413.6075,888.625 395.8975,888.625 Z M522.2825,812.38 C525.1575,812.38 527.9175,812.61 531.0225,813.185 L531.0225,886.785 C528.1475,887.245 525.7325,887.475 523.2025,887.475 C520.5575,887.475 518.2575,887.245 515.1525,886.785 L515.1525,851.135 L515.7275,840.325 L512.8525,848.72 L500.2025,880.575 C497.5575,880.92 495.2575,881.035 493.0725,881.035 C491.0025,881.035 488.7025,880.92 485.8275,880.575 L472.4875,848.605 L469.8425,841.59 L470.3025,851.135 L470.3025,886.785 C467.5425,887.245 464.6675,887.475 462.2525,887.475 C459.6075,887.475 457.4225,887.245 454.4325,886.785 L454.4325,813.3 C456.6175,812.725 459.3775,812.38 463.0575,812.38 C466.0475,812.38 469.1525,812.61 472.3725,813.07 L492.2675,858.61 L493.6475,862.29 L494.7975,858.61 L513.1975,813.07 C516.5325,812.61 518.4875,812.38 522.2825,812.38 Z M573.4575,887.475 C570.5825,887.475 567.7075,887.245 564.7175,886.785 L564.7175,813.07 C567.4775,812.495 570.2375,812.38 573.1125,812.38 C575.9875,812.38 578.7475,812.495 581.8525,813.07 L581.8525,886.785 C579.0925,887.245 576.3325,887.475 573.4575,887.475 Z" id="SMI" fill="#2A2DDE"></path>
+    </g>
+</svg>
