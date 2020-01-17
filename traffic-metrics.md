@@ -199,7 +199,7 @@ There are three different ways to get a TrafficMetricsList:
 
 ### Kubernetes API
 
-The `traffic.metrics.k8s.io` API will be exposed via a `APIService`:
+The `metrics.smi-spec.io` API will be exposed via a `APIService`:
 
 ```yaml
 apiVersion: apiregistration.k8s.io/v1
@@ -321,7 +321,7 @@ possible for dashboards such as Kiali to be built entirely on top of this API.
       name: traffic-metrics
     rules:
     - apiGroups:
-      - traffic.metrics.k8s.io
+      - metrics.smi-spec.io
       resources: ["*"]
       verbs: ["*"]
     ```
@@ -335,7 +335,7 @@ possible for dashboards such as Kiali to be built entirely on top of this API.
       name: traffic-metrics
     rules:
     - apiGroups:
-      - traffic.metrics.k8s.io
+      - metrics.smi-spec.io
       resources: ["pods/edges"]
       verbs: ["*"]
     ```
