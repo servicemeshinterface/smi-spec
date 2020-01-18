@@ -1,4 +1,4 @@
-# Traffic Spec `v1alpha1`
+# Traffic Spec `v1alpha2`
 
 This set of resources allows users to specify how their traffic looks. It is
 used in concert with [access control](traffic-access-control.md) and other
@@ -19,7 +19,7 @@ This resource is used to describe HTTP/1 and HTTP/2 traffic. It enumerates the
 routes that can be served by an application.
 
 ```yaml
-apiVersion: specs.smi-spec.io/v1alpha1
+apiVersion: specs.smi-spec.io/v1alpha2
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
@@ -42,13 +42,10 @@ These routes have not yet been associated with any resources. See
 [access control](traffic-access-control.md) for an example of how routes become
 associated with applications serving traffic.
 
-The `matches` field only applies to URIs. It is common to look at other parts of
-an HTTP request. This behaviour is not yet defined; however, the spec will be
-extended at a later date to accommodate capabilities such as HTTP header,
-Host, etc.
+The `matches` field only applies to URIs and HTTP headers.
 
 ```yaml
-apiVersion: v1alpha1
+apiVersion: specs.smi-spec.io/v1alpha2
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
@@ -60,6 +57,53 @@ matches:
 ```
 
 This example defines a single route that matches anything.
+
+### HTTP header filters
+
+A route definition can specify a list of HTTP header filters. The filters
+defined in a route group can be associated with a [traffic split](traffic-split.md)
+thus enabling traffic shifting for A/B testing scenarios.
+
+A HTTP filter is a key-value pair, the key is the name of the HTTP header and
+the value is a regex expression that defines the match condition for that header.
+
+```yaml
+apiVersion: specs.smi-spec.io/v1alpha2
+kind: HTTPRouteGroup
+metadata:
+  name: the-routes
+  namespace: default
+matches:
+- name: android-insiders
+  headers:
+  - user-agent: ".*Android.*"
+  - cookie: "^(.*?;)?(type=insider)(;.*)?$"
+```
+
+The above example defines a filter that targets Android users with a
+`type=insider` cookie.
+
+```yaml
+apiVersion: specs.smi-spec.io/v1alpha2
+kind: HTTPRouteGroup
+metadata:
+  name: the-routes
+  namespace: default
+matches:
+- name: android-insiders
+  headers:
+  - user-agent: ".*Android.*"
+  - cookie: "^(.*?;)?(type=insider)(;.*)?$"
+- name: firefox-users
+  headers:
+  - user-agent: ".*Firefox.*"
+```
+
+The above example defines two routes that target Android users with a `type=insider`
+cookie or Firefox users.
+
+A route with multiple header filters represents an `AND` condition while multiple
+routes each with its own header filter represents an `OR` condition.
 
 ### TCPRoute
 
@@ -91,7 +135,3 @@ automatically generate the list of routes from code.
 
 * gRPC - there should be a gRPC specific traffic spec. As part of the first
   version, this has been left out as HTTPRouteGroup can be used in the interim.
-
-* Arbitrary header filtering - there should be a way to filter based on headers.
-  This has been left out for now, but the specification should be expanded to
-  address this use case.
