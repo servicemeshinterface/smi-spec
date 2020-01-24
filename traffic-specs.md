@@ -60,12 +60,17 @@ This example defines a single route that matches anything.
 
 ### HTTP header filters
 
-A route definition can specify a list of HTTP header filters. The filters
-defined in a route group can be associated with a [traffic split](traffic-split.md)
-thus enabling traffic shifting for A/B testing scenarios.
+A route definition can specify a list of HTTP header filters.
+A filter defines a match condition that's applied to incoming HTTP requests.
+The filters defined in a route group can be associated with a
+[traffic split](traffic-split.md) thus enabling traffic shifting
+for A/B testing scenarios.
 
 A HTTP filter is a key-value pair, the key is the name of the HTTP header and
 the value is a regex expression that defines the match condition for that header.
+
+A route with multiple header filters represents an `AND` condition while multiple
+routes each with its own header filter represents an `OR` condition.
 
 ```yaml
 apiVersion: specs.smi-spec.io/v1alpha2
@@ -102,8 +107,28 @@ matches:
 The above example defines two routes that target Android users with a `type=insider`
 cookie or Firefox users.
 
-A route with multiple header filters represents an `AND` condition while multiple
-routes each with its own header filter represents an `OR` condition.
+A route that targets a specific path and/or HTTP methods can contain header filters:
+
+```yaml
+apiVersion: specs.smi-spec.io/v1alpha2
+kind: HTTPRouteGroup
+metadata:
+  name: the-routes
+matches:
+- name: iphone-users
+  pathRegex: "/api/.*"
+  methods:
+  - GET
+  - HEAD
+  headers:
+  - user-agent: ".*iPhone.*"
+```
+
+The above example defines a route that targets iPhone users that are issuing
+`GET` or `HEAD` requests to `/api`.
+
+When `pathRegex` and `methods` are not defined, the header filters are applied
+to any path and all HTTP methods.
 
 ### TCPRoute
 
