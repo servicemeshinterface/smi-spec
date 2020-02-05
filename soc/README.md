@@ -15,8 +15,8 @@ contact one of the admins below:
 Communication
 -------------
 
-Please reach out to us on the [SMI slack](https://aka.ms/smi/slack) in the
-#general channel.
+Please reach out to us on the [SMI slack](https://aka.ms/smi/slack) in
+the #general channel.
 
 Project Ideas
 -------------
