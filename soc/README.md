@@ -4,7 +4,8 @@ Summer of Code
 Organization Admins
 -------------------
 
-If you need help with anything Summer of code related, you can file an issue or contact one of the admins below:
+If you need help with anything Summer of code related, you can file an issue or
+contact one of the admins below:
 
 - Michelle Noorali ([@michellenoorali](https://github.com/michelleN)\):
   [https://twitter.com/michellenoorali](https://twitter.com/michellenoorali)
