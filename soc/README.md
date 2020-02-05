@@ -15,7 +15,8 @@ contact one of the admins below:
 Communication
 -------------
 
-Please reach out to us on the on the [SMI slack](https://aka.ms/smi/slack).
+Please reach out to us on the [SMI slack](https://aka.ms/smi/slack) in the
+#general channel.
 
 Project Ideas
 -------------
@@ -46,6 +47,7 @@ Consul Connect Metrics
   building a helm chart to distribute and writing tests to validate the
   functionality.
 - Recommended Skills: Golang
-- Mentor(s): Tarun Pothulapati (@tarunpothulapati)
+- Mentor(s): Tarun Pothulapati (@tarunpothulapati), Nic Jackson
+  (@sheriffjackson)
 - Issues:
   [https://github.com/deislabs/smi-metrics/issues/39](https://github.com/deislabs/smi-metrics/issues/39)
