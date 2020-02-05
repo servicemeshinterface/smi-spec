@@ -51,3 +51,18 @@ Consul Connect Metrics
   (@sheriffjackson)
 - Issues:
   [https://github.com/deislabs/smi-metrics/issues/39](https://github.com/deislabs/smi-metrics/issues/39)
+
+HPA Support
+-----------
+
+- Description: It is valuable to scale workloads on metrics other than
+  cpu/memory. To do this today, you must use the custom metrics API and the
+  prometheus adapter. With the SMI metrics API it should be possible to get HPA
+  working with that API. This project should integrate HPA and SMI metrics to
+  allow for scaling on rps as well as latency. The work includes demonstrating
+  how to do this, documenting it, adding as an end to end test and producing a
+  demo tha shows off to end users how it all works.
+- Recommended Skills: Golang, Kubernetes
+- Mentor(s): Thomas Rampelberg (@grampelberg)
+- Issues:
+  [https://github.com/deislabs/smi-spec/issues/96](https://github.com/deislabs/smi-spec/issues/96)
