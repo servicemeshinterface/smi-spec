@@ -1,4 +1,4 @@
-# Traffic Split `v1alpha2`
+# Traffic Split `v1alpha3`
 
 This resource allows users to incrementally direct percentages of traffic
 between various services. It will be used by *clients* such as ingress
@@ -21,23 +21,75 @@ Implementations will weight outgoing traffic between the services referenced by
 `spec.backends`. Each backend is a Kubernetes service that potentially has a
 different selector and type. Weights must be whole numbers.
 
+To accommodate A/B testing scenarios, a traffic split can take into account
+HTTP header filters and route a specific user segment to a backend while
+all the other users not belonging to that segment will be routed to the
+default service backend e.g. the Kubernetes service that matches
+the *root* name. The HTTP header filters can be specified using the
+[HTTPRouteGroup](traffic-specs.md) API, a traffic split can refer HTTP route
+groups via `spec.matches` thus applying the header filters described in
+those groups.
+
 ## Specification
 
+Canary example:
+
 ```yaml
-apiVersion: split.smi-spec.io/v1alpha2
+apiVersion: split.smi-spec.io/v1alpha3
 kind: TrafficSplit
 metadata:
-  name: my-trafficsplit
+  name: canary
 spec:
   # The root service that clients use to connect to the destination application.
-  service: my-website
+  service: website
   # Services inside the namespace with their own selectors, endpoints and configuration.
   backends:
-  - service: my-website-v1
-    weight: 50
-  - service: my-website-v2
-    weight: 50
+  - service: website-v1
+    weight: 90
+  - service: website-v2
+    weight: 10
 ```
+
+The above configuration will route 10% of the `website` incoming
+traffic to the `website-v1` service and 90% to `website-v2` service.
+
+A/B test example:
+
+```yaml
+apiVersion: split.smi-spec.io/v1alpha3
+kind: TrafficSplit
+metadata:
+  name: ab-test
+spec:
+  service: website
+  matches:
+  - kind: HTTPRouteGroup
+    name: ab-test
+  backends:
+  - service: website-v1
+    weight: 0
+  - service: website-v2
+    weight: 100
+---
+kind: HTTPRouteGroup
+metadata:
+  name: ab-test
+matches:
+- name: firefox-users
+  headers:
+  - user-agent: ".*Firefox.*"
+```
+
+The above configuration will route the Firefox users
+to the `website-v2` service while all the others
+will be routed to the *root* Kubernetes service.
+
+If the header conditions don't match the incoming request,
+then routing will be handled by the Kubernetes service
+with the same name as `spec.service`.
+
+If multiple HTTP route groups are specified, all routes
+will be merged into a single group.
 
 ### Ports
 
@@ -170,7 +222,7 @@ In order to update an application, the user will perform the following actions:
 * Create a new traffic split named `foobar-rollout`, it will look like:
 
     ```yaml
-    apiVersion: split.smi-spec.io/v1alpha2
+    apiVersion: split.smi-spec.io/v1alpha3
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -203,7 +255,7 @@ At this point, the SMI implementation does not redirect any traffic to
   TrafficSplit resource:
 
     ```yaml
-    apiVersion: split.smi-spec.io/v1alpha2
+    apiVersion: split.smi-spec.io/v1alpha3
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
@@ -226,7 +278,7 @@ At this point, the SMI implementation does not redirect any traffic to
   new version by updating the TrafficSplit resource:
 
     ```yaml
-    apiVersion: split.smi-spec.io/v1alpha2
+    apiVersion: split.smi-spec.io/v1alpha3
     kind: TrafficSplit
     metadata:
       name: foobar-rollout
