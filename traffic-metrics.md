@@ -1,4 +1,4 @@
-# Traffic Metrics `v1alpha1`
+# Traffic Metrics `v1alpha2`
 
 This resource provides a common integration point for tools that can benefit by
 consuming metrics related to HTTP traffic. It follows the pattern of
@@ -60,6 +60,7 @@ resource:
   kind: Pod
 edge:
   direction: to
+  side: client
   resource:
     name: baz-577db7d977-lsk2q
     namespace: foobar
@@ -84,10 +85,10 @@ metrics:
 
 ### Edge
 
-In this example, the metrics are observed *at* the `foo-775b9cbd88-ntxsl` pod
-and represent all the traffic *to* the `baz-577db7d977-lsk2q` pod. This
-effectively shows the traffic originating from `foo-775b9cbd88-ntxsl` and can be
-used to define a DAG of resource dependencies.
+In this example, the metrics for traffic from the `foo-775b9cbd88-ntxsl` pod to
+the `foo-775b9cbd88-ntxsl` are observed at the client side i.e. at the
+`foo-775b9cbd88-ntxsl` pod. This can be used to define a DAG of resource
+dependencies.
 
 ```yaml
 resource:
@@ -96,17 +97,19 @@ resource:
   kind: Pod
 edge:
   direction: to
+  side: client
   resource:
     name: baz-577db7d977-lsk2q
     namespace: foobar
     kind: Pod
 ```
 
-Alternatively, edges can also be observed *at* the `foo-775b9cbd88-ntxsl` pod
-and represent all the traffic *from* the `bar-5b48b5fb9c-7rw27` pod. This
-effectively shows how `foo-775b9cbd88-ntxsl` is handling the traffic destined
-for it from a specific source. Just like `to`, this data can be used to define a
-DAG of resource dependencies.
+Alternatively, edges can also be observed at the server side. In this example,
+the metrics are observed *at* the `foo-775b9cbd88-ntxsl` pod and represent all
+the traffic *from* the `bar-5b48b5fb9c-7rw27` pod. This effectively shows how
+`foo-775b9cbd88-ntxsl` is handling the traffic destined for it from a specific
+source. Just like `to`, this data can be used to define a DAG of resource
+dependencies.
 
 ```yaml
 resource:
@@ -115,6 +118,7 @@ resource:
   kind: Pod
 edge:
   direction: from
+  side: server
   resource:
     name: bar-5b48b5fb9c-7rw27
     namespace: foobar
@@ -122,7 +126,7 @@ edge:
 ```
 
 Finally, `resource` can be as general or specific as desired. For example, with
-a `direction` of `to` and an empty `resource`, the metrics represent all the
+a `direction` of `from` and an empty `resource`, the metrics represent all the
 traffic received by the `foo-775b9cbd88-ntxsl` pod.
 
 ```yaml
@@ -131,16 +135,13 @@ resource:
   namespace: foobar
   kind: Pod
 edge:
-  direction: to
+  direction: from
+  side: server
   resource: {}
 ```
 
 Note: `resource` could also contain only a namespace to select any traffic from
 that namespace or only `kind` to select specific types of incoming traffic.
-
-Note: there is no requirement that metrics are actually being collected for
-resources selected by edges. As metrics are always observed *at* `resource`, it
-is possible to construct these entirely from the resource.
 
 ### TrafficMetricsList
 
