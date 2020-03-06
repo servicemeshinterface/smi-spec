@@ -5,7 +5,8 @@
 Whether you are a user or contributor, official support channels include:
 
 - [Issues](https://github.com/deislabs/smi-spec/issues)
-- #general Slack channel in the [SMI Slack](https://smi-spec.slack.com)
+- [#general](https://smi-spec.slack.com/archives/CJJF5M5NK) Slack channel in the
+[SMI Slack](https://smi-spec.slack.com)
 
 ## CLA Requirement
 
