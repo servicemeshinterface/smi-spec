@@ -40,4 +40,3 @@ OWFa 1.0 will be applied as follows:
 ## Project Governance
 
 Project maintainership is outlined in the [GOVERNANCE](GOVERNANCE.md) file.
-
