@@ -66,14 +66,14 @@ like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 
 ### Community Meeting
 
-- Community Meeting: every other Wednesday at 9:30-10:30 Pacific: [https://zoom.us/j/448032371](https://zoom.us/j/448032371)
-  - [Calendar invite](https://calendar.google.com/calendar/embed?src=v2ailcfbvg9mgco5p0ms4t8ou8%40group.calendar.google.com&ctz=America%2FLos_Angeles)
-  - [Meeting notes](https://docs.google.com/document/d/1NTBaJf6LhUBlF8_lfvBBt_MbyPvT-6CZNg6Ckpm_yCo/edit?usp=sharing)
+* Community Meeting: every other Wednesday at 9:30-10:30 Pacific: [https://zoom.us/j/448032371](https://zoom.us/j/448032371)
+  * [Calendar invite](https://calendar.google.com/calendar/embed?src=v2ailcfbvg9mgco5p0ms4t8ou8%40group.calendar.google.com&ctz=America%2FLos_Angeles)
+  * [Meeting notes](https://docs.google.com/document/d/1NTBaJf6LhUBlF8_lfvBBt_MbyPvT-6CZNg6Ckpm_yCo/edit?usp=sharing)
 
 ### Slack
 
-- [SMI Slack](https://smi-spec.slack.com):
-  - [#general](https://smi-spec.slack.com/messages/general)
+* [SMI Slack](https://smi-spec.slack.com):
+  * [#general](https://smi-spec.slack.com/messages/general)
 
 [Sign up](https://aka.ms/smi/slack) for SMI Slack
 
@@ -86,7 +86,7 @@ contributing to the specification.
 
 Whether you are a user or contributor, you can open issues on GitHub:
 
-- [Issues](https://github.com/deislabs/smi-spec/issues)
+* [Issues](https://github.com/deislabs/smi-spec/issues)
 
 ## License
 
