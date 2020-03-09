@@ -19,16 +19,16 @@ Service Mesh Hub does:
 
 Install Service Mesh Hub on any Kubernetes cluster with the command:
 
-```
-bash kubectl apply -f
+```bash
+kubectl apply -f
 https://raw.githubusercontent.com/solo-io/service-mesh-hub/master/install/service-mesh-hub.yaml
 ```
 
 This will install the hub into the `sm-marketplace` namespace. Once the pods are
 running, you can open the hub by port forwarding:
 
-```
-bash kubectl port-forward -n sm-marketplace deploy/smm-apiserver 8080
+```bash
+kubectl port-forward -n sm-marketplace deploy/smm-apiserver 8080
 ```
 
 Then navigate your browser to `localhost:8080`
