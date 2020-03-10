@@ -1,13 +1,5 @@
 # Contributing
 
-## Support Channels
-
-Whether you are a user or contributor, official support channels include:
-
-- [Issues](https://github.com/deislabs/smi-spec/issues)
-- [#general](https://smi-spec.slack.com/archives/CJJF5M5NK) Slack channel in the
-[SMI Slack](https://smi-spec.slack.com)
-
 ## CLA Requirement
 
 This project welcomes contributions and suggestions. Most contributions require
@@ -48,12 +40,3 @@ OWFa 1.0 will be applied as follows:
 ## Project Governance
 
 Project maintainership is outlined in the [GOVERNANCE](GOVERNANCE.md) file.
-
-## Code of Conduct
-
-This project has adopted the [Microsoft Open Source Code of
-conduct](https://opensource.microsoft.com/codeofconduct/). For more information
-see the [Code of Conduct
-FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact
-opencode@microsoft.com (mailto:opencode@microsoft.com) with any additional
-questions or comments.
