@@ -255,9 +255,52 @@ The full list of resources for this list would be:
 * replicasets
 * statefulsets
 * jobs
+* trafficsplits
 
 For resource types that contain `pods`, such as `namespaces` and `deployments`,
 the metrics are aggregates of the `pods` contained within.
+
+### Traffic Splits
+
+The traffic split resource type is different from other resource types because
+a traffic split does not contain `pods`. The traffic metrics for a traffic split
+represent all requests which are sent to the traffic split's apex service. Each
+edge is scoped to an individual backend of the traffic split and contains a
+`backend` field which indicates to which backend those metrics correspond.
+
+```yaml
+apiVersion: metrics.smi-spec.io/v1alpha1
+kind: TrafficMetrics
+# See ObjectReference v1 core for full spec
+resource:
+  name: my-traffic-split
+  namespace: foobar
+  kind: TrafficSplit
+edge:
+  direction: from
+  side: client
+  resource: {}
+  backend:
+    apex: my-service
+    leaf: my-service-v1
+    weight: 90
+timestamp: 2019-04-08T22:25:55Z
+window: 30s
+metrics:
+- name: p99_response_latency
+  unit: seconds
+  value: 10m
+- name: p90_response_latency
+  unit: seconds
+  value: 10m
+- name: p50_response_latency
+  unit: seconds
+  value: 10m
+- name: success_count
+  value: 100
+- name: failure_count
+  value: 100
+```
 
 ## Use Cases
 
