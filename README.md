@@ -64,15 +64,29 @@ like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 
 ## Communications
 
-### Slack Channel
+### Community Meeting
 
-If you are not yet a member of the SMI Slack you may sign up
-[here](https://aka.ms/smi/slack).
+* Community Meeting: every other Wednesday at 9:30-10:30 Pacific: [https://zoom.us/j/448032371](https://zoom.us/j/448032371)
+  * [Calendar invite](https://calendar.google.com/calendar/embed?src=v2ailcfbvg9mgco5p0ms4t8ou8%40group.calendar.google.com&ctz=America%2FLos_Angeles)
+  * [Meeting notes](https://docs.google.com/document/d/1NTBaJf6LhUBlF8_lfvBBt_MbyPvT-6CZNg6Ckpm_yCo/edit?usp=sharing)
+
+### Slack
+
+* [SMI Slack](https://smi-spec.slack.com):
+  * [#general](https://smi-spec.slack.com/messages/general)
+
+[Sign up](https://aka.ms/smi/slack) for SMI Slack
 
 ## Contributing
 
 Please refer to [CONTRIBUTING.md](./CONTRIBUTING.md) for more information on
 contributing to the specification.
+
+## Support
+
+Whether you are a user or contributor, you can open issues on GitHub:
+
+* [Issues](https://github.com/deislabs/smi-spec/issues)
 
 ## License
 
@@ -80,3 +94,12 @@ The specification is licensed under [OWF Contributor License Agreement 1.0 -
 Copyright and
 Patent](http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owf-contributor-license-agreement-1-0---copyright-and-patent)
 in the [LICENSE](./LICENSE) file.
+
+## Code of Conduct
+
+This project has adopted the [Microsoft Open Source Code of
+conduct](https://opensource.microsoft.com/codeofconduct/). For more information
+see the [Code of Conduct
+FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact
+opencode@microsoft.com (mailto:opencode@microsoft.com) with any additional
+questions or comments.
