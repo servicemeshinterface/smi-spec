@@ -303,6 +303,44 @@ metrics:
   value: 100
 ```
 
+### Routes
+
+Some resources may break down their traffic metrics into logical groupings of
+requests called routes. For example, a web application might break down metrics
+by request path. If the `route` field is set, the traffic metrics apply to that
+route only. If the `route` field is empty, the traffic metrics apply to the
+resource as a whole.
+
+```yaml
+kind: TrafficMetrics
+# See ObjectReference v1 core for full spec
+resource:
+  name: web
+  namespace: foobar
+  kind: Deployment
+edge:
+  direction: from
+  side: server
+  resource: {}
+route: "/api/vote"
+timestamp: 2019-04-08T22:25:55Z
+window: 30s
+metrics:
+- name: p99_response_latency
+  unit: seconds
+  value: 10m
+- name: p90_response_latency
+  unit: seconds
+  value: 10m
+- name: p50_response_latency
+  unit: seconds
+  value: 10m
+- name: success_count
+  value: 100
+- name: failure_count
+  value: 100
+```
+
 ## Use Cases
 
 ### Top
