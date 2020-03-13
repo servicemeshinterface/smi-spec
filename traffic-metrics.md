@@ -311,7 +311,7 @@ by request path. If the `route` field is set, the traffic metrics apply to that
 route only. If the `route` field is empty, the traffic metrics apply to the
 resource as a whole.
 
-```
+```yaml
 apiVersion: metrics.smi-spec.io/v1alpha1
 kind: TrafficMetrics
 # See ObjectReference v1 core for full spec
