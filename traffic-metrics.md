@@ -125,6 +125,12 @@ edge:
     kind: Pod
 ```
 
+By default, the resource and the edge resource have the same kind. The
+`edge-kind` query parameter can be used to request edges to resources of a
+different kind. For example, when requesting a pod's edges with
+`edge-kind=deployments`, an edge will be returned for each deployment the pod is
+talking to.
+
 Finally, `resource` can be as general or specific as desired. For example, with
 a `direction` of `from` and an empty `resource`, the metrics represent all the
 traffic received by the `foo-775b9cbd88-ntxsl` pod.
@@ -469,9 +475,6 @@ targets pods with an Envoy sidecar and periodically requests
 
 ## Out of scope
 
-* Edge aggregation - it would be valuable to get a resource such as a pod and
-  see the edges for other aggregates such as deployments. For now, the queries
-  to do this are not defined.
 * Label selectors - this API uses label selectors to impact filtering of
   resources and does not use these selectors for the actual metric series. Using
   the selectors against metric series is very valuable, imagine getting
