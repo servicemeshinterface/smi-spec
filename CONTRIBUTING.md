@@ -1,41 +1,74 @@
 # Contributing
 
-## CLA Requirement
+## Sign Your Work
 
-This project welcomes contributions and suggestions. Most contributions require
-you to agree to a Contributor License Agreement (CLA) declaring that you have
-the right to, and actually do, grant us the rights to use your contribution. For
-details, visit [https://cla.microsoft.com](https://cla.microsoft.com). When you
-submit a pull request, a CLA-bot will automatically determine whether you need
-to provide a CLA and decorate the PR appropriately (e.g., label, comment).
-Simply follow the instructions provided by the bot. You will only need to do
-this once across all repositories using our CLA.
+The sign-off is a simple line at the end of the explanation for a commit. All
+commits needs to be signed. Your signature certifies that you wrote the patch or
+otherwise have the right to contribute the material. The rules are pretty simple,
+if you can certify the below (from [developercertificate.org](https://developercertificate.org/)):
 
-## Specifications subject to the Open Web Foundation Agreements
+```
+Developer Certificate of Origin
+Version 1.1
 
-In addition, by making a contribution to specifications in this repository, you,
-on behalf of yourself, your employer, and its affiliates, are making those
-contributions subject to the obligations set forth in the [OWF Contributor
-License Agreement 1.0 - Copyright and
-Patent](http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owf-contributor-license-agreement-1-0---copyright-and-patent).
+Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
+1 Letterman Drive
+Suite D4700
+San Francisco, CA, 94129
 
-Final specifications developed in this repository will be subject to the [Open
-Web Foundation Final Specification Agreement (“OWFa
-1.0”)](http://www.openwebfoundation.org/legal/the-owf-1-0-agreements/owfa-1-00).
-OWFa 1.0 will be applied as follows:
+Everyone is permitted to copy and distribute verbatim copies of this
+license document, but changing it is not allowed.
 
-- The maintainer will notify all contributors to a designated specification in
-  writing via provided contact information of the start of a 30 day review
-  period, after which the specification will be subject to the OWFa 1.0.
+Developer's Certificate of Origin 1.1
 
-- During that 30 day period, contributors may provide written notice to the
-  maintainer that the contributor is not making the forgoing commitment under
-  OWFa 1.0 for the designated specification (“Exclusion”).
+By making a contribution to this project, I certify that:
 
-- Upon the end of that 30 day notice period, those contributors who have not
-  issued an Exclusion, on behalf of themselves, their employer, and its
-  affiliates, will, without further action, be subject to the obligations set
-  forth in the OWFa 1.0 for the designated specification.
+(a) The contribution was created in whole or in part by me and I
+    have the right to submit it under the open source license
+    indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best
+    of my knowledge, is covered under an appropriate open source
+    license and I have the right under that license to submit that
+    work with modifications, whether created in whole or in part
+    by me, under the same open source license (unless I am
+    permitted to submit under a different license), as indicated
+    in the file; or
+
+(c) The contribution was provided directly to me by some other
+    person who certified (a), (b) or (c) and I have not modified
+    it.
+
+(d) I understand and agree that this project and the contribution
+    are public and that a record of the contribution (including all
+    personal information I submit with it, including my sign-off) is
+    maintained indefinitely and may be redistributed consistent with
+    this project or the open source license(s) involved.
+```
+
+Then you just add a line to every git commit message:
+
+    Signed-off-by: Joe Smith <joe.smith@example.com>
+
+Use your real name (sorry, no pseudonyms or anonymous contributions.)
+
+If you set your `user.name` and `user.email` git configs, you can sign your
+commit automatically with `git commit -s`.
+
+Note: If your git config information is set properly then viewing the
+ `git log` information for your commit will look something like this:
+
+```
+Author: Joe Smith <joe.smith@example.com>
+Date:   Thu Feb 2 11:41:15 2018 -0800
+
+    Update README
+
+    Signed-off-by: Joe Smith <joe.smith@example.com>
+```
+
+Notice the `Author` and `Signed-off-by` lines match. If they don't
+your PR will be rejected by the automated DCO check.
 
 ## Project Governance
 
