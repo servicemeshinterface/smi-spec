@@ -72,10 +72,10 @@ like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 
 ### Slack
 
-* [SMI Slack](https://smi-spec.slack.com):
-  * [#general](https://smi-spec.slack.com/messages/general)
+* [SMI Slack](https://cloud-native.slack.com):
+  * [#smi](https://cloud-native.slack.com/messages/smi)
 
-[Sign up](https://aka.ms/smi/slack) for SMI Slack
+[Sign up](https://slack.cncf.io/) for CNCF Slack
 
 ## Contributing
 
@@ -86,7 +86,7 @@ contributing to the specification.
 
 Whether you are a user or contributor, you can open issues on GitHub:
 
-* [Issues](https://github.com/deislabs/smi-spec/issues)
+* [Issues](https://github.com/servicemeshinterface/smi-spec/issues)
 
 ## Community Code of Conduct
 
