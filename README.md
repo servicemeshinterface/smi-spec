@@ -66,7 +66,7 @@ like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 
 * **Consul Connect\*:** service segmentation ([consul.io/docs/connect](https://consul.io/docs/connect))
 * **Flagger:** progressive delivery operator ([flagger.app](https://flagger.app))
-* **Istio\*:** connect, secure, control, observe ([deislabs/smi-adapter-istio](https://github.com/deislabs/smi-adapter-istio))
+* **Istio\*:** connect, secure, control, observe ([servicemeshinterface/smi-adapter-istio](https://github.com/servicemeshinterface/smi-adapter-istio))
 * **Linkerd:** ultralight service mesh ([linkerd.io](https://linkerd.io))
 * **Maesh:** simpler service mesh ([mae.sh](https://mae.sh))
 * **Rio:** application deployment engine ([rio.io](https://rio.io))
@@ -99,7 +99,7 @@ contributing to the specification.
 
 Whether you are a user or contributor, you can open issues on GitHub:
 
-* [Issues](https://github.com/deislabs/smi-spec/issues)
+* [Issues](https://github.com/servicemeshinterface/smi-spec/issues)
 
 ## License
 
