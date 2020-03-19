@@ -62,6 +62,19 @@ from internal types to those the API expects to return.
 This approach to pluggable interfaces is similar to other core Kubernetes APIs
 like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 
+## Ecosystem
+
+* **Consul Connect\*:** service segmentation ([consul.io/docs/connect](https://consul.io/docs/connect))
+* **Flagger:** progressive delivery operator ([flagger.app](https://flagger.app))
+* **Istio\*:** connect, secure, control, observe ([servicemeshinterface/smi-adapter-istio](https://github.com/servicemeshinterface/smi-adapter-istio))
+* **Linkerd:** ultralight service mesh ([linkerd.io](https://linkerd.io))
+* **Maesh:** simpler service mesh ([mae.sh](https://mae.sh))
+* **Rio:** application deployment engine ([rio.io](https://rio.io))
+* **Service Mesh Hub:** unified dashboard ([solo.io/products/service-mesh-hub](https://solo.io/products/service-mesh-hub))
+* **SuperGloo:** mesh orchestration ([supergloo.solo.io](https://supergloo.solo.io))
+
+\* via adaptor
+
 ## Communications
 
 ### Community Meeting
