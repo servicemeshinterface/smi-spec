@@ -6,21 +6,25 @@
 The Service Mesh Interface (SMI) is a specification for service meshes that run
 on Kubernetes. It defines a common standard that can be implemented by a variety
 of providers. This allows for both standardization for end-users and innovation
-by providers of Service Mesh Technology. It enables flexibility and
-interoperability.
+by providers of Service Mesh Technology. SMI enables flexibility and
+interoperability, and covers the most common service mesh capabilities
+implemented by the following APIs:
 
-This specification consists of multiple APIs:
-
-* [Traffic Access Control](traffic-access-control.md) - configure access to specific
-  pods and routes based on the identity of a client for locking down
+* Traffic policy – apply policies like identity and transport encryption
+  across services
+  * [Traffic Access Control](traffic-access-control.md) - configure access to
+  specific pods and routes based on the identity of a client for locking down
   applications to only allowed users and services.
-* [Traffic Specs](traffic-specs.md) - define how traffic looks on a per-protocol
-  basis. These resources work in concert with access control and other types of
-  policy to manage traffic at a protocol level.
-* [Traffic Split](traffic-split.md) - incrementally direct percentages of
+  * [Traffic Specs](traffic-specs.md) - define how traffic looks on a
+  per-protocol basis. These resources work in concert with access control and
+  other types of policy to manage traffic at a protocol level.
+* Traffic telemetry – capture key metrics like error rate and latency between
+  services
+  * [Traffic Metrics](traffic-metrics.md) - expose common traffic metrics for
+  use by tools such as dashboards and autoscalers.
+* Traffic management – shift traffic between different services
+  * [Traffic Split](traffic-split.md) - incrementally direct percentages of
   traffic between various services to assist in building out canary rollouts.
-* [Traffic Metrics](traffic-metrics.md) - expose common traffic metrics for use
-  by tools such as dashboards and autoscalers.
 
 See the individual documents for the details. Each document outlines:
 
