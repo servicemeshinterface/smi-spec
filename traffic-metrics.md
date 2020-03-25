@@ -86,7 +86,7 @@ metrics:
 ### Edge
 
 In this example, the metrics for traffic from the `foo-775b9cbd88-ntxsl` pod to
-the `foo-775b9cbd88-ntxsl` are observed at the client side i.e. at the
+the `baz-577db7d977-lsk2q` are observed at the client side i.e. at the
 `foo-775b9cbd88-ntxsl` pod. This can be used to define a DAG of resource
 dependencies.
 
