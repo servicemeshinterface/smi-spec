@@ -1,0 +1,295 @@
+openapi: 3.0.0
+info:
+  title: Traffic Metrics
+  description: |
+    This resource provides a common integration point for tools that can benefit by
+    consuming metrics related to HTTP traffic. It follows the pattern of
+    metrics.k8s.io for instantaneous metrics that can be consumed by CLI tooling,
+    HPA scaling or automating canary updates.
+  contact:
+    url: https://github.com/servicemeshinterface/smi-spec
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: v1alpha2
+servers:
+- url: /apis/metrics.smi-spec.io/v1alpha2
+paths:
+  /namespaces/{namespace}/{kind}/{name}:
+    get:
+      summary: Gets the resource metrics for the specified resource.
+      parameters:
+      - name: namespace
+        in: path
+        description: Namespace of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: kind
+        in: path
+        description: Type of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: Name of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: The resource metrics for the specified resource. This will
+            be a TrafficMetrics object (i.e. a single scope) for most resource types.
+            For TrafficSplits this will be a TrafficMetricsList with one scope per
+            backend. Each TrafficMetrics scope will have "edge.direction=from" and
+            "edge.resource=null".
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "404":
+          description: If the resource kind is not supported or the resource metrics
+            are not found.
+  /namespaces/{namespace}/{kind}:
+    get:
+      summary: Gets the resource metrics for all resources of the specified kind.
+      parameters:
+      - name: namespace
+        in: path
+        description: Namespace of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: kind
+        in: path
+        description: Type of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: The resource metrics for the specified resource kind. This
+            will be a TrafficMetricsList with one scope per resource. Each TrafficMetrics
+            scope will have "edge.direction=from" and "edge.resource=null".
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficMetricsList'
+        "404":
+          description: If the resource kind is not supported.
+  /namespaces/{namespace}/{kind}/{name}/edges:
+    get:
+      summary: Gets the edge metrics for the specified resource.
+      parameters:
+      - name: namespace
+        in: path
+        description: Namespace of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: kind
+        in: path
+        description: Type of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      - name: name
+        in: path
+        description: Name of the requested resource
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: The edge metrics for the specified resource. This will be a
+            TrafficMetricsList object with one scope for each edge connecting with
+            another resource of the same kind.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrafficMetricsList'
+        "404":
+          description: If the resource kind is not supported or the resource metrics
+            are not found.
+components:
+  schemas:
+    TrafficMetricsList:
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/TrafficMetricsListKind'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        apiVersion:
+          $ref: '#/components/schemas/ApiVersion'
+        resource:
+          $ref: '#/components/schemas/Resource'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/TrafficMetrics'
+      description: A list of traffic metrics objects. Each object represents a distinct
+        scope and contains a set of metrics for that scope.
+    TrafficMetrics:
+      type: object
+      properties:
+        kind:
+          $ref: '#/components/schemas/TrafficMetricsKind'
+        apiVersion:
+          $ref: '#/components/schemas/ApiVersion'
+        metadata:
+          $ref: '#/components/schemas/Metadata'
+        timestamp:
+          type: string
+          description: The time at which the response was generated. This is used
+            as the end of the metrics window.
+          format: date-time
+        window:
+          type: string
+          description: The returned metrics are calculated over the interval [timestamp
+            - window, timestamp].
+        resource:
+          $ref: '#/components/schemas/Resource'
+        edge:
+          $ref: '#/components/schemas/Edge'
+        backend:
+          $ref: '#/components/schemas/Backend'
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/Metric'
+      description: A TrafficMetrics object represents a metrics scope and contains
+        a set of metrics. The scope is the unique combination of resource, edge, and
+        backend.
+    Metadata:
+      type: object
+      properties:
+        name:
+          type: string
+        namespace:
+          type: string
+        selfLink:
+          type: string
+        creationTimestamp:
+          type: string
+          format: date-time
+    Resource:
+      type: object
+      nullable: true
+      properties:
+        kind:
+          $ref: '#/components/schemas/Kind'
+        namespace:
+          type: string
+        name:
+          type: string
+          description: If empty, this resource represents the set of all resouces
+            in the given namespace with the given kind.
+      description: A resource identifier.
+    Edge:
+      type: object
+      properties:
+        direction:
+          $ref: '#/components/schemas/Direction'
+        side:
+          $ref: '#/components/schemas/Side'
+        resource:
+          $ref: '#/components/schemas/Resource'
+      description: An edge represents either the source of traffic or its destination.
+        These edges restrict the metrics to only the traffic between the resource
+        and edge.resource. edge.resource can either be general or specific. If
+        the resource is null, this represents ALL traffic in the given direction.
+    Backend:
+      type: object
+      properties:
+        apex:
+          type: string
+          description: The apex service of the traffic split. This value will be the
+            same for all backends of a given traffic split.
+        name:
+          type: string
+          description: The name of the backend leaf service.
+        weight:
+          type: integer
+          description: The weight of this backend, from the TrafficSplit object.
+      description: When the resource is a traffic split, each TrafficMetrics object
+        is scoped to an individual backend of the traffic split the backend field
+        indicates to which backend those metrics correspond.
+    Metric:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the metric.
+        unit:
+          type: string
+          description: The units in which the metric value is expresed.
+        value:
+          type: string
+          description: The value of the metric expressed as a Kubernetes quantity.
+            Note that this quantity must be combined with the unit field above which
+            means a value of "1k" and a unit of "ms" represents 1000ms or 1s.
+      description: An individual traffic metric datapoint.
+    Kind:
+      type: string
+      enum:
+      - Namespace
+      - Node
+      - Pod
+      - Replicationcontroller
+      - Service
+      - Daemonset
+      - Deployment
+      - Replicaset
+      - Statefulset
+      - Job
+      - Trafficsplit
+    Direction:
+      type: string
+      description: A value of "from" means that the metrics represent traffic coming
+        from edge.resource. A value of "to" means that the metrics represent traffic
+        going to edge.resource
+      enum:
+      - from
+      - to
+    Side:
+      type: string
+      description: This indicates which side of the edge measured the metrics. A value
+        of "client" means that the metrics were measured by the client and a value
+        of "server" means that the metrics were measured by the server.
+      enum:
+      - server
+      - client
+    ApiVersion:
+      type: string
+      enum:
+      - metrics.smi-spec.io/v1alpha2
+    TrafficMetricsListKind:
+      type: string
+      enum:
+      - TrafficMetricsList
+    TrafficMetricsKind:
+      type: string
+      enum:
+      - TrafficMetrics
+    inline_response_200:
+      oneOf:
+      - $ref: '#/components/schemas/TrafficMetrics'
+      - $ref: '#/components/schemas/TrafficMetricsList'
