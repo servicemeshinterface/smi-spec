@@ -75,6 +75,7 @@ like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 * **Maesh:** simpler service mesh ([mae.sh](https://mae.sh))
 * **Rio:** application deployment engine ([rio.io](https://rio.io))
 * **Service Mesh Hub:** unified dashboard ([solo.io/products/service-mesh-hub](https://solo.io/products/service-mesh-hub))
+* **Meshery:** the service mesh management plane ([layer5.io/meshery](https://layer5.io/meshery))
 
 \* via adaptor
 
