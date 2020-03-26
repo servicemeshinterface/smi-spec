@@ -1,6 +1,8 @@
 <!-- markdownlint-disable MD041 -->
 ![SMI Logo](./images/smi-banner.png)
 
+![CI](https://github.com/servicemeshinterface/smi-spec/workflows/CI/badge.svg)
+
 ## Service Mesh Interface
 
 The Service Mesh Interface (SMI) is a specification for service meshes that run
