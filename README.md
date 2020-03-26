@@ -73,9 +73,9 @@ like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 * **Istio\*:** connect, secure, control, observe ([servicemeshinterface/smi-adapter-istio](https://github.com/servicemeshinterface/smi-adapter-istio))
 * **Linkerd:** ultralight service mesh ([linkerd.io](https://linkerd.io))
 * **Maesh:** simpler service mesh ([mae.sh](https://mae.sh))
+* **Meshery:** the service mesh management plane ([layer5.io/meshery](https://layer5.io/meshery))
 * **Rio:** application deployment engine ([rio.io](https://rio.io))
 * **Service Mesh Hub:** unified dashboard ([solo.io/products/service-mesh-hub](https://solo.io/products/service-mesh-hub))
-* **Meshery:** the service mesh management plane ([layer5.io/meshery](https://layer5.io/meshery))
 
 \* via adaptor
 
