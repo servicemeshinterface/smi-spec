@@ -66,3 +66,15 @@ HPA Support
 - Mentor(s): Thomas Rampelberg (@grampelberg)
 - Issues:
   [https://github.com/deislabs/smi-spec/issues/96](https://github.com/deislabs/smi-spec/issues/96)
+
+Conformance Tool
+-----------
+
+- Description:  Ensure that a service mesh is properly configured and that its behavior
+  conforms to official SMI specifications. Conformance consists of both capabilities
+  and compliance status as outlined in the design specification. Use Meshery as the
+  underlying technology to support SMI validation.
+- Recommended Skills: Golang, Kubernetes
+- Mentor(s): Lee Calcote (@lcalcote), Sagar Utekar (@named_uttu)
+- Issues: [https://github.com/servicemeshinterface/smi-spec/issues/70](https://github.com/servicemeshinterface/smi-spec/issues/70)
+- Design Spec: [https://docs.google.com/document/d/1HL8Sk7NSLLj-9PRqoHYVIGyU6fZxUQFotrxbmfFtjwc/edit#](https://docs.google.com/document/d/1HL8Sk7NSLLj-9PRqoHYVIGyU6fZxUQFotrxbmfFtjwc/edit#)
