@@ -85,7 +85,7 @@ like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
 
 ### Community Meeting
 
-* Community Meeting: every other Wednesday at 10:00-10:30 Pacific: [https://zoom.us/j/448032371](https://zoom.us/j/448032371)
+* Community Meeting: every other Wednesday at 10:00-10:30 Pacific: [https://zoom.us/my/cncfsmiproject](https://zoom.us/my/cncfsmiproject)
   * [Calendar invite](https://calendar.google.com/calendar/embed?src=v2ailcfbvg9mgco5p0ms4t8ou8%40group.calendar.google.com&ctz=America%2FLos_Angeles)
   * [Meeting notes](https://docs.google.com/document/d/1NTBaJf6LhUBlF8_lfvBBt_MbyPvT-6CZNg6Ckpm_yCo/edit?usp=sharing)
 
