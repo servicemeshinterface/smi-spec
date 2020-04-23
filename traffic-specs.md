@@ -142,6 +142,18 @@ metadata:
   name: tcp-route
 ```
 
+### UDPRoute
+
+This resource is used to describe L4 UDP traffic. It is a simple route which configures
+an application to receive raw non protocol specific traffic.
+
+```yaml
+apiVersion: specs.smi-spec.io/v1alpha4
+kind: UDPRoute
+metadata:
+  name: udp-route
+```
+
 ## Automatic Generation
 
 While it is possible for users to create these by hand, the recommended pattern
