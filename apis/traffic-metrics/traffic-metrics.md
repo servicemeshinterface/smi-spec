@@ -1,9 +1,15 @@
-# Traffic Metrics `v1alpha2`
+# Traffic Metrics
 
-This resource provides a common integration point for tools that can benefit by
-consuming metrics related to HTTP traffic. It follows the pattern of
-`metrics.k8s.io` for instantaneous metrics that can be consumed by CLI tooling,
-HPA scaling or automating canary updates.
+**API Group:** metrics.smi-spec.io
+
+**API Version:** v1alpha1
+
+## Specfication
+
+This specification describes a resource that provides a common integration
+point for tools that can benefit by consuming metrics related to HTTP traffic.
+It follows the pattern of `metrics.k8s.io` for instantaneous metrics that can
+be consumed by CLI tooling, HPA scaling or automating canary updates.
 
 As many of the implementations for this will be storing metrics in Prometheus,
 it would be possible to just standardize on metric/label naming. This,
@@ -51,7 +57,6 @@ The core resource is `TrafficMetrics`. It references a `resource`, has an `edge`
 and surfaces latency percentiles and request volume.
 
 ```yaml
-apiVersion: metrics.smi-spec.io/v1alpha1
 kind: TrafficMetrics
 # See ObjectReference v1 core for full spec
 resource:
@@ -150,7 +155,6 @@ There are three different ways to get a TrafficMetricsList:
 * Requesting a specific `kind` such as pods or namespaces.
 
     ```yaml
-    apiVersion: metrics.smi-spec.io/v1alpha1
     kind: TrafficMetricsList
     resource:
       kind: Pod
@@ -164,7 +168,6 @@ There are three different ways to get a TrafficMetricsList:
 * Requesting a specific `kind` such as pods and filtering with a label selector:
 
     ```yaml
-    apiVersion: metrics.smi-spec.io/v1alpha1
     kind: TrafficMetricsList
     resource:
       kind: Pod
@@ -181,7 +184,6 @@ There are three different ways to get a TrafficMetricsList:
 * Listing all the edges for a specific resource:
 
     ```yaml
-    apiVersion: metrics.smi-spec.io/v1alpha1
     kind: TrafficMetricsList
     resource:
       name: foo-775b9cbd88-ntxsl
@@ -270,7 +272,6 @@ and contains a `backend` field which indicates to which backend those metrics
 correspond.
 
 ```yaml
-apiVersion: metrics.smi-spec.io/v1alpha1
 kind: TrafficMetrics
 # See ObjectReference v1 core for full spec
 resource:
