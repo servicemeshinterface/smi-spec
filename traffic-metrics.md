@@ -390,7 +390,7 @@ This example implementation is included to illustrate how `TrafficMetrics` are
 surfaced. It does *not* prescribe a particular implementation. This example also
 does not serve as an example of how to consume the metrics provided.
 
-![Metrics Architecture](traffic-metrics-sample/metrics.png)
+![Metrics Architecture](images/traffic-metrics-sample/metrics.png)
 
 For this example implementation, metrics are being stored in Prometheus. These
 are being scraped [from Envoy](#envoy-mesh) periodically. The only component in
@@ -427,7 +427,7 @@ Shim`.
 
 ### Envoy Mesh
 
-![Envoy Mesh](traffic-metrics-sample/mesh.png)
+![Envoy Mesh](images/traffic-metrics-sample/mesh.png)
 
 While the mesh itself is outside the scope of this example, it is valuable to
 see that piece of the architecture as well. Prometheus has a scrape config that
