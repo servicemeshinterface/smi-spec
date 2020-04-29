@@ -1,9 +1,16 @@
-# Traffic Spec `v1alpha2`
+# Traffic Specs
 
-This set of resources allows users to specify how their traffic looks. It is
-used in concert with [access control](traffic-access-control.md) and other
-policies to concretely define what should happen to specific types of traffic
-as it flows through the mesh.
+**API Group:** specs.smi-spec.io
+
+**Version:** v1alpha2
+
+## Specification
+
+This specification describes a set of resources that allows users to specify
+how their traffic looks. It is used in concert with
+[access control](/apis/traffic-access/v1alpha1/traffic-access.md) and
+other policies to concretely define what should happen to specific
+types of traffic as it flows through the mesh.
 
 There are many different protocols that users would like to have be part of a
 mesh. Right now, this is primarily HTTP, but it is possible to imagine a world
@@ -11,15 +18,12 @@ where service meshes are aware of other protocols. Each resource in this
 specification is meant to match 1:1 with a specific protocol. This allows users
 to define the traffic in a protocol specific fashion.
 
-## Specification
-
 ### HTTPRouteGroup
 
 This resource is used to describe HTTP/1 and HTTP/2 traffic. It enumerates the
 routes that can be served by an application.
 
 ```yaml
-apiVersion: specs.smi-spec.io/v1alpha2
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
@@ -39,13 +43,12 @@ URI and is anchored (`^`) to the beginning of the URI. Methods can either be
 specific (`GET`) or `*` to match all methods.
 
 These routes have not yet been associated with any resources. See
-[access control](traffic-access-control.md) for an example of how routes become
-associated with applications serving traffic.
+[Traffic Target](/apis/traffic-access/v1alpha1/traffic-access.md) for an example
+of how routes become associated with applications serving traffic.
 
 The `matches` field only applies to URIs and HTTP headers.
 
 ```yaml
-apiVersion: specs.smi-spec.io/v1alpha2
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
@@ -63,8 +66,8 @@ This example defines a single route that matches anything.
 A route definition can specify a list of HTTP header filters.
 A filter defines a match condition that's applied to incoming HTTP requests.
 The filters defined in a route group can be associated with a
-[traffic split](traffic-split.md) thus enabling traffic shifting
-for A/B testing scenarios.
+[traffic split](/apis/traffic-split/v1alpha3/traffic-split.md) thus enabling traffic
+shifting for A/B testing scenarios.
 
 A HTTP filter is a key-value pair, the key is the name of the HTTP header and
 the value is a regex expression that defines the match condition for that header.
@@ -73,7 +76,6 @@ A route with multiple header filters represents an `AND` condition while multipl
 routes each with its own header filter represents an `OR` condition.
 
 ```yaml
-apiVersion: specs.smi-spec.io/v1alpha2
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
@@ -89,7 +91,6 @@ The above example defines a filter that targets Android users with a
 `type=insider` cookie.
 
 ```yaml
-apiVersion: specs.smi-spec.io/v1alpha2
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
@@ -110,7 +111,6 @@ cookie or Firefox users.
 A route that targets a specific path and/or HTTP methods can contain header filters:
 
 ```yaml
-apiVersion: specs.smi-spec.io/v1alpha2
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
@@ -136,7 +136,6 @@ This resource is used to describe L4 TCP traffic. It is a simple route which con
 an application to receive raw non protocol specific traffic.
 
 ```yaml
-apiVersion: specs.smi-spec.io/v1alpha1
 kind: TCPRoute
 metadata:
   name: tcp-route
