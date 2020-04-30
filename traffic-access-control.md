@@ -34,7 +34,7 @@ To understand how this all fits together, first define the routes for some
 traffic.
 
 ```yaml
-apiVersion: v1alpha1
+apiVersion: specs.smi-spec.io/v1alpha1
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
