@@ -62,7 +62,7 @@ the desired behavior. In the case of extension APIs, the SMI provider translates
 from internal types to those the API expects to return.
 
 This approach to pluggable interfaces is similar to other core Kubernetes APIs
-like +NetworkPolicy+, +Ingress+ and +CustomMetrics+.
+like [NetworkPolicy][1], [Ingress][2] and [CustomMetrics][3].
 
 ## APIs
 
@@ -133,3 +133,7 @@ The spec has its own version listed [above](#version). This version describes th
 specification in its entirety. Although it is not related to the API specification
 versions, the minor version of the spec will be incremented every time any of the
 API Specification versions are incremented.
+
+[1]: https://kubernetes.io/docs/concepts/services-networking/network-policies/
+[2]: https://kubernetes.io/docs/concepts/services-networking/ingress/
+[3]: https://github.com/kubernetes/metrics#custom-metrics-api
