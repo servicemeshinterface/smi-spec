@@ -1,40 +1,45 @@
 # Traffic Access Control
 
-This set of resources allows users to define access control policy for their
-applications. It is the *authorization* side of the picture. Authentication
-should already be handled by the underlying implementation and surfaced through
-a subject.
+**API Group:** access.smi-spec.io
 
-Access control in this specification is *additive*, all traffic is denied by
-default. See [tradeoffs](#tradeoffs) for a longer discussion about why.
+**API Version:** v1alpha1
+
+**Compatible With:** specs.smi-spec.io/v1alpha1 and specs.smi-spec.io/v1alpha2
+
+This set of resources allows users to define access control policy for their
+applications. It is the authorization side of the picture. Authentication should
+already be handled by the underlying implementation and surfaced through a subject.
+
+Access control in this specification is additive, all traffic is denied by default.
+See [tradeoffs](#tradeoffs) for a longer discussion about why.
 
 ## Specification
 
-### TrafficTarget `v1alpha1`
+### TrafficTarget
 
 A `TrafficTarget` associates a set of traffic definitions (rules) with a
 service identity which is allocated to a group of pods.  Access is controlled
-via referenced TrafficSpecs and by a list of source service identities.  If a
-pod which holds the referenced service identity makes a call to the destination
-on one of the defined routes then access will be allowed.  Any pod which
-attempts to connect and is not in the defined list of sources will be denied.
-Any pod which is in the defined list but attempts to connect on a route which
-is not in the list of TrafficSpecs will be denied.
+via referenced [TrafficSpecs](/apis/traffic-specs/v1alpha2/traffic-specs.md)
+and by a list of source service identities.  If a pod which holds the reference
+service identity makes a call to the destination on one of the defined routes
+then access will be allowed. Any pod which attempts to connect and is not in
+the defined list of sources will be denied.  Any pod which is in the defined
+list but attempts to connect on a route which is not in the list of
+`TrafficSpecs` will be denied.
 
 Access is controlled based on service identity, at present the method of
 assigning service identity is using Kubernetes service accounts, provision for
 other identity mechanisms will be handled by the spec at a later date.
 
-Specs are [traffic specs](traffic-specs.md) that define what traffic for
-specific protocols would look like. The kind can be different depending on what
-traffic a target is serving. In the following examples, `HTTPRouteGroup` is
-used for applications serving HTTP based traffic.
+Specs are [traffic specs](/apis/traffic-specs/v1alpha2/traffic-specs.md) that
+define what traffic for specific protocols would look like. The kind can be
+different depending on what traffic a target is serving. In the following
+examples, `HTTPRouteGroup` is used for applications serving HTTP based traffic.
 
 To understand how this all fits together, first define the routes for some
 traffic.
 
 ```yaml
-apiVersion: specs.smi-spec.io/v1alpha1
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
@@ -55,7 +60,6 @@ Prometheus. To define the target for this traffic, it takes a `TrafficTarget`.
 ```yaml
 ---
 kind: TrafficTarget
-apiVersion: access.smi-spec.io/v1alpha1
 metadata:
   name: path-specific
   namespace: default
@@ -104,7 +108,6 @@ prometheus. It shows how it is possible to write fine grained TrafficTargets
 which allow access to be controlled by route and source.
 
 ```yaml
-apiVersion: specs.smi-spec.io/v1alpha1
 kind: HTTPRouteGroup
 metadata:
   name: api-service-routes
@@ -118,7 +121,6 @@ matches:
 
 ---
 kind: TrafficTarget
-apiVersion: access.smi-spec.io/v1alpha1
 metadata:
   name: api-service-metrics
   namespace: default
@@ -138,7 +140,6 @@ sources:
 
 ---
 kind: TrafficTarget
-apiVersion: access.smi-spec.io/v1alpha1
 metadata:
   name: api-service-api
   namespace: default

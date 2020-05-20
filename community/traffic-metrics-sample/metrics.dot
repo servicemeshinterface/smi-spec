@@ -1,0 +1,8 @@
+digraph metrics {
+  graph [dpi=300]
+
+  "kubectl get --raw ..." -> "Kubernetes API Server" [ label="  GET .../namespaces/default/deployments" ];
+  "Kubernetes API Server" -> "Traffic Metrics Shim" [ label="  GET .../namespaces/default/deployments" ];
+  "Traffic Metrics Shim" -> "Prometheus" [ label="  sum(requests_total{namespace='default',kind='deployment'}) by (name)" ];
+}
+
