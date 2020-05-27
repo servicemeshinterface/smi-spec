@@ -4,7 +4,7 @@
 
 **API Version:** v1alpha2-WD
 
-**Compatible With:** specs.smi-spec.io/v1alpha1 and specs.smi-spec.io/v1alpha2
+**Compatible With:** specs.smi-spec.io/v1alpha3
 
 This set of resources allows users to define access control policy for their
 applications. It is the authorization side of the picture. Authentication should
@@ -31,7 +31,7 @@ Access is controlled based on service identity, at present the method of
 assigning service identity is using Kubernetes service accounts, provision for
 other identity mechanisms will be handled by the spec at a later date.
 
-Specs are [traffic specs](/apis/traffic-specs/v1alpha2/traffic-specs.md) that
+Rules are [traffic specs](/apis/traffic-specs/v1alpha2/traffic-specs.md) that
 define what traffic for specific protocols would look like. The kind can be
 different depending on what traffic a target is serving. In the following
 examples, `HTTPRouteGroup` is used for applications serving HTTP based traffic.
@@ -43,14 +43,15 @@ traffic.
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
-matches:
-- name: metrics
-  pathRegex: "/metrics"
-  methods:
-  - GET
-- name: everything
-  pathRegex: ".*"
-  methods: ["*"]
+spec:
+  matches:
+  - name: metrics
+    pathRegex: "/metrics"
+    methods:
+    - GET
+  - name: everything
+    pathRegex: ".*"
+    methods: ["*"]
 ```
 
 For this definition, there are two routes: metrics and everything. It is a
@@ -63,20 +64,21 @@ kind: TrafficTarget
 metadata:
   name: path-specific
   namespace: default
-destination:
-  kind: ServiceAccount
-  name: service-a
-  namespace: default
-  port: 8080
-specs:
-- kind: HTTPRouteGroup
-  name: the-routes
-  matches:
-  - metrics
-sources:
-- kind: ServiceAccount
-  name: prometheus
-  namespace: default
+spec:
+  destination:
+    kind: ServiceAccount
+    name: service-a
+    namespace: default
+    port: 8080
+  rules:
+  - kind: HTTPRouteGroup
+    name: the-routes
+    matches:
+    - metrics
+  sources:
+  - kind: ServiceAccount
+    name: prometheus
+    namespace: default
 ```
 
 This example selects all the pods which have the `service-a` `ServiceAccount`.
@@ -111,55 +113,56 @@ which allow access to be controlled by route and source.
 kind: HTTPRouteGroup
 metadata:
   name: api-service-routes
-matches:
-- name: api
-  pathRegex: /api
-  methods: ["*"]
-- name: metrics
-  pathRegex: /metrics
-  methods: ["GET"]
-
+spec:
+  matches:
+  - name: api
+    pathRegex: /api
+    methods: ["*"]
+  - name: metrics
+    pathRegex: /metrics
+    methods: ["GET"]
 ---
 kind: TrafficTarget
 metadata:
   name: api-service-metrics
   namespace: default
-destination:
-  kind: ServiceAccount
-  name: api-service
-  namespace: default
-specs:
-- kind: HTTPRouteGroup
-  name: api-service-routes
-  matches:
-  - metrics
-sources:
-- kind: ServiceAccount
-  name: prometheus
-  namespace: default
-
+spec:
+  destination:
+    kind: ServiceAccount
+    name: api-service
+    namespace: default
+  rules:
+  - kind: HTTPRouteGroup
+    name: api-service-routes
+    matches:
+    - metrics
+  sources:
+  - kind: ServiceAccount
+    name: prometheus
+    namespace: default
 ---
 kind: TrafficTarget
 metadata:
   name: api-service-api
   namespace: default
-destination:
-  kind: ServiceAccount
-  name: api-service
-  namespace: default
-  port: 8080
-specs:
-- kind: HTTPRouteGroup
-  name: api-service-routes
-  matches:
-  - api
-sources:
-- kind: ServiceAccount
-  name: website-service
-  namespace: default
-- kind: ServiceAccount
-  name: payments-service
-  namespace: default
+spec:
+  destination:
+    kind: ServiceAccount
+    name: api-service
+    namespace: default
+    port: 8080
+  rules:
+  - kind: HTTPRouteGroup
+    name: api-service-routes
+    matches:
+    - api
+  sources:
+  - kind: ServiceAccount
+    name: website-service
+    namespace: default
+  - kind: ServiceAccount
+    name: payments-service
+    namespace: default
 ```
 
 The previous example would allow the following HTTP traffic:
