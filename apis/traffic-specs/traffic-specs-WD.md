@@ -27,14 +27,15 @@ routes that can be served by an application.
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
-matches:
-- name: metrics
-  pathRegex: "/metrics"
-  methods:
-  - GET
-- name: health
-  pathRegex: "/ping"
-  methods: ["*"]
+spec:
+  matches:
+  - name: metrics
+    pathRegex: "/metrics"
+    methods:
+    - GET
+  - name: health
+    pathRegex: "/ping"
+    methods: ["*"]
 ```
 
 This example defines two matches, `metrics` and `health`. The name is the
@@ -53,10 +54,11 @@ kind: HTTPRouteGroup
 metadata:
   name: the-routes
   namespace: default
-matches:
-- name: everything
-  pathRegex: ".*"
-  methods: ["*"]
+spec:
+  matches:
+  - name: everything
+    pathRegex: ".*"
+    methods: ["*"]
 ```
 
 This example defines a single route that matches anything.
@@ -80,11 +82,12 @@ kind: HTTPRouteGroup
 metadata:
   name: the-routes
   namespace: default
-matches:
-- name: android-insiders
-  headers:
-  - user-agent: ".*Android.*"
-  - cookie: "^(.*?;)?(type=insider)(;.*)?$"
+spec:
+  matches:
+  - name: android-insiders
+    headers:
+    - user-agent: ".*Android.*"
+    - cookie: "^(.*?;)?(type=insider)(;.*)?$"
 ```
 
 The above example defines a filter that targets Android users with a
@@ -95,14 +98,15 @@ kind: HTTPRouteGroup
 metadata:
   name: the-routes
   namespace: default
-matches:
-- name: android-insiders
-  headers:
-  - user-agent: ".*Android.*"
-  - cookie: "^(.*?;)?(type=insider)(;.*)?$"
-- name: firefox-users
-  headers:
-  - user-agent: ".*Firefox.*"
+spec:
+  matches:
+  - name: android-insiders
+    headers:
+    - user-agent: ".*Android.*"
+    - cookie: "^(.*?;)?(type=insider)(;.*)?$"
+  - name: firefox-users
+    headers:
+    - user-agent: ".*Firefox.*"
 ```
 
 The above example defines two routes that target Android users with a `type=insider`
@@ -114,14 +118,15 @@ A route that targets a specific path and/or HTTP methods can contain header filt
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
-matches:
-- name: iphone-users
-  pathRegex: "/api/.*"
-  methods:
-  - GET
-  - HEAD
-  headers:
-  - user-agent: ".*iPhone.*"
+spec:
+  matches:
+  - name: iphone-users
+    pathRegex: "/api/.*"
+    methods:
+    - GET
+    - HEAD
+    headers:
+    - user-agent: ".*iPhone.*"
 ```
 
 The above example defines a route that targets iPhone users that are issuing
@@ -139,6 +144,7 @@ an application to receive raw non protocol specific traffic.
 kind: TCPRoute
 metadata:
   name: tcp-route
+spec: {}
 ```
 
 ## Automatic Generation
