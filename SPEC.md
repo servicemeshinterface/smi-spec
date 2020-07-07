@@ -103,9 +103,9 @@ a set of resources to define how traffic looks on a per-protocol basis. These
 resources work in concert with access control and other types of policy to manage
 traffic at a protocol level.
 
-### Traffic Telemetry
+### Traffic Metrics
 
-Capture key metrics like error rate and latency between services
+Capture key metrics like error rate and latency between services.
 
 The [Traffic Metrics](apis/traffic-metrics/v1alpha1/traffic-metrics.md) API
 exposes common traffic metrics for use by tools such as dashboards and autoscalers.
