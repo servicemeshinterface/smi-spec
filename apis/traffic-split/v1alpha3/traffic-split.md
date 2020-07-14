@@ -4,7 +4,7 @@
 
 **API Version:** v1alpha3
 
-**Compatible with:** specs.smi-spec.io/v1alpha2
+**Compatible with:** specs.smi-spec.io/v1alpha3
 
 ## Specification
 
@@ -34,7 +34,7 @@ HTTP header filters and route a specific user segment to a backend while
 all the other users not belonging to that segment will be routed to the
 default service backend e.g. the Kubernetes service that matches
 the *root* name. The HTTP header filters can be specified using the
-[HTTPRouteGroup](/apis/traffic-specs/v1alpha2/traffic-specs.md) API, a
+[HTTPRouteGroup](/apis/traffic-specs/v1alpha3/traffic-specs.md) API, a
 traffic split can refer HTTP route groups via `spec.matches` thus
 applying the header filters described in those groups.
 

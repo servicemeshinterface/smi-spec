@@ -18,12 +18,12 @@ The following documents are available:
 |                               |         Latest Release             |    Working Draft                           |
 | :---------------------------- | :--------------------------------: | :----------------------------------------: |
 | **Core Specification:**       |
-| SMI Specification             |  [v0.4.0](/SPEC_LATEST_STABLE.md) |  [v0.5.0-WD](/SPEC_WORKING_DRAFT.md)  |
+| SMI Specification             |  [v0.5.0](/SPEC_LATEST_STABLE.md) |  [v0.6.0-WD](/SPEC_WORKING_DRAFT.md)  |
 |                               |
 | **Specification Components**  |
-| Traffic Access Control  |  [v1alpha1](/apis/traffic-access/v1alpha1/traffic-access.md)  |  [v1alpha2-WD](/apis/traffic-access/traffic-access-WD.md)          |
+| Traffic Access Control  |  [v1alpha2](/apis/traffic-access/v1alpha2/traffic-access.md)  |  [v1alpha3-WD](/apis/traffic-access/traffic-access-WD.md)          |
 | Traffic Metrics   |  [v1alpha1](/apis/traffic-metrics/v1alpha1/traffic-metrics.md)  |  [v1alpha2-WD](/apis/traffic-metrics/traffic-metrics-WD.md)          |
-| Traffic Specs  |  [v1alpha2](/apis/traffic-specs/v1alpha2/traffic-specs.md)  |  [v1alpha3-WD](/apis/traffic-specs/traffic-specs-WD.md)          |
+| Traffic Specs  |  [v1alpha3](/apis/traffic-specs/v1alpha3/traffic-specs.md)  |  [v1alpha4-WD](/apis/traffic-specs/traffic-specs-WD.md)          |
 | Traffic Split  |  [v1alpha3](/apis/traffic-split/v1alpha3/traffic-split.md) |  [v1alpha4-WD](/apis/traffic-split/traffic-split-WD.md)          |
 
 ## Ecosystem
