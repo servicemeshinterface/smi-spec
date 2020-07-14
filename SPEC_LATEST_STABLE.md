@@ -2,8 +2,7 @@
 
 ## Version
 
-This is SMI **spec** version **v0.4.0-WD**.
-WD stands for `working draft`.
+This is SMI **spec** version **v0.4.0**.
 Learn more about versioning [below](#versioning).
 
 ## Table of Contents
