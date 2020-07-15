@@ -2,7 +2,7 @@
 
 ## Version
 
-This is SMI **spec** version **v0.5.0-WD**.
+This is SMI **spec** version **v0.6.0-WD**.
 Learn more about versioning [below](#versioning).
 
 ## Table of Contents

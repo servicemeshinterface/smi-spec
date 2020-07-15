@@ -2,7 +2,7 @@
 
 ## Version
 
-This is SMI **spec** version **v0.4.0**.
+This is SMI **spec** version **v0.5.0**.
 Learn more about versioning [below](#versioning).
 
 ## Table of Contents
@@ -80,7 +80,7 @@ drafts can be found under the [apis/ directory](apis/)_
 
 Apply policies like identity and transport encryption across services.
 
-The [Traffic Access Control](apis/traffic-access/v1alpha1/traffic-access.md) API
+The [Traffic Access Control](apis/traffic-access/v1alpha2/traffic-access.md) API
 describes a resource to configure access to specific pods and routes based
 on the identity of a client for locking down applications to only allowed
 users and services.
@@ -97,7 +97,7 @@ to assist in building out canary rollouts.
 
 Describe traffic on a per-protocol basis.
 
-The [Traffic Specs](apis/traffic-specs/v1alpha2/traffic-specs.md) API describes
+The [Traffic Specs](apis/traffic-specs/v1alpha3/traffic-specs.md) API describes
 a set of resources to define how traffic looks on a per-protocol basis. These
 resources work in concert with access control and other types of policy to manage
 traffic at a protocol level.

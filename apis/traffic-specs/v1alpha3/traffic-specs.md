@@ -2,7 +2,7 @@
 
 **API Group:** specs.smi-spec.io
 
-**Version:** v1alpha4-WD
+**Version:** v1alpha3
 
 ## Specification
 
