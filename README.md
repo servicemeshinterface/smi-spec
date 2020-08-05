@@ -36,6 +36,7 @@ The following documents are available:
 * **Meshery:** the service mesh management plane ([layer5.io/meshery](https://layer5.io/meshery))
 * **Rio:** application deployment engine ([rio.io](https://rio.io))
 * **Service Mesh Hub:** unified dashboard ([solo.io/products/service-mesh-hub](https://solo.io/products/service-mesh-hub))
+* **Open Service Mesh:** lightweight and extensible cloud native service mesh ([openservicemesh.io](https://openservicemesh.io))
 
 \* via adaptor
 
