@@ -4,7 +4,7 @@
 
 **API Version:** v1alpha3-WD
 
-**Compatible With:** specs.smi-spec.io/v1alpha3
+**Compatible With:** specs.smi-spec.io/v1alpha4
 
 This set of resources allows users to define access control policy for their
 applications. It is the authorization side of the picture. Authentication should
@@ -40,6 +40,14 @@ To understand how this all fits together, first define the routes for some
 traffic.
 
 ```yaml
+kind: TCPRoute
+metadata:
+  name: the-routes
+spec:
+  matches:
+    ports:
+    - 8080
+---
 kind: HTTPRouteGroup
 metadata:
   name: the-routes
@@ -69,8 +77,9 @@ spec:
     kind: ServiceAccount
     name: service-a
     namespace: default
-    port: 8080
   rules:
+  - kind: TCPRoute
+    name: the-routes
   - kind: HTTPRouteGroup
     name: the-routes
     matches:
@@ -85,8 +94,8 @@ This example selects all the pods which have the `service-a` `ServiceAccount`.
 Traffic destined on a path `/metrics` is allowed. The `matches` field is
 optional and if omitted, a rule is valid for all the matches in a traffic spec
 (a OR relationship).  It is possible for a service to expose multiple ports,
-the `port` field allows the user to specify specifically which port traffic
-should be allowed on. `port` is an optional element, if not specified, traffic
+the TCPRoute/UDPRoute `matches.ports` field allows the user to specify specifically which port traffic
+should be allowed on. The `matches.ports` is an optional element, if not specified, traffic
 will be allowed to all ports on the destination service.
 
 Allowing destination traffic should only be possible with permission of the
@@ -103,13 +112,21 @@ Source identities which are allowed to connect to the destination is defined in
 the sources list.  Only pods which have a `ServiceAccount` which is named in
 the sources list are allowed to connect to the destination.
 
-## Example Implementation
+## Example implementation for L7
 
 The following implementation shows four services api, website, payment and
 prometheus. It shows how it is possible to write fine grained TrafficTargets
 which allow access to be controlled by route and source.
 
 ```yaml
+kind: TCPRoute
+metadata:
+  name: api-service-port
+spec:
+  matches:
+    ports:
+    - 8080
+---
 kind: HTTPRouteGroup
 metadata:
   name: api-service-routes
@@ -132,6 +149,8 @@ spec:
     name: api-service
     namespace: default
   rules:
+  - kind: TCPRoute
+    name: api-service-port
   - kind: HTTPRouteGroup
     name: api-service-routes
     matches:
@@ -150,8 +169,9 @@ spec:
     kind: ServiceAccount
     name: api-service
     namespace: default
-    port: 8080
   rules:
+  - kind: TCPRoute
+    name: api-service-port
   - kind: HTTPRouteGroup
     name: api-service-routes
     matches:
@@ -172,6 +192,53 @@ The previous example would allow the following HTTP traffic:
 | website-service   | api-service   | /api     | *      |
 | payments-service  | api-service   | /api     | *      |
 | prometheus        | api-service   | /metrics | GET    |
+
+## Example implementation for L4
+
+The following implementation how to define TrafficTargets for allowing TCP and UDP
+traffic to specific ports.
+
+```yaml
+kind: TCPRoute
+metadata:
+  name: tcp-ports
+spec:
+  matches:
+    ports:
+    - 8301
+    - 8302
+    - 8300
+---
+kind: UDPRoute
+metadata:
+  name: udp-ports
+spec:
+  matches:
+    ports:
+    - 8301
+    - 8302
+---
+kind: TrafficTarget
+metadata:
+  name: protocal-specific
+spec:
+  destination:
+    kind: ServiceAccount
+    name: server
+    namespace: default
+  rules:
+  - kind: TCPRoute
+    name: tcp-ports
+  - kind: UDPRoute
+    name: udp-ports
+  sources:
+  - kind: ServiceAccount
+    name: client
+    namespace: default
+```
+
+Note that the above configuration will allow TCP and UDP traffic to both `8301` and `8302` ports,
+but will block UDP traffic to `8300`.
 
 ## Tradeoffs
 
