@@ -150,7 +150,8 @@ spec:
     - 6446
 ```
 
-When matching ports are not specified, the TCP route will match all the ports of a Kubernetes service:
+When matching ports are not specified,
+the TCP route will match all the ports of a Kubernetes service:
 
 ```yaml
 kind: TCPRoute
@@ -176,7 +177,8 @@ spec:
     - 990
 ```
 
-When matching ports are not specified, the UDP route will match all the ports of a Kubernetes service:
+When matching ports are not specified,
+the UDP route will match all the ports of a Kubernetes service:
 
 ```yaml
 kind: UDPRoute

@@ -94,8 +94,9 @@ This example selects all the pods which have the `service-a` `ServiceAccount`.
 Traffic destined on a path `/metrics` is allowed. The `matches` field is
 optional and if omitted, a rule is valid for all the matches in a traffic spec
 (a OR relationship).  It is possible for a service to expose multiple ports,
-the TCPRoute/UDPRoute `matches.ports` field allows the user to specify specifically which port traffic
-should be allowed on. The `matches.ports` is an optional element, if not specified, traffic
+the TCPRoute/UDPRoute `matches.ports` field allows the user to specify
+specifically which port traffic should be allowed on.
+The `matches.ports` is an optional element, if not specified, traffic
 will be allowed to all ports on the destination service.
 
 Allowing destination traffic should only be possible with permission of the
@@ -195,8 +196,8 @@ The previous example would allow the following HTTP traffic:
 
 ## Example implementation for L4
 
-The following implementation how to define TrafficTargets for allowing TCP and UDP
-traffic to specific ports.
+The following implementation shows how to define TrafficTargets for
+allowing TCP and UDP traffic to specific ports.
 
 ```yaml
 kind: TCPRoute
@@ -237,8 +238,8 @@ spec:
     namespace: default
 ```
 
-Note that the above configuration will allow TCP and UDP traffic to both `8301` and `8302` ports,
-but will block UDP traffic to `8300`.
+Note that the above configuration will allow TCP and UDP traffic to
+both `8301` and `8302` ports, but will block UDP traffic to `8300`.
 
 ## Tradeoffs
 
