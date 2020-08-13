@@ -137,14 +137,54 @@ to any path and all HTTP methods.
 
 ### TCPRoute
 
-This resource is used to describe L4 TCP traffic. It is a simple route which configures
-an application to receive raw non protocol specific traffic.
+This resource is used to describe L4 TCP traffic for a list of ports.
 
 ```yaml
 kind: TCPRoute
 metadata:
-  name: tcp-route
-spec: {}
+  name: the-routes
+spec:
+  matches:
+    ports:
+    - 3306
+    - 6446
+```
+
+When matching ports are not specified, the TCP route will match all the ports of a Kubernetes service:
+
+```yaml
+kind: TCPRoute
+metadata:
+  name: the-routes
+spec:
+  matches:
+    ports: []
+```
+
+### UDPRoute
+
+This resource is used to describe L4 UDP traffic for a list of ports.
+
+```yaml
+kind: UDPRoute
+metadata:
+  name: the-routes
+spec:
+  matches:
+    ports:
+    - 989
+    - 990
+```
+
+When matching ports are not specified, the UDP route will match all the ports of a Kubernetes service:
+
+```yaml
+kind: UDPRoute
+metadata:
+  name: the-routes
+spec:
+  matches:
+    ports: []
 ```
 
 ## Automatic Generation
