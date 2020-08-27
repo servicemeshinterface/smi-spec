@@ -55,8 +55,8 @@ spec:
     weight: 10
 ```
 
-The above configuration will route 10% of the `website` incoming
-traffic to the `website-v1` service and 90% to `website-v2` service.
+The above configuration will route 90% of the `website` incoming
+traffic to the `website-v1` service and 10% to `website-v2` service.
 
 A/B test example:
 
