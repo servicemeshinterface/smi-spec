@@ -386,4 +386,4 @@ upstream backend {
 ```
 
 Thus the new `web` service when accessed from a client in Kubernetes will send
-10% of it's traffic to `web-next` and 90% of it's traffic to `web`.
+10% of it's traffic to `web-next` and 90% of it's traffic to `web-current`.
