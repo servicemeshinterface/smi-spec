@@ -305,7 +305,7 @@ At this point, the SMI implementation does not redirect any traffic to
   backends at the TrafficSplit level instead of referential services. The
   referential services are a little bit more flexible. Users will have a
   convenient way to manually test their new versions and implementations will
-  have the opportunity to rely on Kuberentes native concepts instead of
+  have the opportunity to rely on Kubernetes native concepts instead of
   implementing them independently such as endpoints.
 
 * TrafficSplits are not hierarchical - it would be possible to have
