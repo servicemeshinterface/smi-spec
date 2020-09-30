@@ -4,7 +4,7 @@
 
 **API Version:** v1alpha3-WD
 
-**Compatible With:** specs.smi-spec.io/v1alpha3
+**Compatible With:** specs.smi-spec.io/v1alpha4-WD
 
 This set of resources allows users to define access control policy for their
 applications. It is the authorization side of the picture. Authentication should
@@ -35,6 +35,9 @@ Rules are [traffic specs](/apis/traffic-specs/v1alpha3/traffic-specs.md) that
 define what traffic for specific protocols would look like. The kind can be
 different depending on what traffic a target is serving. In the following
 examples, `HTTPRouteGroup` is used for applications serving HTTP based traffic.
+
+A valid `TrafficTarget` must specify a destination, at least one rule, and
+at least one source.
 
 To understand how this all fits together, first define the routes for some
 traffic.
