@@ -4,7 +4,9 @@
 
 **API Version:** v1alpha3-WD
 
-**Compatible With:** specs.smi-spec.io/v1alpha4
+**Compatible with:** specs.smi-spec.io/v1alpha4-WD
+
+## Specification
 
 This set of resources allows users to define access control policy for their
 applications. It is the authorization side of the picture. Authentication should
@@ -12,8 +14,6 @@ already be handled by the underlying implementation and surfaced through a subje
 
 Access control in this specification is additive, all traffic is denied by default.
 See [tradeoffs](#tradeoffs) for a longer discussion about why.
-
-## Specification
 
 ### TrafficTarget
 

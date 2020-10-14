@@ -4,7 +4,7 @@
 
 **API Version:** v1alpha4-WD
 
-**Compatible with:** specs.smi-spec.io/v1alpha3
+**Compatible with:** specs.smi-spec.io/v1alpha4-WD
 
 ## Specification
 
