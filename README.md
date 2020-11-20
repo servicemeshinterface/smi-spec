@@ -37,6 +37,7 @@ The following documents are available:
 * **Rio:** application deployment engine ([rio.io](https://rio.io))
 * **Service Mesh Hub:** unified dashboard ([solo.io/products/service-mesh-hub](https://solo.io/products/service-mesh-hub))
 * **Open Service Mesh:** lightweight and extensible cloud native service mesh ([openservicemesh.io](https://openservicemesh.io))
+* **Argo Rollouts:** advanced deployment & progressive delivery controller ([argoproj.io](https://argoproj.github.io/argo-rollouts))
 
 \* via adaptor
 
