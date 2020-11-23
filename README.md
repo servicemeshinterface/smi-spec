@@ -35,7 +35,7 @@ The following documents are available:
 * **Traefik Mesh:** simpler service mesh ([traefik.io/traefik-mesh](https://traefik.io/traefik-mesh))
 * **Meshery:** the service mesh management plane ([layer5.io/meshery](https://layer5.io/meshery))
 * **Rio:** application deployment engine ([rio.io](https://rio.io))
-* **Service Mesh Hub:** unified dashboard ([solo.io/products/service-mesh-hub](https://solo.io/products/service-mesh-hub))
+* **Gloo Mesh:** unified dashboard ([solo.io/products/gloo-mesh](https://www.solo.io/products/gloo-mesh/))
 * **Open Service Mesh:** lightweight and extensible cloud native service mesh ([openservicemesh.io](https://openservicemesh.io))
 
 \* via adaptor
