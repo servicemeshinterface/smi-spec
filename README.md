@@ -30,12 +30,13 @@ The following documents are available:
 
 * **Consul Connect\*:** service segmentation ([consul.io/docs/connect](https://consul.io/docs/connect))
 * **Flagger:** progressive delivery operator ([flagger.app](https://flagger.app))
+* **Gloo Mesh:** Multi-cluster service mesh management plane
+ ([solo.io/products/gloo-mesh](https://solo.io/products/gloo-mesh))
 * **Istio\*:** connect, secure, control, observe ([servicemeshinterface/smi-adapter-istio](https://github.com/servicemeshinterface/smi-adapter-istio))
 * **Linkerd:** ultralight service mesh ([linkerd.io](https://linkerd.io))
 * **Traefik Mesh:** simpler service mesh ([traefik.io/traefik-mesh](https://traefik.io/traefik-mesh))
 * **Meshery:** the service mesh management plane ([layer5.io/meshery](https://layer5.io/meshery))
 * **Rio:** application deployment engine ([rio.io](https://rio.io))
-* **Service Mesh Hub:** unified dashboard ([solo.io/products/service-mesh-hub](https://solo.io/products/service-mesh-hub))
 * **Open Service Mesh:** lightweight and extensible cloud native service mesh ([openservicemesh.io](https://openservicemesh.io))
 
 \* via adaptor
