@@ -38,6 +38,7 @@ The following documents are available:
 * **Meshery:** the service mesh management plane ([layer5.io/meshery](https://layer5.io/meshery))
 * **Rio:** application deployment engine ([rio.io](https://rio.io))
 * **Open Service Mesh:** lightweight and extensible cloud native service mesh ([openservicemesh.io](https://openservicemesh.io))
+* **Argo Rollouts:** advanced deployment & progressive delivery controller ([argoproj.io](https://argoproj.github.io/argo-rollouts))
 
 \* via adaptor
 
