@@ -36,6 +36,9 @@ define what traffic for specific protocols would look like. The kind can be
 different depending on what traffic a target is serving. In the following
 examples, `HTTPRouteGroup` is used for applications serving HTTP based traffic.
 
+A valid `TrafficTarget` must specify a destination, at least one rule, and
+at least one source.
+
 To understand how this all fits together, first define the routes for some
 traffic.
 
