@@ -2,13 +2,13 @@
 
 **API Group:** specs.smi-spec.io
 
-**API Version:** v1alpha4-WD
+**API Version:** v1alpha4
 
 ## Specification
 
 This specification describes a set of resources that allows users to specify
 how their traffic looks. It is used in concert with
-[access control](/apis/traffic-access/v1alpha2/traffic-access.md) and
+[access control](/apis/traffic-access/v1alpha3/traffic-access.md) and
 other policies to concretely define what should happen to specific
 types of traffic as it flows through the mesh.
 
@@ -44,7 +44,7 @@ URI and is anchored (`^`) to the beginning of the URI. Methods can either be
 specific (`GET`) or `*` to match all methods.
 
 These routes have not yet been associated with any resources. See
-[Traffic Target](/apis/traffic-access/v1alpha2/traffic-access.md) for an example
+[Traffic Target](/apis/traffic-access/v1alpha3/traffic-access.md) for an example
 of how routes become associated with applications serving traffic.
 
 The `matches` field only applies to URIs and HTTP headers.
@@ -68,7 +68,7 @@ This example defines a single route that matches anything.
 A route definition can specify a list of HTTP header filters.
 A filter defines a match condition that's applied to incoming HTTP requests.
 The filters defined in a route group can be associated with a
-[traffic split](/apis/traffic-split/v1alpha3/traffic-split.md) thus enabling traffic
+[traffic split](/apis/traffic-split/v1alpha4/traffic-split.md) thus enabling traffic
 shifting for A/B testing scenarios.
 
 A HTTP filter is a key-value pair, the key is the name of the HTTP header and

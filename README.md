@@ -15,16 +15,16 @@ interoperability, and covers the most common service mesh capabilities.
 
 The following documents are available:
 
-|                               |         Latest Release             |    Working Draft                           |
-| :---------------------------- | :--------------------------------: | :----------------------------------------: |
+|                               |         Latest Release             |  
+| :---------------------------- | :--------------------------------: |
 | **Core Specification:**       |
-| SMI Specification             |  [v0.5.0](/SPEC_LATEST_STABLE.md) |  [v0.6.0-WD](/SPEC_WORKING_DRAFT.md)  |
+| SMI Specification             |  [v0.6.0](/SPEC_LATEST_STABLE.md) |
 |                               |
 | **Specification Components**  |
-| Traffic Access Control  |  [v1alpha2](/apis/traffic-access/v1alpha2/traffic-access.md)  |  [v1alpha3-WD](/apis/traffic-access/traffic-access-WD.md)          |
-| Traffic Metrics   |  [v1alpha1](/apis/traffic-metrics/v1alpha1/traffic-metrics.md)  |  [v1alpha2-WD](/apis/traffic-metrics/traffic-metrics-WD.md)          |
-| Traffic Specs  |  [v1alpha3](/apis/traffic-specs/v1alpha3/traffic-specs.md)  |  [v1alpha4-WD](/apis/traffic-specs/traffic-specs-WD.md)          |
-| Traffic Split  |  [v1alpha3](/apis/traffic-split/v1alpha3/traffic-split.md) |  [v1alpha4-WD](/apis/traffic-split/traffic-split-WD.md)          |
+| Traffic Access Control  |  [v1alpha3](/apis/traffic-access/v1alpha3/traffic-access.md)  |
+| Traffic Metrics   |  [v1alpha1](/apis/traffic-metrics/v1alpha1/traffic-metrics.md)  |
+| Traffic Specs  |  [v1alpha4](/apis/traffic-specs/v1alpha4/traffic-specs.md)  |
+| Traffic Split  |  [v1alpha4](/apis/traffic-split/v1alpha4/traffic-split.md) |
 
 ## Ecosystem
 

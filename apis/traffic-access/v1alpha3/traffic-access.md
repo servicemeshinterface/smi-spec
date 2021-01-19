@@ -2,9 +2,9 @@
 
 **API Group:** access.smi-spec.io
 
-**API Version:** v1alpha3-WD
+**API Version:** v1alpha3
 
-**Compatible with:** specs.smi-spec.io/v1alpha4-WD
+**Compatible with:** specs.smi-spec.io/v1alpha4
 
 ## Specification
 
@@ -19,7 +19,7 @@ See [tradeoffs](#tradeoffs) for a longer discussion about why.
 
 A `TrafficTarget` associates a set of traffic definitions (rules) with a
 service identity which is allocated to a group of pods.  Access is controlled
-via referenced [TrafficSpecs](/apis/traffic-specs/v1alpha3/traffic-specs.md)
+via referenced [TrafficSpecs](/apis/traffic-specs/v1alpha4/traffic-specs.md)
 and by a list of source service identities.  If a pod which holds the reference
 service identity makes a call to the destination on one of the defined routes
 then access will be allowed. Any pod which attempts to connect and is not in
@@ -31,7 +31,7 @@ Access is controlled based on service identity, at present the method of
 assigning service identity is using Kubernetes service accounts, provision for
 other identity mechanisms will be handled by the spec at a later date.
 
-Rules are [traffic specs](/apis/traffic-specs/v1alpha3/traffic-specs.md) that
+Rules are [traffic specs](/apis/traffic-specs/v1alpha4/traffic-specs.md) that
 define what traffic for specific protocols would look like. The kind can be
 different depending on what traffic a target is serving. In the following
 examples, `HTTPRouteGroup` is used for applications serving HTTP based traffic.
