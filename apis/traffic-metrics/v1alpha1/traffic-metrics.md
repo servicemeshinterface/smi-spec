@@ -4,7 +4,7 @@
 
 **API Version:** v1alpha1
 
-## Specfication
+## Specification
 
 This specification describes a resource that provides a common integration
 point for tools that can benefit by consuming metrics related to HTTP traffic.
@@ -51,7 +51,7 @@ are two main ways to query the API for metrics:
 * A sub-resource allows querying for all the edges associated with a specific
   resource.
 
-## Specification
+### TrafficMetrics
 
 The core resource is `TrafficMetrics`. It references a `resource`, has an `edge`
 and surfaces latency percentiles and request volume.
@@ -441,7 +441,7 @@ targets pods with an Envoy sidecar and periodically requests
   rules and force integrations to query those directly. This feels like it
   increases the bar for metrics stores to change their internal configuration
   around to support this specification. There is also not a multi-tenant story
-  for Prometheus series visibility that maps across Kuberenetes RBAC. From the
+  for Prometheus series visibility that maps across Kubernetes RBAC. From the
   other side, consumers of these metrics will have to do discovery of
   Prometheus' location in the cluster and do some kind of queries to surface the
   data that they need.
