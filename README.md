@@ -5,11 +5,12 @@
 
 ## Service Mesh Interface
 
-The Service Mesh Interface (SMI) is a specification for service meshes that run
-on Kubernetes. It defines a common standard that can be implemented by a variety
-of providers. This allows for both standardization for end-users and innovation
-by providers of Service Mesh Technology. SMI enables flexibility and
-interoperability, and covers the most common service mesh capabilities.
+The Service Mesh Interface (SMI) is a specification for service meshes, with a
+focus on those that run on Kubernetes. It defines a common standard that can be
+implemented by a variety of providers. This allows for both standardization for
+end-users and innovation by providers of Service Mesh Technology. SMI enables
+flexibility and interoperability, and covers the most common service mesh
+capabilities.
 
 ### Service Mesh Interface Documents
 
