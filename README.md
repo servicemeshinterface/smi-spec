@@ -54,7 +54,7 @@ The following documents are available:
 
 ### Slack
 
-* [SMI Slack](https://cloud-native.slack.com):
+* [CNCF Slack](https://cloud-native.slack.com):
   * [#smi](https://cloud-native.slack.com/messages/smi)
 
 [Sign up](https://slack.cncf.io/) for CNCF Slack
