@@ -25,7 +25,7 @@ to communicate. For any *clients* that are not forwarding their traffic through
 a proxy that implements this proposal, the standard Kubernetes service
 configuration would continue to operate.
 
-Implementations will weight outgoing traffic between the services referenced by
+Implementations will weigh outgoing traffic between the services referenced by
 `spec.backends`. Each backend is a Kubernetes service that potentially has a
 different selector and type. Weights must be whole numbers.
 
