@@ -2,7 +2,7 @@
 
 ## Changes to the Spec
 
-All changes to the spec should be commited to the draft branch. This is the branch
+All changes to the spec should be committed to the draft branch. This is the branch
 where we iterate on the specification until it is ready for a release.
 
 ## Sign Your Work
