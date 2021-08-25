@@ -2,13 +2,13 @@
 
 **API Group:** specs.smi-spec.io
 
-**Version:** v1alpha3
+**API Version:** v1alpha5-draft
 
 ## Specification
 
 This specification describes a set of resources that allows users to specify
 how their traffic looks. It is used in concert with
-[access control](/apis/traffic-access/v1alpha2/traffic-access.md) and
+[access control](/apis/traffic-access/v1alpha3/traffic-access.md) and
 other policies to concretely define what should happen to specific
 types of traffic as it flows through the mesh.
 
@@ -28,7 +28,7 @@ kind: HTTPRouteGroup
 metadata:
   name: the-routes
 spec:
-  matches:
+  routes:
   - name: metrics
     pathRegex: "/metrics"
     methods:
@@ -38,16 +38,16 @@ spec:
     methods: ["*"]
 ```
 
-This example defines two matches, `metrics` and `health`. The name is the
+This example defines two routes, `metrics` and `health`. The name is the
 primary key and all fields are required. A regex is used to match against the
 URI and is anchored (`^`) to the beginning of the URI. Methods can either be
 specific (`GET`) or `*` to match all methods.
 
 These routes have not yet been associated with any resources. See
-[Traffic Target](/apis/traffic-access/v1alpha2/traffic-access.md) for an example
+[Traffic Target](/apis/traffic-access/v1alpha3/traffic-access.md) for an example
 of how routes become associated with applications serving traffic.
 
-The `matches` field only applies to URIs and HTTP headers.
+The `routes` field only applies to URIs and HTTP headers.
 
 ```yaml
 kind: HTTPRouteGroup
@@ -55,7 +55,7 @@ metadata:
   name: the-routes
   namespace: default
 spec:
-  matches:
+  routes:
   - name: everything
     pathRegex: ".*"
     methods: ["*"]
@@ -68,7 +68,7 @@ This example defines a single route that matches anything.
 A route definition can specify a list of HTTP header filters.
 A filter defines a match condition that's applied to incoming HTTP requests.
 The filters defined in a route group can be associated with a
-[traffic split](/apis/traffic-split/v1alpha3/traffic-split.md) thus enabling traffic
+[traffic split](/apis/traffic-split/v1alpha4/traffic-split.md) thus enabling traffic
 shifting for A/B testing scenarios.
 
 A HTTP filter is a key-value pair, the key is the name of the HTTP header and
@@ -83,7 +83,7 @@ metadata:
   name: the-routes
   namespace: default
 spec:
-  matches:
+  routes:
   - name: android-insiders
     headers:
     - user-agent: ".*Android.*"
@@ -99,7 +99,7 @@ metadata:
   name: the-routes
   namespace: default
 spec:
-  matches:
+  routes:
   - name: android-insiders
     headers:
     - user-agent: ".*Android.*"
@@ -119,7 +119,7 @@ kind: HTTPRouteGroup
 metadata:
   name: the-routes
 spec:
-  matches:
+  routes:
   - name: iphone-users
     pathRegex: "/api/.*"
     methods:
@@ -137,14 +137,52 @@ to any path and all HTTP methods.
 
 ### TCPRoute
 
-This resource is used to describe L4 TCP traffic. It is a simple route which configures
-an application to receive raw non protocol specific traffic.
+This resource is used to describe L4 TCP traffic for a list of ports.
 
 ```yaml
 kind: TCPRoute
 metadata:
-  name: tcp-route
-spec: {}
+  name: the-routes
+spec:
+  ports:
+  - 3306
+  - 6446
+```
+
+When matching ports are not specified, the TCP route will match all the ports of
+a Kubernetes service:
+
+```yaml
+kind: TCPRoute
+metadata:
+  name: the-routes
+spec:
+  ports: []
+```
+
+### UDPRoute
+
+This resource is used to describe L4 UDP traffic for a list of ports.
+
+```yaml
+kind: UDPRoute
+metadata:
+  name: the-routes
+spec:
+  ports:
+  - 989
+  - 990
+```
+
+When matching ports are not specified, the UDP route will match all the ports of
+a Kubernetes service:
+
+```yaml
+kind: UDPRoute
+metadata:
+  name: the-routes
+spec:
+  ports: []
 ```
 
 ## Automatic Generation
