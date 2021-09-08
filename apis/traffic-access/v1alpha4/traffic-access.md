@@ -2,7 +2,7 @@
 
 **API Group:** access.smi-spec.io
 
-**API Version:** v1alpha3
+**API Version:** v1alpha4
 
 **Compatible with:** specs.smi-spec.io/v1alpha4
 
@@ -15,9 +15,9 @@ already be handled by the underlying implementation and surfaced through a subje
 Access control in this specification is additive, all traffic is denied by default.
 See [tradeoffs](#tradeoffs) for a longer discussion about why.
 
-### TrafficTarget
+### TrafficAccess
 
-A `TrafficTarget` associates a set of traffic definitions (rules) with a
+A `TrafficAccess` associates a set of traffic definitions (rules) with a
 service identity which is allocated to a group of pods.  Access is controlled
 via referenced [TrafficSpecs](/apis/traffic-specs/v1alpha4/traffic-specs.md)
 and by a list of source service identities.  If a pod which holds the reference
@@ -36,7 +36,7 @@ define what traffic for specific protocols would look like. The kind can be
 different depending on what traffic a target is serving. In the following
 examples, `HTTPRouteGroup` is used for applications serving HTTP based traffic.
 
-A valid `TrafficTarget` must specify a destination, at least one rule, and
+A valid `TrafficAccess` must specify a destination, at least one rule, and
 at least one source.
 
 To understand how this all fits together, first define the routes for some
@@ -67,11 +67,11 @@ spec:
 
 For this definition, there are two routes: metrics and everything. It is a
 common use case to restrict access to `/metrics` to only be scraped by
-Prometheus. To define the target for this traffic, it takes a `TrafficTarget`.
+Prometheus. To define the target for this traffic, it takes a `TrafficAccess`.
 
 ```yaml
 ---
-kind: TrafficTarget
+kind: TrafficAccess
 metadata:
   name: path-specific
   namespace: default
@@ -104,7 +104,7 @@ will be allowed to all ports on the destination service.
 
 Allowing destination traffic should only be possible with permission of the
 service owner. Therefore, RBAC rules should be configured to control the pods
-which are allowed to assign the `ServiceAccount` defined in the TrafficTarget
+which are allowed to assign the `ServiceAccount` defined in the TrafficAccess
 destination.
 
 **Note:** access control is *always* enforced on the *server* side of a
@@ -119,7 +119,7 @@ the sources list are allowed to connect to the destination.
 ## Example implementation for L7
 
 The following implementation shows four services api, website, payment and
-prometheus. It shows how it is possible to write fine grained TrafficTargets
+prometheus. It shows how it is possible to write fine grained TrafficAccesss
 which allow access to be controlled by route and source.
 
 ```yaml
@@ -143,7 +143,7 @@ spec:
     pathRegex: /metrics
     methods: ["GET"]
 ---
-kind: TrafficTarget
+kind: TrafficAccess
 metadata:
   name: api-service-metrics
   namespace: default
@@ -164,7 +164,7 @@ spec:
     name: prometheus
     namespace: default
 ---
-kind: TrafficTarget
+kind: TrafficAccess
 metadata:
   name: api-service-api
   namespace: default
@@ -199,7 +199,7 @@ The previous example would allow the following HTTP traffic:
 
 ## Example implementation for L4
 
-The following implementation shows how to define TrafficTargets for
+The following implementation shows how to define TrafficAccesss for
 allowing TCP and UDP traffic to specific ports.
 
 ```yaml
@@ -222,7 +222,7 @@ spec:
     - 8301
     - 8302
 ---
-kind: TrafficTarget
+kind: TrafficAccess
 metadata:
   name: protocal-specific
 spec:
@@ -261,7 +261,7 @@ both `8301` and `8302` ports, but will block UDP traffic to `8300`.
 
 ## Out of scope
 
-* Egress policy - TrafficTarget does *not* allow for the possibility of egress
+* Egress policy - TrafficAccess does *not* allow for the possibility of egress
   access control as it selects specific pods and not hostnames. Another object
   will need to be created to manage this use case.
 
