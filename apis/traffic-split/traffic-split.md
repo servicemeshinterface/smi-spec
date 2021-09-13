@@ -2,7 +2,7 @@
 
 **API Group:** split.smi-spec.io
 
-**API Version:** v1alpha4
+**API Version:** v1alpha5-draft
 
 **Compatible with:** specs.smi-spec.io/v1alpha4
 
