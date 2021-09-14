@@ -2,7 +2,7 @@
 
 **API Group:** access.smi-spec.io
 
-**API Version:** v1alpha1-draft
+**API Version:** v1alpha4-draft
 
 **Compatible with:** specs.smi-spec.io/v1alpha4
 
