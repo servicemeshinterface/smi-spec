@@ -20,10 +20,16 @@ Weighting traffic between various services is also more generally useful than
 driving canary releases.
 
 The resource is associated with a *root* service. This is referenced via
-`spec.service`. The `spec.service` name is the FQDN that applications will use
-to communicate. For any *clients* that are not forwarding their traffic through
-a proxy that implements this proposal, the standard Kubernetes service
-configuration would continue to operate.
+`spec.service`. The `spec.service` name is an addressable name for an
+application accessible by the service mesh. For any *clients* that are not
+forwarding their traffic through a proxy that implements this proposal, the
+standard Kubernetes service configuration would continue to operate.
+
+The *root* service (`spec.service`) can either be
+  (1) a Kubernetes service's FQDN (such as `servicename.service-namespace`)
+  (2) an endpoint that resolves to the FQDN (such as `foo.com`)
+  (3) any other addressable name for an application accessible by the service
+  mesh (such as `servicename` only)
 
 Implementations will weight outgoing traffic between the services referenced by
 `spec.backends`. Each backend is a Kubernetes service that potentially has a
@@ -45,7 +51,8 @@ kind: TrafficSplit
 metadata:
   name: canary
 spec:
-  # The root service that clients use to connect to the destination application.
+  # The root service or addressable name that clients use to connect to the
+  # destination application.
   service: website
   # Services inside the namespace with their own selectors, endpoints and configuration.
   backends:
@@ -86,11 +93,12 @@ matches:
 
 The above configuration will route the Firefox users
 to the `website-v2` service while all the others
-will be routed to the *root* Kubernetes service.
+will be routed to the *root* Kubernetes service, endpoint,
+or addressable name for the service.
 
 If the header conditions don't match the incoming request,
-then routing will be handled by the Kubernetes service
-with the same name as `spec.service`.
+then routing will be handled by the resource that resolves
+to `spec.service`.
 
 If multiple HTTP route groups are specified, all routes
 will be merged into a single group.
@@ -219,7 +227,8 @@ resources:
 * Deployment named `foobar-v1`, with labels: `app: foobar` and `version: v1`.
 * Service named `foobar`, with a selector of `app: foobar`.
 * Service named `foobar-v1`, with selectors: `app:foobar` and `version: v1`.
-* Clients use the FQDN of `foobar` to communicate.
+* Clients use the FQDN of `foobar` (the root service) to communicate to the
+  service.
 
 In order to update an application, the user will perform the following actions:
 
@@ -372,7 +381,7 @@ Assume a `TrafficSplit` object that looks like:
 When a new `TrafficSplit` object is created, it instantiates the following Kubernetes
 objects:
 
-* Service who's name is the same as `spec.service` in the TrafficSplit (`web`)
+* Service that resolves to `spec.service` in the TrafficSplit (`web`)
 * A Deployment running `nginx` which has labels that match the Service
 
 The nginx layer serves as an HTTP(s) layer which implements the canary. In
