@@ -86,8 +86,8 @@ spec:
   matches:
   - name: android-insiders
     headers:
-    - user-agent: ".*Android.*"
-    - cookie: "^(.*?;)?(type=insider)(;.*)?$"
+      user-agent: ".*Android.*"
+      cookie: "^(.*?;)?(type=insider)(;.*)?$"
 ```
 
 The above example defines a filter that targets Android users with a
@@ -102,11 +102,11 @@ spec:
   matches:
   - name: android-insiders
     headers:
-    - user-agent: ".*Android.*"
-    - cookie: "^(.*?;)?(type=insider)(;.*)?$"
+      user-agent: ".*Android.*"
+      cookie: "^(.*?;)?(type=insider)(;.*)?$"
   - name: firefox-users
     headers:
-    - user-agent: ".*Firefox.*"
+      user-agent: ".*Firefox.*"
 ```
 
 The above example defines two routes that target Android users with a `type=insider`
@@ -126,7 +126,7 @@ spec:
     - GET
     - HEAD
     headers:
-    - user-agent: ".*iPhone.*"
+      user-agent: ".*iPhone.*"
 ```
 
 The above example defines a route that targets iPhone users that are issuing
