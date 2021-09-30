@@ -28,6 +28,9 @@ configuration would continue to operate.
 Implementations will weight outgoing traffic between the services referenced by
 `spec.backends`. Each backend is a Kubernetes service that potentially has a
 different selector and type. Weights must be whole numbers.
+Validation beyond what is in the
+[TrafficSplit OpenAPI schema](https://github.com/servicemeshinterface/smi-sdk-go/blob/main/crds/split.yaml)
+is left up to the implementation.
 
 To accommodate A/B testing scenarios, a traffic split can take into account
 HTTP header filters and route a specific user segment to a backend while
