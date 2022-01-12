@@ -81,7 +81,7 @@ metadata:
 matches:
 - name: firefox-users
   headers:
-  - user-agent: ".*Firefox.*"
+    user-agent: ".*Firefox.*"
 ```
 
 The above configuration will route the Firefox users
