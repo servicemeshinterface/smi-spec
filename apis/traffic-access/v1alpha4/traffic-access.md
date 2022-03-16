@@ -144,7 +144,7 @@ metadata:
 spec:
   destination:
     kind: IdentityBinding
-    group: access.smi-spec.io/v1alpha4
+    group: access.smi-spec.io
     name: service-a
     namespace: default
   rules:
@@ -156,7 +156,7 @@ spec:
     - metrics
   sources:
   - kind: IdentityBinding
-    group: access.smi-spec.io/v1alpha4
+    group: access.smi-spec.io
     name: prometheus
     namespace: default
 ```
@@ -219,7 +219,7 @@ metadata:
 spec:
   destination:
     kind: IdentityBinding
-    group: access.smi-spec.io/v1alpha4
+    group: access.smi-spec.io
     name: api-service
     namespace: default
   rules:
@@ -231,7 +231,7 @@ spec:
     - metrics
   sources:
   - kind: IdentityBinding
-    group: access.smi-spec.io/v1alpha4
+    group: access.smi-spec.io
     name: prometheus
     namespace: default
 ---
@@ -242,7 +242,7 @@ metadata:
 spec:
   destination:
     kind: IdentityBinding
-    group: access.smi-spec.io/v1alpha4
+    group: access.smi-spec.io
     name: api-service
     namespace: default
   rules:
@@ -254,11 +254,11 @@ spec:
     - api
   sources:
   - kind: IdentityBinding
-    group: access.smi-spec.io/v1alpha4
+    group: access.smi-spec.io
     name: website-service
     namespace: default
   - kind: IdentityBinding
-    group: access.smi-spec.io/v1alpha4
+    group: access.smi-spec.io
     name: payments-service
     namespace: default
 ```
@@ -302,7 +302,7 @@ metadata:
 spec:
   destination:
     kind: IdentityBinding
-    group: access.smi-spec.io/v1alpha4
+    group: access.smi-spec.io
     name: server
     namespace: default
   rules:
@@ -312,7 +312,7 @@ spec:
     name: udp-ports
   sources:
   - kind: IdentityBinding
-    group: access.smi-spec.io/v1alpha4
+    group: access.smi-spec.io
     name: client
     namespace: default
 ```
