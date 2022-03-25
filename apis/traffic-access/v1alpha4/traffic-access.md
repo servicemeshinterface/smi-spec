@@ -10,7 +10,8 @@
 
 This set of resources allows users to define access control policy for their
 applications. It is the authorization side of the picture. Authentication should
-already be handled by the underlying implementation and surfaced through a subject.
+already be handled by the underlying implementation and surfaced through an X.509
+certificate subject name.
 
 Access control in this specification is additive, all traffic is denied by default.
 See [tradeoffs](#tradeoffs) for a longer discussion about why.
@@ -21,7 +22,7 @@ An `IdentityBinding` declares the set of identities belonging to a particular wo
 for the purposes of policy. At present, Kubernetes does not natively provide any
 sort of identity resource outside of `ServiceAccount`. As such, many mesh
 implementations have turned to alternative identification schemes for more control
-over traffic routign and policy (e.g. SPIFFE, pod selectors, etc). Unfortunately,
+over traffic routing and policy (e.g. SPIFFE, pod selectors, etc). Unfortunately,
 these arbitrary identity mechanisms are rarely stored in a machine-accessible
 manner. This is the role of the `IdentityBinding` resource.
 
@@ -56,8 +57,10 @@ and predictable behavior across runtime environments. `IdentityBinding` currentl
 supports 3 schemes:
 
 - Pod Label selector (`podLabelSelectors`)
+  - Mutually exclusive with `serviceAccount`
 - SPIFFE (`spiffeIdentities`)
 - Service Account (`serviceAccount`)
+  - Mutually exclusive with `podLabelSelectors`
   - *Note:* The service account specified in this field is implied to exist
   in the `IdentityBinding`'s namespace. If one desires to govern access control
   for services replicated across different namespaces, they should create an
@@ -329,7 +332,10 @@ both `8301` and `8302` ports, but will block UDP traffic to `8300`.
 - Resources vs selectors - it would be possible to reference concrete resources
   such as a deployment instead of selecting across pods.
 
-- This access control is on the destination (server) side, implicitly
+- This access control is on the destination (server) side, implicitly. It's important
+  to note that only service owners should create IdentityBinding/TrafficTarget resources.
+  The client should *not* be allowed to give itself access to server applications.
+  Users should update their RBAC rules and cluster policies accordingly.
 
 - Currently the specification does not have provision for the definition of
   higher level elements such as a service. It is probable that this specification
