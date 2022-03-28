@@ -22,7 +22,7 @@ An `IdentityBinding` declares the set of identities belonging to a particular wo
 for the purposes of policy. At present, Kubernetes does not natively provide any
 sort of identity resource outside of `ServiceAccount`. As such, many mesh
 implementations have turned to alternative identification schemes for more control
-over traffic routing and policy (e.g. SPIFFE, pod selectors, etc). Unfortunately,
+over traffic routing and policy (e.g. SPIFFE, pod selector, etc). Unfortunately,
 these arbitrary identity mechanisms are rarely stored in a machine-accessible
 manner. This is the role of the `IdentityBinding` resource.
 
@@ -34,10 +34,9 @@ metadata:
  namespace: default
 spec:
  schemes:
-   podLabelSelectors:
-     - name: podWorkloads
-       matchLabels:
-         app: service-a
+   podLabelSelector:
+    matchLabels:
+      app: service-a
    spiffeIdentities:
      - "cluster.local/ns/default/sa/service-a"
      - "federated.trustdomain/boundary/boundaryName/identifierType/identifier"
@@ -56,11 +55,11 @@ such as SPIFFE, JWT, Kubernetes pod specs, etc. This allows for more consistent
 and predictable behavior across runtime environments. `IdentityBinding` currently
 supports 3 schemes:
 
-- Pod Label selector (`podLabelSelectors`)
+- Pod Label selector (`podLabelSelector`)
   - Mutually exclusive with `serviceAccount`
 - SPIFFE (`spiffeIdentities`)
 - Service Account (`serviceAccount`)
-  - Mutually exclusive with `podLabelSelectors`
+  - Mutually exclusive with `podLabelSelector`
   - *Note:* The service account specified in this field is implied to exist
   in the `IdentityBinding`'s namespace. If one desires to govern access control
   for services replicated across different namespaces, they should create an
