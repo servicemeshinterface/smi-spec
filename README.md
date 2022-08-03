@@ -47,7 +47,8 @@ The following documents are available:
 
 ### Community Meeting
 
-* SMI community meetings are on hiatus until October 12, 2022 to allow for focus on the [GAMMA initiative](https://smi-spec.io/blog/announcing-smi-gateway-api-gamma/).
+* SMI community meetings are on hiatus until October 12, 2022 to allow for
+focus on the [GAMMA initiative](https://smi-spec.io/blog/announcing-smi-gateway-api-gamma/).
   * [Meeting notes](https://docs.google.com/document/d/1NTBaJf6LhUBlF8_lfvBBt_MbyPvT-6CZNg6Ckpm_yCo/edit?usp=sharing)
   * [CNCF YouTube Playlist for SMI community meetings](https://www.youtube.com/playlist?list=PLL6_4qADP2SpZ_dWUY0okz5zOgrs_HAqg)
 
