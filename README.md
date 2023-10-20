@@ -1,7 +1,7 @@
 <!-- markdownlint-disable MD041 -->
 ![SMI Logo](./images/smi-banner.png)
 
-![CI](https://github.com/servicemeshinterface/smi-spec/workflows/CI/badge.svg)
+# :warning: This project is [ARCHIVED](https://www.cncf.io/archived-projects/). [Learn more](https://www.cncf.io/blog/2023/10/03/cncf-archives-the-service-mesh-interface-smi-project/)
 
 ## Service Mesh Interface
 
